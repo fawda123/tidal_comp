@@ -1,0 +1,2558 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  9 MAR 2015 10:03
+entering extended mode
+**test.tex
+(M:\docs\tidal_comp\test.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\base\glossaries
+.sty
+Package: glossaries 2015/02/03 v4.13 (NLCT)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.sty"
+Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.tex"
+\XKV@toks=\toks14
+\XKV@tempa@toks=\toks15
+\XKV@depth=\count87
+File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\keyval.tex")))
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\base\mfirstuc.s
+ty
+Package: mfirstuc 2015/02/03 v1.10 (NLCT)
+ (C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\etoolbox\etoolbox.sty
+Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\misc\etex.sty"
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count88
+)
+\etb@tempcnta=\count89
+)
+\@glsmfirst=\toks16
+\@glsmrest=\toks17
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\textcase\textcase.sty
+Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\xfor\xfor.sty
+Package: xfor 2009/02/05 v1.05 (NLCT)
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\datatool\datatool-base.sty
+Package: datatool-base 2014/06/10 v2.22 (NLCT)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks18
+\ex@=\dimen103
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen104
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count90
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count91
+\leftroot@=\count92
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count93
+\DOTSCASE@=\count94
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen105
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count95
+\c@MaxMatrixCols=\count96
+\dotsspace@=\muskip10
+\c@parentequation=\count97
+\dspbrk@lvl=\count98
+\tag@help=\toks19
+\row@=\count99
+\column@=\count100
+\maxfields@=\count101
+\andhelp@=\toks20
+\eqnshift@=\dimen106
+\alignsep@=\dimen107
+\tagshift@=\dimen108
+\tagwidth@=\dimen109
+\totwidth@=\dimen110
+\lineht@=\dimen111
+\@envbody=\toks21
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\substr\substr.sty
+Package: substr 2009/10/20 v1.2 Handle substrings
+\c@su@anzahl=\count102
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\datatool\datatool-fp.sty
+Package: datatool-fp 2013/08/29 v2.17 (NLCT)
+
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp.sty
+Package: fp 1995/04/02
+
+`Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\defpattern.sty
+Package: defpattern 1994/10/12
+\actioncount=\count103
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-basic.sty
+Package: fp-basic 1996/05/13
+\FP@xs=\count104
+\FP@xia=\count105
+\FP@xib=\count106
+\FP@xfa=\count107
+\FP@xfb=\count108
+\FP@rega=\count109
+\FP@regb=\count110
+\FP@regs=\count111
+\FP@times=\count112
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-addons.sty
+Package: fp-addons 1995/03/15
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-snap.sty
+Package: fp-snap 1995/04/05
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-exp.sty
+Package: fp-exp 1995/04/03
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-trigo.sty
+Package: fp-trigo 1995/04/14
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-pas.sty
+Package: fp-pas 1994/08/29
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-random.sty
+Package: fp-random 1995/02/23
+\FPseed=\count113
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-eqn.sty
+Package: fp-eqn 1995/04/03
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-upn.sty
+Package: fp-upn 1996/10/21
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\fp\fp-eval.sty
+Package: fp-eval 1995/04/03
+)))
+\@dtl@toks=\toks23
+\@dtl@tmpcount=\count114
+\dtl@tmplength=\skip46
+\dtl@sortresult=\count115
+\@dtl@numgrpsepcount=\count116
+\@dtl@datatype=\count117
+\dtl@codeA=\count118
+\dtl@codeB=\count119
+\@dtl@foreach@level=\count120
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\base\glossaries
+-compatible-307.sty
+Package: glossaries-compatible-307 2013/11/14 v4.0 (NLCT)
+)
+\gls@level=\count121
+\@gls@tmpb=\toks24
+\gls@tmplen=\skip47
+\glskeylisttok=\toks25
+\glslabeltok=\toks26
+\glsshorttok=\toks27
+\glslongtok=\toks28
+
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\styles\glossary
+-hypernav.sty
+Package: glossary-hypernav 2013/11/14 v4.0 (NLCT)
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\styles\glossary
+-list.sty
+Package: glossary-list 2015/02/03 v4.13 (NLCT)
+\glslistdottedwidth=\skip48
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\styles\glossary
+-long.sty
+Package: glossary-long 2013/11/14 v4.0 (NLCT)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip49
+\LTright=\skip50
+\LTpre=\skip51
+\LTpost=\skip52
+\LTchunksize=\count122
+\LTcapwidth=\dimen112
+\LT@head=\box28
+\LT@firsthead=\box29
+\LT@foot=\box30
+\LT@lastfoot=\box31
+\LT@cols=\count123
+\LT@rows=\count124
+\c@LT@tables=\count125
+\c@LT@chunks=\count126
+\LT@p@ftn=\toks29
+)
+\glsdescwidth=\skip53
+\glspagelistwidth=\skip54
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\styles\glossary
+-super.sty
+Package: glossary-super 2013/11/14 v4.0 (NLCT)
+
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\supertabular\supertabular.
+sty
+Package: supertabular 2004/02/20 v4.1e the supertabular environment
+\c@tracingst=\count127
+\ST@wd=\dimen113
+\ST@rightskip=\skip55
+\ST@leftskip=\skip56
+\ST@parfillskip=\skip57
+\ST@pageleft=\dimen114
+\ST@headht=\dimen115
+\ST@tailht=\dimen116
+\ST@pagesofar=\dimen117
+\ST@pboxht=\dimen118
+\ST@lineht=\dimen119
+\ST@stretchht=\dimen120
+\ST@prevht=\dimen121
+\ST@toadd=\dimen122
+\ST@dimen=\dimen123
+\ST@pbox=\box32
+))
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\glossaries\styles\glossary
+-tree.sty
+Package: glossary-tree 2015/02/03 v4.13 (NLCT)
+\glstreeindent=\skip58
+)) (C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\acro\acro.sty
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\expl3.sty
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3names.sty
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3bootstrap.sty
+Package: l3bootstrap 2013/07/28 v4581 L3 Experimental bootstrap code
+)
+Package: l3names 2012/12/07 v4346 L3 Namespace for primitives
+)
+Package: expl3 2013/07/28 v4582 L3 Experimental code bundle wrapper
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3basics.sty
+Package: l3basics 2013/07/28 v4581 L3 Basic definitions
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3expan.sty
+Package: l3expan 2013/07/24 v4565 L3 Argument expansion
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3tl.sty
+Package: l3tl 2013/07/28 v4581 L3 Token lists
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3seq.sty
+Package: l3seq 2013/07/28 v4581 L3 Sequences and stacks
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3int.sty
+Package: l3int 2013/07/28 v4581 L3 Integers
+\c_max_int=\count128
+\l_tmpa_int=\count129
+\l_tmpb_int=\count130
+\g_tmpa_int=\count131
+\g_tmpb_int=\count132
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3quark.sty
+Package: l3quark 2013/07/21 v4564 L3 Quarks
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3prg.sty
+Package: l3prg 2013/07/28 v4581 L3 Control structures
+\g__prg_map_int=\count133
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3clist.sty
+Package: l3clist 2013/07/28 v4581 L3 Comma separated lists
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3token.sty
+Package: l3token 2013/07/28 v4581 L3 Experimental token manipulation
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3prop.sty
+Package: l3prop 2013/07/28 v4581 L3 Property lists
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3msg.sty
+Package: l3msg 2013/07/28 v4581 L3 Messages
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3file.sty
+Package: l3file 2013/07/28 v4581 L3 File and I/O operations
+\l_iow_line_count_int=\count134
+\l__iow_target_count_int=\count135
+\l__iow_current_line_int=\count136
+\l__iow_current_word_int=\count137
+\l__iow_current_indentation_int=\count138
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3skip.sty
+Package: l3skip 2013/07/28 v4581 L3 Dimensions and skips
+\c_zero_dim=\dimen124
+\c_max_dim=\dimen125
+\l_tmpa_dim=\dimen126
+\l_tmpb_dim=\dimen127
+\g_tmpa_dim=\dimen128
+\g_tmpb_dim=\dimen129
+\c_zero_skip=\skip59
+\c_max_skip=\skip60
+\l_tmpa_skip=\skip61
+\l_tmpb_skip=\skip62
+\g_tmpa_skip=\skip63
+\g_tmpb_skip=\skip64
+\c_zero_muskip=\muskip11
+\c_max_muskip=\muskip12
+\l_tmpa_muskip=\muskip13
+\l_tmpb_muskip=\muskip14
+\g_tmpa_muskip=\muskip15
+\g_tmpb_muskip=\muskip16
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3keys.sty
+Package: l3keys 2013/07/28 v4581 L3 Experimental key-value interfaces
+\g__keyval_level_int=\count139
+\l_keys_choice_int=\count140
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3fp.sty
+Package: l3fp 2013/07/09 v4521 L3 Floating points
+\c__fp_leading_shift_int=\count141
+\c__fp_middle_shift_int=\count142
+\c__fp_trailing_shift_int=\count143
+\c__fp_big_leading_shift_int=\count144
+\c__fp_big_middle_shift_int=\count145
+\c__fp_big_trailing_shift_int=\count146
+\c__fp_Bigg_leading_shift_int=\count147
+\c__fp_Bigg_middle_shift_int=\count148
+\c__fp_Bigg_trailing_shift_int=\count149
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3box.sty
+Package: l3box 2013/07/28 v4581 L3 Experimental boxes
+\c_empty_box=\box33
+\l_tmpa_box=\box34
+\l_tmpb_box=\box35
+\g_tmpa_box=\box36
+\g_tmpb_box=\box37
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3coffins.sty
+Package: l3coffins 2012/09/09 v4212 L3 Coffin code layer
+\l__coffin_internal_box=\box38
+\l__coffin_internal_dim=\dimen130
+\l__coffin_offset_x_dim=\dimen131
+\l__coffin_offset_y_dim=\dimen132
+\l__coffin_x_dim=\dimen133
+\l__coffin_y_dim=\dimen134
+\l__coffin_x_prime_dim=\dimen135
+\l__coffin_y_prime_dim=\dimen136
+\c_empty_coffin=\box39
+\l__coffin_aligned_coffin=\box40
+\l__coffin_aligned_internal_coffin=\box41
+\l_tmpa_coffin=\box42
+\l_tmpb_coffin=\box43
+\l__coffin_display_coffin=\box44
+\l__coffin_display_coord_coffin=\box45
+\l__coffin_display_pole_coffin=\box46
+\l__coffin_display_offset_dim=\dimen137
+\l__coffin_display_x_dim=\dimen138
+\l__coffin_display_y_dim=\dimen139
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3color.sty
+Package: l3color 2012/08/29 v4156 L3 Experimental color support
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3luatex.sty
+Package: l3luatex 2013/07/28 v4581 L3 Experimental LuaTeX-specific functions
+\g__cctab_allocate_int=\count150
+\g__cctab_stack_int=\count151
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3kernel\l3candidates.sty
+Package: l3candidates 2013/07/24 v4576 L3 Experimental additions to l3kernel
+\l__box_top_dim=\dimen140
+\l__box_bottom_dim=\dimen141
+\l__box_left_dim=\dimen142
+\l__box_right_dim=\dimen143
+\l__box_top_new_dim=\dimen144
+\l__box_bottom_new_dim=\dimen145
+\l__box_left_new_dim=\dimen146
+\l__box_right_new_dim=\dimen147
+\l__box_internal_box=\box47
+\l__coffin_bounding_shift_dim=\dimen148
+\l__coffin_left_corner_dim=\dimen149
+\l__coffin_right_corner_dim=\dimen150
+\l__coffin_bottom_corner_dim=\dimen151
+\l__coffin_top_corner_dim=\dimen152
+\l__coffin_scaled_total_height_dim=\dimen153
+\l__coffin_scaled_width_dim=\dimen154
+) ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+))
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3experimental\l3sort\l3so
+rt.sty
+
+LaTeX Warning: You have requested, on input line 49, version
+               `2014/11/25' of package expl3,
+               but only version
+               `2013/07/28 v4582 L3 Experimental code bundle wrapper'
+               is available.
+
+
+! Package l3sort Error: Support package l3kernel too old.
+
+See the l3sort package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.61   }
+        
+Please install an up to date version of l3kernel
+using your TeX package manager or from CTAN.
+
+Loading l3sort will abort!
+
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3packages\xparse\xparse.s
+ty
+
+LaTeX Warning: You have requested, on input line 53, version
+               `2014/11/25' of package expl3,
+               but only version
+               `2013/07/28 v4582 L3 Experimental code bundle wrapper'
+               is available.
+
+
+! Package xparse Error: Support package l3kernel too old.
+
+See the xparse package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.65   }
+        
+Please install an up to date version of l3kernel
+using your TeX package manager or from CTAN.
+
+Loading xparse will abort!
+
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3packages\l3keys2e\l3keys
+2e.sty
+
+LaTeX Warning: You have requested, on input line 49, version
+               `2014/11/25' of package expl3,
+               but only version
+               `2013/07/28 v4582 L3 Experimental code bundle wrapper'
+               is available.
+
+
+! Package l3keys2e Error: Support package l3kernel too old.
+
+See the l3keys2e package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.61   }
+        
+Please install an up to date version of l3kernel
+using your TeX package manager or from CTAN.
+
+Loading l3keys2e will abort!
+
+)
+(C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\l3packages\xtemplate\xtemp
+late.sty
+
+LaTeX Warning: You have requested, on input line 53, version
+               `2014/11/25' of package expl3,
+               but only version
+               `2013/07/28 v4582 L3 Experimental code bundle wrapper'
+               is available.
+
+
+! Package xtemplate Error: Support package l3kernel too old.
+
+See the xtemplate package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.65   }
+        
+Please install an up to date version of l3kernel
+using your TeX package manager or from CTAN.
+
+Loading xtemplate will abort!
+
+)
+Package: acro 2015/02/26 v1.6 Typeset Acronyms
+\l__acro_tmpa_int=\count152
+\l__acro_tmpb_int=\count153
+\l__acro_tmpc_int=\count154
+\l__acro_tmpd_int=\count155
+Variant \tl_put_right:NV already defined; not changing it on line 165
+Variant \seq_use:cnnn already defined; not changing it on line 168
+\l__acro_table_width_dim=\dimen155
+\l__acro_page_space_dim=\dimen156
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! LaTeX error: "kernel/command-not-defined"
+! 
+! Control sequence \tl_mixed_case:n undefined.
+! 
+! See the LaTeX3 documentation for further information.
+! 
+! For immediate help type H <return>.
+!...............................................  
+                                                  
+l.297 ...enerate_variant:Nn \tl_mixed_case:n { x }
+                                                  
+|'''''''''''''''''''''''''''''''''''''''''''''''
+| This is a coding error.
+| 
+| LaTeX has been asked to use a command \tl_mixed_case:n, but this has not
+| been defined yet.
+|...............................................
+
+! Undefined control sequence.
+l.301 \NewDocumentCommand
+                          \acfirstupper { m }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.301 \NewDocumentCommand \acfirstupper
+                                        { m }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.301 \NewDocumentCommand \acfirstupper { m
+                                            }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+\acro_first_upper_case:n #1->\tl_mixed_case:n 
+                                              {#1}
+l.302   { \acro_first_upper_case:n {#1}
+                                        }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ##
+             1
+l.302   { \acro_first_upper_case:n {#1}
+                                        }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.414 \NewDocumentCommand
+                          \acsetup { m }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.414 \NewDocumentCommand \acsetup
+                                   { m }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! LaTeX error: "kernel/key-unknown"
+! 
+! The key 'acro/##1' is unknown and is being ignored.
+! 
+! See the LaTeX3 documentation for further information.
+! 
+! For immediate help type H <return>.
+!...............................................  
+                                                  
+l.415   { \keys_set:nn {acro} {#1}
+                                   \ignorespaces }
+|'''''''''''''''''''''''''''''''''''''''''''''''
+| The module 'acro' does not have a key called acro/##1'.
+| Check that you have spelled the key name correctly.
+|...............................................
+
+! Undefined control sequence.
+l.517 \DeclareObjectType
+                         { acro-first } { 3 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.520 \DeclareTemplateInterface
+                                { acro-first } { inline } { 3 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.529 \DeclareTemplateCode
+                           { acro-first } { inline } { 3 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.539     \AssignTemplateKeys
+                             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> \__acro_indefinite:nn 
+                                 {##1}{long}\__acro_write_long:No \l__acro_f...
+l.550       }
+             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> \__acro_indefinite:nn {##
+                                    1}{long}\__acro_write_long:No \l__acro_f...
+l.550       }
+             
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> \l__acro_first_long_format_tl {##
+                                            3}
+l.550       }
+             
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+<argument> \l__acro_foreign_prop 
+                                 
+l.569       }
+             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.573     \__acro_acc_supp:nn
+                              {#1} { \__acro_write_short:n {#2} }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.573     \__acro_acc_supp:nn {#
+                                1} { \__acro_write_short:n {#2} }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ##
+             2
+l.573 ...supp:nn {#1} { \__acro_write_short:n {#2}
+                                                   }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.605     \__acro_cite_if:Nn
+                             \l__acro_citation_first_bool {#1}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.605 ...ite_if:Nn \l__acro_citation_first_bool {#
+                                                  1}
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.606     \__acro_index_if:Nn
+                              \l__acro_addto_index_bool {#1}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.606 ..._index_if:Nn \l__acro_addto_index_bool {#
+                                                  1}
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.610 \DeclareTemplateInterface
+                                { acro-first } { note } { 3 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> \rule \z@ \footnotesep \ignorespaces ##
+                                                  1\@finalstrut \strutbox 
+l.613 ...ote-command : function 1 = \footnote {#1}
+                                                   ,
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.617 \DeclareTemplateCode
+                           { acro-first } { note } { 3 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.624     \AssignTemplateKeys
+                             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.625     \__acro_indefinite:nn
+                                {#1} { short }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.625     \__acro_indefinite:nn {#
+                                  1} { short }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.626     \__acro_acc_supp:nn
+                              {#1} { \__acro_write_short:n {#2} }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.626     \__acro_acc_supp:nn {#
+                                1} { \__acro_write_short:n {#2} }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ##
+             2
+l.626 ...supp:nn {#1} { \__acro_write_short:n {#2}
+                                                   }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.652 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.656 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.660 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.667 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.675 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.679 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.682   { note-command = \sidenote
+                                   {#1} }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.682   { note-command = \sidenote {#
+                                     1} }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.683 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.687 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.694 \DeclareInstance
+                       { acro-first }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.701 \DeclareObjectType
+                         { acro-extra } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.703 \DeclareTemplateInterface
+                                { acro-extra } { default } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.711 \DeclareTemplateCode
+                           { acro-extra } { default } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.719     \AssignTemplateKeys
+                             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> \l__acro_extra_format_tl {##
+                                       1}
+l.724 ...ite_long:Nn \l__acro_extra_format_tl {#1}
+                                                  
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.730 \DeclareInstance
+                       { acro-extra } { default } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.732 \DeclareInstance
+                       { acro-extra } { plain   } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.734 \DeclareInstance
+                       { acro-extra } { paren   } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.736 \DeclareInstance
+                       { acro-extra } { bracket } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.738 \DeclareInstance
+                       { acro-extra } { comma   } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\zref-abspage.sty"
+Package: zref-abspage 2012/04/04 v2.24 Module abspage for zref (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\zref-base.sty"
+Package: zref-base 2012/04/04 v2.24 Module base for zref (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+))
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+Package zref Info: New property list: main on input line 759.
+Package zref Info: New property: default on input line 760.
+Package zref Info: New property: page on input line 761.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\atbegshi.sty"
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+)
+\c@abspage=\count156
+Package zref Info: New property: abspage on input line 62.
+)
+! Undefined control sequence.
+l.901 \DeclareObjectType
+                         { acro-page-number } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.903 \DeclareTemplateInterface
+                                { acro-page-number } { default } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.913 \DeclareTemplateCode
+                           { acro-page-number } { default } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.921   }
+         
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.921   }
+         
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Undefined control sequence.
+l.923     \AssignTemplateKeys
+                             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.938 \DeclareInstance
+                       { acro-page-number } { default } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.940 \DeclareInstance
+                       { acro-page-number } { plain   } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.942 \DeclareInstance
+                       { acro-page-number } { comma   } { default } { punct ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.943 \DeclareInstance
+                       { acro-page-number } { paren   } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.945 \DeclareInstance
+                       { acro-page-number } { none    } { default }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.952 \DeclareObjectType
+                         { acro-title } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.954 \DeclareTemplateInterface
+                                { acro-title } { sectioning } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.955   { name-format : function 1 = #
+                                      1 }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.957 \DeclareTemplateCode
+                           { acro-title } { sectioning } { 1 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Argument of \acro_list_title_format:n has an extra }.
+<inserted text> 
+                \par 
+l.958 ...name-format = \acro_list_title_format:n }
+                                                  
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+
+Runaway argument?
+! Paragraph ended before \acro_list_title_format:n was complete.
+<to be read again> 
+                   \par 
+l.958 ...name-format = \acro_list_title_format:n }
+                                                  
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+
+Overfull \hbox (43.25081pt too wide) in paragraph at lines 301--958
+[]\OT1/cmr/m/n/10 m1macro-first3acro-firstinline3brackets:boolean=true,brackets
+-type:tokenlist=(),only-
+ []
+
+
+Overfull \hbox (21.61191pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 short:boolean=false,reversed:boolean=false,between:tokenlist,fo
+reign-sep:tokenlist=,
+ []
+
+
+Overfull \hbox (37.02852pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 acro-firstinline3brackets= ,brackets-type=,only-short= ,reverse
+d= ,between=,foreign-
+ []
+
+
+Overfull \hbox (62.12596pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 sep=1long3 121 1acro-firstnote3use-note:boolean=true,note-comm
+and:function1=[],foreign-
+ []
+
+
+Overfull \hbox (23.66742pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 sep:tokenlist= acro-firstnote3use-note= ,note-command=,foreign-
+sep=1short12acro-
+ []
+
+
+Overfull \hbox (87.55641pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 firstdefaultinlineacro-firstsquareinlinebrackets-type=[]acro-fi
+rstplaininlinebrackets=false,between=--
+ []
+
+
+Overfull \hbox (72.02853pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 acro-firstplain-reversedinlinebrackets=false,between=--,reverse
+d=trueacro-firstfootnotenoteacro-
+ []
+
+
+Overfull \hbox (59.44528pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 firstsidenotenotenote-command=1acro-firstemptynoteuse-note=fals
+eacro-firstshortinlineonly-
+ []
+
+
+Overfull \hbox (176.88994pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 short=true,brackets=falseacro-firstreversedinlinereversed=truea
+cro-extra1acro-extradefault1punct:boolean=false,punct-
+ []
+
+
+Overfull \hbox (103.88992pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 symbol:tokenlist=,,brackets:boolean=true,brackets-type:tokenlis
+t=()acro-extradefault1punct= ,punct-
+ []
+
+
+Overfull \hbox (72.52869pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 symbol=,brackets= ,brackets-type=1acro-extradefaultdefaultbrack
+ets=false,punct=true,punct-
+ []
+
+
+Overfull \hbox (90.97322pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 symbol=.acro-extraplaindefaultbrackets=false,punct=falseacro-ex
+traparendefaultpunct=true,punct-
+ []
+
+
+Overfull \hbox (16.72302pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 symbol=acro-extrabracketdefaultpunct=true,punct-symbol=,bracket
+s-type=[]acro-
+ []
+
+
+Overfull \hbox (550.22014pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 extracommadefaultpunct=true,brackets=false                     
+                                                                               
+                                                                               
+                                                                               
+                                             acro-
+ []
+
+
+Overfull \hbox (45.22314pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 page-number1acro-page-numberdefault1display:boolean=true,punct:
+boolean=false,punct-
+ []
+
+
+Overfull \hbox (58.80646pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 symbol:tokenlist=,,brackets:boolean=false,brackets-type:tokenli
+st=(),space:length=.3exacro-
+ []
+
+
+Overfull \hbox (80.25093pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 page-numberdefault1display= ,punct= ,punct-symbol=,brackets= ,b
+rackets-type=,space=acro-
+ []
+
+
+Overfull \hbox (98.86214pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 page-numberdefaultdefaultpunct=true,punct-symbol=.acro-page-num
+berplaindefaultpunct=falseacro-
+ []
+
+
+Overfull \hbox (48.86195pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 page-numbercommadefaultpunct=trueacro-page-numberparendefaultbr
+ackets=true,punct-
+ []
+
+
+Overfull \hbox (41.44527pt too wide) in paragraph at lines 301--958
+\OT1/cmr/m/n/10 symbol= acro-page-numbernonedefaultdisplay=falseacro-title1acro
+-titlesectioning1name-
+ []
+
+! Undefined control sequence.
+l.960     \AssignTemplateKeys
+                             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in vertical mode.
+<argument> ##
+             1
+l.961     \acro_list_title_format:n {#1}
+                                        
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.961     \acro_list_title_format:n {#1}
+                                        
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.965 \DeclareInstance
+                       { acro-title } { chapter*    } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.966   { name-format = \chapter
+                                * {#1} }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.966   { name-format = \chapter* {#
+                                    1} }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.967 \DeclareInstance
+                       { acro-title } { part*       } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (1.91737pt too wide) in paragraph at lines 961--968
+[]\OT1/cmr/m/n/10 1acro-titlechapter*sectioningname-format=*1acro-titlepart*sec
+tioningname-
+ []
+
+! You can't use `macro parameter character #' in vertical mode.
+<argument> ##
+             1
+l.968   { name-format = \part* {#1}
+                                    }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.968   { name-format = \part* {#1}
+                                    }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.969 \DeclareInstance
+                       { acro-title } { section*    } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.969 \DeclareInstance { a
+                          cro-title } { section*    } { sectioning }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ##
+             1
+l.970   { name-format = \section* {#1}
+                                       }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.971 \DeclareInstance
+                       { acro-title } { subsection* } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.971 \DeclareInstance { a
+                          cro-title } { subsection* } { sectioning }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ##
+             1
+l.972   { name-format = \subsection* {#1}
+                                          }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.973 \DeclareInstance
+                       { acro-title } { chapter     } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.973 \DeclareInstance { a
+                          cro-title } { chapter     } { sectioning }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.974   { name-format = \chapter
+                                 {#1} }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.974   { name-format = \chapter {#
+                                   1} }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.975 \DeclareInstance
+                       { acro-title } { part        } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (18.88965pt too wide) in paragraph at lines 973--976
+[]\OT1/cmr/m/n/10 acro-titlechaptersectioningname-format=1acro-titlepartsection
+ingname-format= 
+ []
+
+! Illegal parameter number in definition of \reserved@a.
+<to be read again> 
+                   1
+l.976   { name-format = \part {#1}
+                                   }
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.976   { name-format = \part {#1}
+                                   }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! You can't use `macro parameter character #' in vertical mode.
+<argument> ##
+             1
+l.976   { name-format = \part {#1}
+                                   }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.976   { name-format = \part {#1}
+                                   }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.977 \DeclareInstance
+                       { acro-title } { section     } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.977 \DeclareInstance { a
+                          cro-title } { section     } { sectioning }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ##
+             1
+l.978   { name-format = \section {#1}
+                                      }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Illegal parameter number in definition of \reserved@a.
+<to be read again> 
+                   1
+l.978   { name-format = \section {#1}
+                                      }
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Undefined control sequence.
+l.979 \DeclareInstance
+                       { acro-title } { subsection  } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.979 \DeclareInstance { a
+                          cro-title } { subsection  } { sectioning }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ##
+             1
+l.980   { name-format = \subsection {#1}
+                                         }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Illegal parameter number in definition of \reserved@a.
+<to be read again> 
+                   1
+l.980   { name-format = \subsection {#1}
+                                         }
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Undefined control sequence.
+l.981 \DeclareInstance
+                       { acro-title } { addchap     } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.981 \DeclareInstance { a
+                          cro-title } { addchap     } { sectioning }
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.982   { name-format = \addchap
+                                 {#1} }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.982   { name-format = \addchap {#
+                                   1} }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.983 \DeclareInstance
+                       { acro-title } { addsec      } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.984   { name-format = \addsec
+                                {#1} }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `macro parameter character #' in horizontal mode.
+l.984   { name-format = \addsec {#
+                                  1} }
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Undefined control sequence.
+l.985 \DeclareInstance
+                       { acro-title } { none        } { sectioning }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.990 \DeclareObjectType
+                         { acro-list } { 3 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1097 \DeclareTemplateInterface
+                                 {acro-list} {list} {3}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1100 \DeclareTemplateCode
+                            {acro-list} {list} {3}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1103     \AssignTemplateKeys
+                              
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1106 ...\cs_set:Npn \acro_print_list_short:nn ##
+                                                  1##2
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1106 ...cs_set:Npn \acro_print_list_short:nn ##1
+                                                  ##2
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1106 ..._set:Npn \acro_print_list_short:nn ##1##
+                                                  2
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   2
+l.1106 ...set:Npn \acro_print_list_short:nn ##1##2
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1119     \cs_set:Npn \acro_print_list_long:n ##
+                                                 1
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1119     \cs_set:Npn \acro_print_list_long:n ##1
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1129 ...rotected:Npn \acro_print_list_extra:n ##
+                                                  1
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1129 ...otected:Npn \acro_print_list_extra:n ##1
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1137     \cs_set:Npn \acro_print_list_page:n ##
+                                                 1
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1137     \cs_set:Npn \acro_print_list_page:n ##1
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Illegal parameter number in definition of \reserved@a.
+<to be read again> 
+                   1
+l.1142     \begin {#1}
+                      
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+
+! Illegal parameter number in definition of  .
+<to be read again> 
+                   1
+l.1142     \begin {#1}
+                      
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! LaTeX Error: Environment ##1 undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1142     \begin {#1}
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Illegal parameter number in definition of \__prop_pair:wn.
+<to be read again> 
+                   3
+l.1143       \acro_list_allow_items:nn {#2} {#3}
+                                                
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Undefined control sequence.
+<argument> \l__acro_short_prop 
+                               
+l.1143       \acro_list_allow_items:nn {#2} {#3}
+                                                
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Illegal parameter number in definition of \reserved@a.
+<to be read again> 
+                   1
+l.1144     \end {#1}
+                    
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+
+! Illegal parameter number in definition of  .
+<to be read again> 
+                   1
+l.1144     \end {#1}
+                    
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! LaTeX Error: \begin{document} ended by \end{##1}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1144     \end {#1}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.1148 \DeclareTemplateInterface
+                                 {acro-list} {table} {3}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l.1151 ...tokenlist = lp{\l__acro_table_width_dim}
+                                                   ,
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   }
+l.1151 ...tokenlist = lp{\l__acro_table_width_dim}
+                                                   ,
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Undefined control sequence.
+l.1155 \DeclareTemplateCode
+                            { acro-list } { table } { 3 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.1162     \AssignTemplateKeys
+                              
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1164 ...\cs_set:Npn \acro_print_list_short:nn ##
+                                                  1##2
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1164 ...cs_set:Npn \acro_print_list_short:nn ##1
+                                                  ##2
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1164 ..._set:Npn \acro_print_list_short:nn ##1##
+                                                  2
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   2
+l.1164 ...set:Npn \acro_print_list_short:nn ##1##2
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1175     \cs_set:Npn \acro_print_list_long:n ##
+                                                 1
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1175     \cs_set:Npn \acro_print_list_long:n ##1
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1185 ...rotected:Npn \acro_print_list_extra:n ##
+                                                  1
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1185 ...otected:Npn \acro_print_list_extra:n ##1
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   ##
+l.1193     \cs_set:Npn \acro_print_list_page:n ##
+                                                 1
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+! Parameters must be numbered consecutively.
+<to be read again> 
+                   1
+l.1193     \cs_set:Npn \acro_print_list_page:n ##1
+                                                  
+I've inserted the digit you should have used after the #.
+Type `1' to delete what you did use.
+
+
+! LaTeX Error: Environment  undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1199 ...ble_tl } { \l__acro_list_table_spec_tl }
+                                                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Illegal parameter number in definition of \__prop_pair:wn.
+<to be read again> 
+                   3
+l.1200       \acro_list_allow_items:nn {#2} {#3}
+                                                
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Undefined control sequence.
+<argument> \l__acro_short_prop 
+                               
+l.1200       \acro_list_allow_items:nn {#2} {#3}
+                                                
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \def 
+l.1201 ..._args:No \end { \l__acro_list_table_tl }
+                                                  
+(That makes 100 errors; please try again.) 
+Here is how much of TeX's memory you used:
+ 10490 strings out of 493921
+ 179104 string characters out of 3147282
+ 262496 words of memory out of 3000000
+ 13609 multiletter control sequences out of 15000+200000
+ 8183 words of font info for 30 fonts, out of 3000000 for 9000
+ 841 hyphenation exceptions out of 8191
+ 46i,8n,35p,1787b,167s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+!  ==> Fatal error occurred, no output PDF file produced!

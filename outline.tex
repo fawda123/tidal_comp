@@ -1,0 +1,115 @@
+\documentclass[letterpaper,12pt]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{setspace}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{indentfirst}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[final]{animate}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{subfig} 
+\usepackage[noae]{Sweave}
+\usepackage{cleveref}
+\usepackage[figureposition=bottom]{caption}
+\usepackage{paralist}
+\usepackage{acronym}
+\usepackage{outlines}
+
+% knitr options
+
+
+% acronyms
+\acrodef{GAM}{generalized additive models}
+\acrodef{WRTDS}{weighted regression on time, discharge, and season}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\setlength{\parskip}{5mm}
+\setlength{\parindent}{0in}
+
+\title{A comparison of generalized additive models and weighted regression for trend evaluation of water quality time series in tidal waters}
+\author{Marcus W. Beck}
+\maketitle
+
+\section{Outline}
+\begin{outline}
+\1 Needs
+\2 Quantitative tools that describe trends in water quality time series are needed to identify factors that influence ecosystem condition and to evaluate the effects of management activities in the context of multiple drivers
+\2 Recent adaptation of statistical models for evaluating water quality time series have shown promise for application in tidal waters, specifically \ac{GAM} and \ac{WRTDS}
+\2 These similar techniques can be used to quantify relationships between response measures and different drivers that may vary over time, in addition to an evaluation of trends independent of variation in freshwater inputs
+\2 The relative merits of each approach have not been evaluated, particularly related to accuracy of the empirical description and the desired products for trend evaluation
+\2 Such a comparison could inform the use of each model for addressing management or restoration needs or for developing more robust descriptions of long-term changes in ecosystem characteristics
+\1 Goal: Provide a description of the relative abilities of \acp{GAM} and \ac{WRTDS} to describe long-term changes in time series of response endpoints in tidal waters
+\1 Objectives:
+\2 Provide a narrative comparison of the statistical foundation of each technique, both as a general description and as a means to evaluate water quality time series
+\2 Use each technique to develop an empirical description of water quality changes in a common dataset with known historical changes in water quality drivers
+\2 Compare each technique's ability to describe changes, as well as the differences in the information provided by each
+\2 Provide recommendations on the most appropriate context for using each method
+\1 Approach
+\2 Identify candidate datasets for evaluating each method with attention on locations with known historical changes in drivers of water quality variation
+\2 Quantitative comparison
+\3 Explanatory power of each method - explained variance in the response and potential sources of uncertainy
+\3 Similarity of predictions - simple scatterplots, similarity coefficients, similarity by time periods
+\3 Similarity of flow-normalized results - simple scatterplots, similarity coefficients, similarity by time periods
+\2 Qualitative comparison
+\3 Computational requirements and potential limitations
+\3 Data needs or transferability of each technique to novel datasets
+\3 Products, e.g., conditional quantiles of \ac{WRTDS}, confidence intervals for \acp{GAM}, handling censored data, hypothesis testing vs description
+\3 Appropriate context for using each approach
+\end{outline}
+
+
+\end{document}

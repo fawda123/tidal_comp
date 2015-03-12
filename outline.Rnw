@@ -37,7 +37,7 @@ options(replace.assign=TRUE,width=90)
 \setlength{\parindent}{0in}
 
 \title{A comparison of generalized additive models and weighted regression for trend evaluation of water quality time series in tidal waters}
-\author{Marcus W. Beck}
+\author{Marcus W. Beck, Rebecca Murphy}
 \maketitle
 
 \section{Outline}
@@ -56,10 +56,11 @@ options(replace.assign=TRUE,width=90)
 \2 Provide recommendations on the most appropriate context for using each method
 \1 Approach
 \2 Identify candidate datasets for evaluating each method with attention on locations with known historical changes in drivers of water quality variation
+\3 Patuxent River - longitudinal gradient from watershed to mainstem influences
 \2 Quantitative comparison
-\3 Explanatory power of each method - explained variance in the response and potential sources of uncertainy
-\3 Similarity of predictions - simple scatterplots, similarity coefficients, similarity by time periods
-\3 Similarity of flow-normalized results - simple scatterplots, similarity coefficients, similarity by time periods
+\3 Explanatory power of each method - explained variance in the response and potential sources of uncertainy.
+\3 Similarity of predictions - simple scatterplots, similarity coefficients, similarity by time periods, etc.
+\3 Similarity of flow-normalized results - simple scatterplots, similarity coefficients, similarity by time periods, etc.
 \2 Qualitative comparison
 \3 Computational requirements and potential limitations
 \3 Data needs or transferability of each technique to novel datasets

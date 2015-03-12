@@ -68,5 +68,14 @@ options(replace.assign=TRUE,width=90)
 \3 Appropriate context for using each approach
 \end{outline}
 
+\section{To do}
+\begin{enumerate}
+\item Start reviewing papers of methods comparison
+\item Run models on dataset from Rebecca
+\item Do not split stations
+\item Salinity-integration across depths
+\item Surface chlorophyll only
+\item Modify wrtds code for arbitrary time steps
+\end{enumerate}
 
 \end{document}

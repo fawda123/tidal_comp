@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  12 MAR 2015 10:24
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  12 MAR 2015 14:24
 entering extended mode
 **outline.tex
 (M:\docs\tidal_comp\outline.tex
@@ -637,22 +637,22 @@ Overfull \hbox (7.88051pt too wide) in paragraph at lines 111--112
 e in-ter-vals for []s[],
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 116.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
 Package atenddvi Info: Last page = 2.
 [2]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 116.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 125.
  (M:\docs\tidal_comp\outline.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 116.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 116.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
 Package rerunfilecheck Info: File `outline.out' has not changed.
-(rerunfilecheck)             Checksum: D4DD04A6D0616FB0057DF5CC25519120;43.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 116.
+(rerunfilecheck)             Checksum: A9D404E80A0E6EA32ECF436096607B05;84.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 125.
  ) 
 Here is how much of TeX's memory you used:
- 10638 strings out of 493921
- 173213 string characters out of 3147282
- 302071 words of memory out of 3000000
- 13792 multiletter control sequences out of 15000+200000
+ 10648 strings out of 493921
+ 173295 string characters out of 3147282
+ 303071 words of memory out of 3000000
+ 13795 multiletter control sequences out of 15000+200000
  6400 words of font info for 23 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  44i,6n,42p,303b,560s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -660,9 +660,9 @@ Here is how much of TeX's memory you used:
 tcrm1200.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/P
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on outline.pdf (2 pages, 46909 bytes).
+Output written on outline.pdf (2 pages, 49431 bytes).
 PDF statistics:
- 40 PDF objects out of 1000 (max. 8388607)
- 6 named destinations out of 1000 (max. 500000)
- 9 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 53 PDF objects out of 1000 (max. 8388607)
+ 13 named destinations out of 1000 (max. 500000)
+ 17 words of extra memory for PDF output out of 10000 (max. 10000000)
 

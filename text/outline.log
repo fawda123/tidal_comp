@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  12 MAR 2015 14:24
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  16 MAR 2015 10:57
 entering extended mode
 **outline.tex
-(M:\docs\tidal_comp\outline.tex
+(M:\docs\tidal_comp\text\outline.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -544,7 +544,7 @@ Package: outlines 2012/1/23 1.1 Ch. Pecheur
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
-(M:\docs\tidal_comp\outline.aux)
+(M:\docs\tidal_comp\text\outline.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
 LaTeX Font Info:    ... okay on input line 78.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
@@ -615,7 +615,7 @@ LaTeX Info: Redefining \ref on input line 78.
 LaTeX Info: Redefining \pageref on input line 78.
 LaTeX Info: Redefining \nameref on input line 78.
 
-(M:\docs\tidal_comp\outline.out) (M:\docs\tidal_comp\outline.out)
+(M:\docs\tidal_comp\text\outline.out) (M:\docs\tidal_comp\text\outline.out)
 \@outlinefile=\write5
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
@@ -629,7 +629,8 @@ although it is yet undefined on input line 91.
 Package acronym Info: Label `acro:WRTDS' newly defined as it shall be overridde
 n
 although it is yet undefined on input line 91.
- [1
+
+[1
 
 {C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 Overfull \hbox (7.88051pt too wide) in paragraph at lines 111--112
@@ -637,22 +638,23 @@ Overfull \hbox (7.88051pt too wide) in paragraph at lines 111--112
 e in-ter-vals for []s[],
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
-Package atenddvi Info: Last page = 2.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 128.
 [2]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 125.
- (M:\docs\tidal_comp\outline.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
+Package atenddvi Info: Last page = 3.
+ [3]
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 128.
+ (M:\docs\tidal_comp\text\outline.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 128.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 128.
 Package rerunfilecheck Info: File `outline.out' has not changed.
-(rerunfilecheck)             Checksum: A9D404E80A0E6EA32ECF436096607B05;84.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 125.
+(rerunfilecheck)             Checksum: 1FAC4AD8D2DBB28E54521FC36789D8DB;138.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 128.
  ) 
 Here is how much of TeX's memory you used:
- 10648 strings out of 493921
- 173295 string characters out of 3147282
+ 10651 strings out of 493921
+ 173376 string characters out of 3147282
  303071 words of memory out of 3000000
- 13795 multiletter control sequences out of 15000+200000
+ 13796 multiletter control sequences out of 15000+200000
  6400 words of font info for 23 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  44i,6n,42p,303b,560s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -660,9 +662,9 @@ Here is how much of TeX's memory you used:
 tcrm1200.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/P
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on outline.pdf (2 pages, 49431 bytes).
+Output written on outline.pdf (3 pages, 51394 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 17 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 PDF objects out of 1000 (max. 8388607)
+ 15 named destinations out of 1000 (max. 500000)
+ 25 words of extra memory for PDF output out of 10000 (max. 10000000)
 

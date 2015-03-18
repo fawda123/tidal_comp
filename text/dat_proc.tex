@@ -126,7 +126,7 @@ The data were first imported into R.
 \end{alltt}
 \end{kframe}
 
-salinity data (ppt) at the most seaward station (CB5.1W) were vertically integrated for each unique date.  The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest samplign depth were repeated for zero depth and maximum depths, respectively to bound the interpolations within the range of the data.
+Salinity data (ppt) at the most seaward station (CB5.1W) were vertically integrated for each unique date.  The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest sampling depth were repeated for zero depth and maximum depths, respectively, to bound the interpolations within the range of the data.  A moving window average was also used to aggregate salinity values for all preceding two months for each observation.  This approach was used to account for lags in water exchange near the estuary mouth with the mainstem based on previously estimated residence times.  
 \begin{kframe}
 \begin{alltt}
 \hlcom{##}
@@ -149,14 +149,19 @@ salinity data (ppt) at the most seaward station (CB5.1W) were vertically integra
 
   \hlstd{\}}
 
+\hlcom{# for filter}
+\hlstd{wins} \hlkwb{<-} \hlnum{2}\hlcom{# 2 months}
+\hlstd{wins} \hlkwb{<-} \hlkwd{rep}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{length} \hlstd{= wins)}\hlopt{/}\hlstd{wins}
+
 \hlcom{# process}
 \hlstd{ffw_data} \hlkwb{<-} \hlkwd{select}\hlstd{(ffw_data, SAMPLE_DATE, DEPTH, VALUE, TOTAL_DEPTH)} \hlopt{%>%}
   \hlkwd{group_by}\hlstd{(SAMPLE_DATE)} \hlopt{%>%}
   \hlkwd{summarize}\hlstd{(}\hlkwc{sal_ref} \hlstd{=} \hlkwd{int_fun}\hlstd{(TOTAL_DEPTH, DEPTH, VALUE))} \hlopt{%>%}
-  \hlkwd{arrange}\hlstd{(SAMPLE_DATE)} \hlopt{%>%}
   \hlstd{na.omit} \hlopt{%>%}
   \hlkwd{mutate}\hlstd{(}\hlkwc{date} \hlstd{=} \hlkwd{as.Date}\hlstd{(SAMPLE_DATE,} \hlstr{'%m/%d/%Y'}\hlstd{))} \hlopt{%>%}
-  \hlkwd{select}\hlstd{(date, sal_ref)}
+  \hlkwd{select}\hlstd{(date, sal_ref)} \hlopt{%>%}
+  \hlkwd{arrange}\hlstd{(date)} \hlopt{%>%}
+  \hlkwd{mutate}\hlstd{(}\hlkwc{sal_ref} \hlstd{= stats}\hlopt{::}\hlkwd{filter}\hlstd{(sal_ref, wins,} \hlkwc{sides} \hlstd{=} \hlnum{1}\hlstd{))}
 \end{alltt}
 \end{kframe}
 

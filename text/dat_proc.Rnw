@@ -79,7 +79,7 @@ ffw_data <- read.csv(ffw_data, header = TRUE,
   stringsAsFactors = FALSE)
 @
 
-salinity data (ppt) at the most seaward station (CB5.1W) were vertically integrated for each unique date.  The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest samplign depth were repeated for zero depth and maximum depths, respectively to bound the interpolations within the range of the data.
+Salinity data (ppt) at the most seaward station (CB5.1W) were vertically integrated for each unique date.  The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest sampling depth were repeated for zero depth and maximum depths, respectively, to bound the interpolations within the range of the data.  A moving window average was also used to aggregate salinity values for all preceding two months for each observation.  This approach was used to account for lags in water exchange near the estuary mouth with the mainstem based on previously estimated residence times.  
 <<eval = TRUE, cache = FALSE>>=
 ##
 # process CB5.1W data for fraction of freshwater
@@ -101,14 +101,20 @@ int_fun <- function(TOTAL_DEPTH, DEPTH, VALUE){
   
   }
 
+# for filter
+wins <- 2# 2 months
+wins <- rep(1, length = wins)/wins
+
 # process
 ffw_data <- select(ffw_data, SAMPLE_DATE, DEPTH, VALUE, TOTAL_DEPTH) %>% 
   group_by(SAMPLE_DATE) %>% 
   summarize(sal_ref = int_fun(TOTAL_DEPTH, DEPTH, VALUE)) %>% 
-  arrange(SAMPLE_DATE) %>% 
   na.omit %>% 
   mutate(date = as.Date(SAMPLE_DATE, '%m/%d/%Y')) %>% 
-  select(date, sal_ref)
+  select(date, sal_ref) %>% 
+  arrange(date) %>% 
+  mutate(sal_ref = stats::filter(sal_ref, wins, sides = 1))
+  
 @
 
 A similar process for vertically-integrating salinity across depth values was used for the remaining station data.

@@ -1,0 +1,155 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{setspace}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{indentfirst}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[final]{animate}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{subfig} 
+\usepackage{cleveref}
+\usepackage[figureposition=bottom]{caption}
+\usepackage{paralist}
+\usepackage{acronym}
+\usepackage{outlines}
+\usepackage{pdflscape}
+
+% knitr options
+<<setup, echo = FALSE, cache = F>>=
+library(knitr)
+# set global chunk options
+opts_chunk$set(fig.path = 'figs/', fig.align = 'center', fig.show = 'hold',message = F, results = 'asis',dev = 'pdf',dev.args=list(family='serif'), fig.pos = '!ht', warning = F, tangle = TRUE)
+options(replace.assign=TRUE,width=90)
+@
+
+\begin{document}
+
+\setlength{\parskip}{5mm}
+\setlength{\parindent}{0in}
+
+\title{Using WRTDS to evaluate chlorophyll trends in the Patuxent River estuary}
+\author{Marcus W. Beck, Rebecca Murphy}
+\maketitle
+
+The following is a description and presentation of preliminary results of the application of WRTDS to tidal waters of the Patuxent River Estuary.  
+
+<<eval = TRUE, cache = FALSE>>=
+# load the wrtds tidal package
+# devtools::install_github('fawda123/wtreg_for_estuaries')
+# library(WRTDStidal)
+devtools::load_all('M:/docs/wtreg_for_estuaries')
+
+# load current library
+devtools::load_all('M:/docs/tidal_comp/TidalComp')
+
+# load the patuxent data
+data(pax_data)
+
+# create separate 'tidal' objects for each station as a list
+# filter by station, remove station column, add detection limit column
+# remove missing data, sort by date, create tidal
+tidals <- vector('list', length = length(unique(pax_data$STATION)))
+names(tidals) <- levels(pax_data$STATION)
+for(tid in names(tidals)){
+
+  # format the individual station
+  tmp <- filter(pax_data, STATION == tid) %>% 
+    select(-STATION) %>% 
+    mutate(chllim = rep(0, nrow(.))) %>% 
+    na.omit %>% 
+    arrange(date) %>% 
+    tidal
+  
+  # save to output
+  tidals[[tid]] <- tmp
+  
+}
+
+@
+
+Create separate WRTDS models for each station.
+<<eval = FALSE>>=
+# process datasets in parellel
+library(doParallel)
+library(foreach)
+num_cores <- detectCores()
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+strt <- Sys.time()
+
+# function for processing, same as modfit but creates log
+# created to modify defaults in modfit
+res <- foreach(i = names(tidals), .packages = 'WRTDStidal') %dopar% {
+  
+  sink('log.txt')
+  cat(i, '\n')
+  print(Sys.time() - strt)
+  sink()
+  
+  out <- modfit(tidals[[i]], tau = c(0.1, 0.5, 0.9))
+  out
+  
+  }
+names(res) <- names(tidals)
+print(Sys.time() - strt)
+
+pax_fits <- res
+save(pax_fits, file = 'data/pax_fits.RData')
+
+@
+
+Make some plots.
+<<eval = TRUE, cache = TRUE, message = F, results = 'hide'>>=
+data(pax_fits)
+
+stations <- names(pax_fits)
+stat_plos <- vector('list', length = length(stations))
+names(stat_plos) <- stations
+for(stat in stations){
+  
+  tmp <- prdnrmplot(pax_fits[[stat]], logspace = F, annuals = T)
+  tmp <- tmp + 
+    theme(
+      legend.position = 'none',
+      plot.margin = unit(rep(0.1, 4), 'lines')
+      ) + 
+    scale_y_continuous('chla', limits = c(0, 60)) + 
+    ggtitle(stat)
+  
+  stat_plos[[stat]] <- tmp
+  
+  }
+
+library(gridExtra)
+library(ggplot2)
+pdf('figs/patux_prdnrms.pdf', family = 'serif', height = 8, width = 6)
+grid.arrange(
+  stat_plos[[1]],
+  stat_plos[[2]],
+  stat_plos[[3]],
+  stat_plos[[4]],
+  stat_plos[[5]],
+  stat_plos[[6]],
+  stat_plos[[7]],
+  stat_plos[[8]],
+  stat_plos[[9]],
+  stat_plos[[10]], 
+  ncol = 2, 
+  nrow = 5
+  )
+dev.off()
+
+@
+\begin{figure}
+\centering
+\includegraphics[width = 0.9\textwidth]{figs/patux_prdnrms.pdf}
+\caption{Fitted and normalized chlorophyll-a estimates for stations in the Patuxent River estuary using the tidal adaptation of WRTDS.  Colors indicate estimates for the tenth, fiftieth, and ninetieth percentile.}
+\label{fig:patux_prdnrms}
+\end{figure}
+
+\end{document}

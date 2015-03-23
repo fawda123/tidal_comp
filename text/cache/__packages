@@ -1,6 +1,8 @@
 base
 dplyr
 ggplot2
+gridExtra
 knitr
 TidalComp
 tidyr
+WRTDStidal

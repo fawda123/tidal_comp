@@ -82,12 +82,12 @@
 \author{Marcus W. Beck, Rebecca Murphy}
 \maketitle
 
-The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  Briefs descriptions of each step are provided.
+The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  Brief descriptions of additional processing steps are provided below.
 
 The following raw data files were imported:
 \begin{enumerate}
 \item \texttt{PAX\_TRIB\_CHLAandSALINITY\_85to14.csv}: chlorophyll and salinity data for all stations in the Patuxent River from 1985 to 2014 (from R. Murphy)
-\item \texttt{PAX\_station\_info.csv}: metadata for each station including lat/lon, salinity zone, etc. (from R. Murphy)
+\item \texttt{PAX\_station\_info.csv}: metadata for each station including lat/lon, salinity zone, etc. (from R. Murphy) - not used in this document
 \end{enumerate}
 
 The data were first imported into R.
@@ -120,15 +120,16 @@ The data were first imported into R.
 \end{alltt}
 \end{kframe}
 
-Salinity data were vertically-integrated for each  unique date. The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest sampling depth were repeated for zero depth and maximum depths, respectively, to bound the interpolations within the range of the data.  A similar process for vertically-integrating salinity across depth values was used for the remaining station data.
+Salinity data were vertically-integrated for each  unique date. The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest sampling depth were repeated for zero depth and maximum depths, respectively, to bound the interpolations within the range of the data.
 \begin{kframe}
 \begin{alltt}
 \hlcom{##}
 \hlcom{# get vertically integrated salinity}
 
-\hlcom{# vertical integration by date, station}
+\hlcom{# function for vertical integration}
 \hlstd{int_fun} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{TOTAL_DEPTH}\hlstd{,} \hlkwc{DEPTH}\hlstd{,} \hlkwc{AvgValue}\hlstd{)\{}
 
+  \hlcom{# only interpolate if > 1 salinity value}
   \hlkwa{if}\hlstd{(}\hlkwd{length}\hlstd{(}\hlkwd{na.omit}\hlstd{(AvgValue))} \hlopt{<} \hlnum{2} \hlstd{)} \hlkwd{return}\hlstd{(}\hlkwd{na.omit}\hlstd{(AvgValue))}
 
   \hlcom{# setup for interpolation}
@@ -136,7 +137,7 @@ Salinity data were vertically-integrated for each  unique date. The integration 
   \hlstd{depths} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, DEPTH, max_depths)}
   \hlstd{vals} \hlkwb{<-} \hlkwd{c}\hlstd{(AvgValue[}\hlnum{1}\hlstd{], AvgValue, AvgValue[}\hlkwd{length}\hlstd{(AvgValue)])}
 
-  \hlcom{# only interpolate if > 1 salinity value}
+  \hlcom{# get the average of the interpolation}
   \hlstd{out} \hlkwb{<-} \hlkwd{mean}\hlstd{(}\hlkwd{approx}\hlstd{(depths, vals)}\hlopt{$}\hlstd{y)}
 
   \hlkwd{return}\hlstd{(out)}
@@ -152,12 +153,12 @@ Salinity data were vertically-integrated for each  unique date. The integration 
 \end{alltt}
 \end{kframe}
 
-Chlorophyll values at each station were retained only for surface samples and no `problem' codes.  Chlorophyll were also transformed by the natural-log.  
+Chlorophyll values at each station were retained only for surface samples and no `problem' codes.  Chlorophyll were also transformed with the natural-log.  
 \begin{kframe}
 \begin{alltt}
 \hlcom{##}
 \hlcom{# get only surface estimates for chlorophyll}
-\hlcom{# remove those w/ problem codes}
+\hlcom{# remove those w/ problem codes (only a few obs)}
 \hlstd{chl_tmp} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data,}
   \hlstd{PARAMETER} \hlopt{==} \hlstr{'CHLA'} \hlopt{&} \hlstd{LAYER} \hlopt{==} \hlstr{'S'}\hlopt{&} \hlstd{PROBLEM} \hlopt{==} \hlstr{''}
   \hlstd{)} \hlopt{%>%}
@@ -167,7 +168,7 @@ Chlorophyll values at each station were retained only for surface samples and no
 \end{alltt}
 \end{kframe}
 
-Some plots of the raw data.
+The data were recombined by date and station.  Some plots of the raw data are below.
 \begin{kframe}
 \begin{alltt}
 \hlcom{## }
@@ -188,6 +189,9 @@ Some plots of the raw data.
 \hlcom{# save the data}
 \hlstd{save_path} \hlkwb{<-} \hlkwd{gsub}\hlstd{(}\hlstr{'text$'}\hlstd{,} \hlstr{'data'}\hlstd{,} \hlkwd{getwd}\hlstd{())}
 \hlkwd{save}\hlstd{(pax_data,} \hlkwc{file} \hlstd{=} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_data.RData'}\hlstd{))}
+\hlstd{save_path} \hlkwb{<-} \hlkwd{gsub}\hlstd{(}\hlstr{'text$'}\hlstd{,} \hlstr{'inst'}\hlstd{,} \hlkwd{getwd}\hlstd{())}
+\hlkwd{write.csv}\hlstd{(pax_data,} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_data.csv'}\hlstd{),}
+  \hlkwc{row.names} \hlstd{=} \hlnum{FALSE}\hlstd{,} \hlkwc{quote} \hlstd{=} \hlnum{FALSE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 

@@ -37,12 +37,12 @@ options(replace.assign=TRUE,width=90)
 \author{Marcus W. Beck, Rebecca Murphy}
 \maketitle
 
-The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  Briefs descriptions of each step are provided.
+The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  Brief descriptions of additional processing steps are provided below.
 
 The following raw data files were imported:
 \begin{enumerate}
 \item \texttt{PAX\_TRIB\_CHLAandSALINITY\_85to14.csv}: chlorophyll and salinity data for all stations in the Patuxent River from 1985 to 2014 (from R. Murphy)
-\item \texttt{PAX\_station\_info.csv}: metadata for each station including lat/lon, salinity zone, etc. (from R. Murphy)
+\item \texttt{PAX\_station\_info.csv}: metadata for each station including lat/lon, salinity zone, etc. (from R. Murphy) - not used in this document
 \end{enumerate}
 
 The data were first imported into R.
@@ -74,14 +74,15 @@ pax_data$STATION <- factor(pax_data$STATION, level = stats)
 
 @
 
-Salinity data were vertically-integrated for each  unique date. The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest sampling depth were repeated for zero depth and maximum depths, respectively, to bound the interpolations within the range of the data.  A similar process for vertically-integrating salinity across depth values was used for the remaining station data.
+Salinity data were vertically-integrated for each  unique date. The integration function averaged all salinity values after interpolating from the surface to the maximum depth.  Salinity values at the most shallow and deepest sampling depth were repeated for zero depth and maximum depths, respectively, to bound the interpolations within the range of the data.
 <<eval = TRUE, cache = FALSE>>=
 ##
 # get vertically integrated salinity
 
-# vertical integration by date, station
+# function for vertical integration
 int_fun <- function(TOTAL_DEPTH, DEPTH, AvgValue){
   
+  # only interpolate if > 1 salinity value
   if(length(na.omit(AvgValue)) < 2 ) return(na.omit(AvgValue))
   
   # setup for interpolation
@@ -89,7 +90,7 @@ int_fun <- function(TOTAL_DEPTH, DEPTH, AvgValue){
   depths <- c(0, DEPTH, max_depths)
   vals <- c(AvgValue[1], AvgValue, AvgValue[length(AvgValue)])
   
-  # only interpolate if > 1 salinity value
+  # get the average of the interpolation
   out <- mean(approx(depths, vals)$y)
   
   return(out)
@@ -104,11 +105,11 @@ sal_tmp <- filter(pax_data, PARAMETER == 'SALINITY') %>%
   summarize(sal = int_fun(TOTAL_DEPTH, DEPTH, AvgValue))
 @
 
-Chlorophyll values at each station were retained only for surface samples and no `problem' codes.  Chlorophyll were also transformed by the natural-log.  
+Chlorophyll values at each station were retained only for surface samples and no `problem' codes.  Chlorophyll were also transformed with the natural-log.  
 <<eval = TRUE, cache = FALSE>>=
 ##
 # get only surface estimates for chlorophyll
-# remove those w/ problem codes
+# remove those w/ problem codes (only a few obs)
 chl_tmp <- filter(pax_data, 
   PARAMETER == 'CHLA' & LAYER == 'S'& PROBLEM == ''
   ) %>% 
@@ -117,7 +118,7 @@ chl_tmp <- filter(pax_data,
   select(date, STATION, lnchla)
 @
 
-Some plots of the raw data.
+The data were recombined by date and station.  Some plots of the raw data are below.
 <<eval = TRUE, cache = FALSE, fig = TRUE, fig.width = 7, fig.height = 4.5>>=
 ## 
 # merge chl and salinity data, then plot
@@ -137,6 +138,9 @@ ggplot(pax_data, aes(x = date, y = lnchla, group = STATION)) +
 # save the data
 save_path <- gsub('text$', 'data', getwd())
 save(pax_data, file = paste0(save_path, '/pax_data.RData'))
+save_path <- gsub('text$', 'inst', getwd())
+write.csv(pax_data, paste0(save_path, '/pax_data.csv'), 
+  row.names = FALSE, quote = FALSE)
 @
 
 \end{document}

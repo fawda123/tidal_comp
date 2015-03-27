@@ -37,7 +37,7 @@ options(replace.assign=TRUE,width=90)
 \author{Marcus W. Beck, Rebecca Murphy}
 \maketitle
 
-The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  Brief descriptions of additional processing steps are provided below.
+The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  All data for 1985 was also removed because of incomplete coverage for many stations.  Brief descriptions of additional processing steps are provided below.
 
 The following raw data files were imported:
 \begin{enumerate}
@@ -66,6 +66,9 @@ pax_data <- system.file('PAX_TRIB_CHLAandSALINITY_85TO14.csv',
   package = 'TidalComp')
 pax_data <- read.csv(pax_data, header = TRUE, 
   stringsAsFactors = FALSE)
+
+# remove 1985 from pax_data
+pax_data <- filter(pax_data, !grepl('/1985$', date))
 
 # reorder STATION variable along trib axis
 stats <- c('TF1.3', 'TF1.4', 'TF1.5', 'TF1.6', 'TF1.7', 
@@ -138,9 +141,259 @@ ggplot(pax_data, aes(x = date, y = lnchla, group = STATION)) +
 # save the data
 save_path <- gsub('text$', 'data', getwd())
 save(pax_data, file = paste0(save_path, '/pax_data.RData'))
+save(pax_meta, file = paste0(save_path, '/pax_meta.RData'))
 save_path <- gsub('text$', 'inst', getwd())
 write.csv(pax_data, paste0(save_path, '/pax_data.csv'), 
   row.names = FALSE, quote = FALSE)
 @
+
+Here are some code chunks for figures.  The first creates boxplot summaries of annual and seasonal trends by station.
+<<eval = F>>=
+devtools::load_all()
+data(pax_data)
+data(pax_meta)
+data(pax_clip)
+
+# color palette
+cols <- wes_palette('Zissou', 100, 'continuous') %>% 
+  as.character %>% 
+  .[1:60]
+
+# change default ggplot theme
+theme_mine <- function (base_size = 12, base_family = "") {
+  theme_bw(base_size = base_size, base_family = base_family) %+replace% 
+  theme(
+    axis.text.x = element_text(size = 8), 
+    plot.background = element_rect(fill='transparent', 
+      colour = NA),
+    panel.background = element_rect(fill='transparent', 
+      colour = NA),
+    legend.background = element_rect(fill='transparent', 
+      colour = NA),
+    strip.background = element_rect(fill = 
+        alpha(cols[length(cols)], 0.5)),
+    legend.key = element_rect(fill = 'transparent', 
+      colour = NA)
+    )   
+}
+theme_set(theme_mine())
+
+# upper limit on boxplots
+y_max<- 7
+y_lab <- expression(
+  paste('ln-chlorophyll  ',italic(a),' (',italic(mu),'g',l^-1,')')
+  )
+
+# make plots for each station
+stats <- unique(pax_meta$STATION)
+pdf('figs/pax_chl.pdf', height = 5, width = 10, family = 'serif')
+for(stat in stats){
+
+  # add yr, month columns
+  pax_stat <- filter(pax_data, STATION == stat) %>% 
+    mutate(
+      mo = strftime(date, '%m'),
+      yr = strftime(date, '%Y')
+    )
+
+  # medians for plotting
+  yr_med <- group_by(pax_stat, yr) %>% 
+    summarize(yr_med = median(lnchla, na.rm = T))
+  mo_med <- group_by(pax_stat, mo) %>% 
+    summarize(mo_med = median(lnchla, na.rm = T))
+  
+  # combine with original dataset
+  pax_stat <- left_join(pax_stat, yr_med, by = 'yr') %>% 
+    left_join(mo_med, by = 'mo')
+
+  # boxplot by year
+  p1 <- ggplot(pax_stat, aes(x = yr, y = lnchla, fill = yr_med)) + 
+    geom_boxplot() +
+    scale_x_discrete('Year') +
+  	scale_y_continuous(
+  		y_lab,
+  		limits = c(0, y_max)
+  		) + 
+    scale_fill_gradientn(colours = cols) + 
+    theme_classic() +
+    theme(legend.position = 'none', 
+      axis.text.x = element_text(size = 8, angle = 90, hjust = 1)
+      )
+
+  # boxplot by month
+  p2 <- ggplot(pax_stat, aes(x = mo, y = lnchla, fill = mo_med)) + 
+    geom_boxplot() +
+    scale_x_discrete('Month') +
+    scale_y_continuous(
+  		y_lab,
+  		limits = c(0, y_max)
+  		) + 
+    scale_fill_gradientn(colours = cols) + 
+    theme_classic() + 
+    theme(legend.position = 'none')
+
+  # map
+  
+  stat_meta <- filter(pax_meta, STATION == stat)
+  p3 <- ggplot(pax_meta, aes(x = LONG, y = LAT)) + 
+    geom_polygon(data = pax_clip, aes(x = long, y = lat, group = group),
+      fill = alpha(cols[10], 0.8)) +
+    geom_text(size = 7, aes(label = STATION), alpha = 0.7, colour = 'black') +
+    coord_map(
+      xlim = c(-76.78, -76.36),
+      ylim = c(38.27, 38.85)
+    ) +
+    # geom_point(data = stat_meta, size = 16, colour = 'red') +
+    geom_text(data = stat_meta, aes(label = STATION), col = 'red', size = 7) +
+    theme(axis.title = element_blank())
+      
+  grid.arrange(
+    arrangeGrob(p1, p2, nrow = 2),
+    p3, 
+    ncol = 2, 
+    widths = c(0.8, 0.5)
+    )
+}
+dev.off()
+
+@
+
+This plot shows changes in chlorophyll concentrations by time.
+<<eval = F>>=
+devtools::load_all()
+data(pax_data)
+data(pax_meta)
+data(pax_clip)
+
+# change default ggplot theme
+theme_mine <- function (base_size = 12, base_family = "") {
+  theme_bw(base_size = base_size, base_family = base_family) %+replace% 
+  theme(
+    axis.text.x = element_text(size = 8), 
+    plot.background = element_rect(fill='transparent', 
+      colour = NA),
+    panel.background = element_rect(fill='transparent', 
+      colour = NA),
+    legend.background = element_rect(fill='transparent', 
+      colour = NA),
+    strip.background = element_rect(fill = 
+        alpha(cols[length(cols)], 0.5)),
+    legend.key = element_rect(fill = 'transparent', 
+      colour = NA)
+    )   
+}
+theme_set(theme_mine())
+
+# y axis label
+y_lab <- expression(
+  paste('ln-chlorophyll  ',italic(a),' (',italic(mu),'g',l^-1,')')
+  )
+
+# color for water for continuity with last fig
+wt_col <- wes_palette('Zissou', 100, 'continuous')[10] %>% 
+  alpha(0.8)
+
+# function for color that is not linear by rank
+cRamp <- function(x, alpha_val = 0.8){
+
+  # colors to use
+  cols <- wes_palette('Zissou', 10, 'continuous') %>% 
+  as.character %>% 
+  .[1:6]
+
+  # map the values to the colors
+  x_rang <- (x - min(x, na.rm = T))/diff(range(x, na.rm = T))
+  cols <- colorRamp(cols, 100)(x_rang)
+  apply(cols, 1, function(val){
+    if(NaN %in% val) NA
+    else
+    rgb(val[1], val[2], val[3], alpha = alpha_val * 255, maxColorValue = 255)
+    })
+  
+  }
+
+# format pax_meta for mrg with pax_plo
+pax_meta <- select(pax_meta, STATION, LONG, LAT) %>% 
+  mutate(STATION = as.character(STATION))
+
+# format data for lotting
+# add yr, mo, summarize to reduce size
+# add ptsz column
+# add color column
+pax_plo <- mutate(
+    pax_data,
+    mo = as.numeric(strftime(date, '%m')),
+    yr = strftime(date, '%Y')
+  ) %>% 
+  group_by(STATION, mo, yr) %>% 
+  summarize(lnchla = mean(lnchla, na.rm = T)) %>% 
+  mutate(
+
+    ptsz = rescale(lnchla, c(3, 12)),
+    cols = cRamp(lnchla)
+    ) %>% 
+  unite_('date', c('mo', 'yr'), sep = '/') %>% 
+  mutate(date = as.Date(paste0('1/', date), '%d/%m/%Y')) %>% 
+  arrange(STATION, date) %>% 
+  mutate(STATION = as.character(STATION)) %>% 
+  left_join(., pax_meta, by = 'STATION')
+
+# base plot
+pbase <- ggplot(pax_plo, aes(x = date, y = lnchla, group = STATION)) +
+  geom_line() + 
+  facet_wrap(~ STATION, ncol = 2) + 
+  ylab(y_lab) +
+  theme(axis.title.x = element_blank())
+
+# make plots for each station
+dts <- sort(unique(pax_plo$date))
+pdf('figs/pax_trnds.pdf', height = 5, width = 10, family = 'serif')
+for(dt in dts){
+
+  # add yr, month columns
+  pax_dt <- filter(pax_plo, date == dt)
+
+  # medians for plotting
+  yr_med <- group_by(pax_stat, yr) %>% 
+    summarize(yr_med = median(lnchla, na.rm = T))
+  mo_med <- group_by(pax_stat, mo) %>% 
+    summarize(mo_med = median(lnchla, na.rm = T))
+  
+  # add date line to map
+  pbase_ln <- pbase + 
+    geom_vline(
+      xintercept = as.numeric(dt), 
+      linetype = 'dashed', size = 1.2
+      )
+  
+#   # for putting the date on the plot
+#   dt_txt <- data.frame(
+#     LONG = -76.45,
+#     LAT = 38.7,
+#     lab = paste(strftime(dt, '%m'), strftime(dt, '%Y'), sep = '-')
+#     )
+    
+  # map
+  pmap <- ggplot(pax_meta, aes(x = LONG, y = LAT)) + 
+    geom_polygon(data = pax_clip, aes(x = long, y = lat, group = group),
+      fill = wt_col) +
+    coord_map(
+      xlim = c(-76.78, -76.36),
+      ylim = c(38.27, 38.85)
+    ) +
+    # geom_text(data = dt_txt, aes(label = lab)) + 
+    geom_point(data = pax_dt, colour = 'black', size = pax_dt$ptsz) +
+    theme(axis.title = element_blank())
+   
+  #combine
+  grid.arrange(
+    pbase_ln, pmap, ncol =2, widths = c(1, 0.5)
+    )
+  
+}
+dev.off()
+
+@
+
 
 \end{document}

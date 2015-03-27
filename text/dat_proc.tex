@@ -82,7 +82,7 @@
 \author{Marcus W. Beck, Rebecca Murphy}
 \maketitle
 
-The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  Brief descriptions of additional processing steps are provided below.
+The following describes additional processing of raw station data for the Patuxent River Estuary. Note that the raw data file (`PAX\_TRIB...') was edited manually to remove station TF1.0 and to change the chlorophyll value for TF1.4 on 11/28/1988 from 2.99 to 5.98.  All data for 1985 was also removed because of incomplete coverage for many stations.  Brief descriptions of additional processing steps are provided below.
 
 The following raw data files were imported:
 \begin{enumerate}
@@ -112,6 +112,9 @@ The data were first imported into R.
   \hlkwc{package} \hlstd{=} \hlstr{'TidalComp'}\hlstd{)}
 \hlstd{pax_data} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(pax_data,} \hlkwc{header} \hlstd{=} \hlnum{TRUE}\hlstd{,}
   \hlkwc{stringsAsFactors} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+
+\hlcom{# remove 1985 from pax_data}
+\hlstd{pax_data} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data,} \hlopt{!}\hlkwd{grepl}\hlstd{(}\hlstr{'/1985$'}\hlstd{, date))}
 
 \hlcom{# reorder STATION variable along trib axis}
 \hlstd{stats} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{'TF1.3'}\hlstd{,} \hlstr{'TF1.4'}\hlstd{,} \hlstr{'TF1.5'}\hlstd{,} \hlstr{'TF1.6'}\hlstd{,} \hlstr{'TF1.7'}\hlstd{,}
@@ -189,6 +192,7 @@ The data were recombined by date and station.  Some plots of the raw data are be
 \hlcom{# save the data}
 \hlstd{save_path} \hlkwb{<-} \hlkwd{gsub}\hlstd{(}\hlstr{'text$'}\hlstd{,} \hlstr{'data'}\hlstd{,} \hlkwd{getwd}\hlstd{())}
 \hlkwd{save}\hlstd{(pax_data,} \hlkwc{file} \hlstd{=} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_data.RData'}\hlstd{))}
+\hlkwd{save}\hlstd{(pax_meta,} \hlkwc{file} \hlstd{=} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_meta.RData'}\hlstd{))}
 \hlstd{save_path} \hlkwb{<-} \hlkwd{gsub}\hlstd{(}\hlstr{'text$'}\hlstd{,} \hlstr{'inst'}\hlstd{,} \hlkwd{getwd}\hlstd{())}
 \hlkwd{write.csv}\hlstd{(pax_data,} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_data.csv'}\hlstd{),}
   \hlkwc{row.names} \hlstd{=} \hlnum{FALSE}\hlstd{,} \hlkwc{quote} \hlstd{=} \hlnum{FALSE}\hlstd{)}
@@ -202,5 +206,118 @@ The data were recombined by date and station.  Some plots of the raw data are be
 
 
 
+
+Here are some more figures.
+
+\begin{kframe}
+\begin{alltt}
+\hlstd{devtools}\hlopt{::}\hlkwd{load_all}\hlstd{()}
+\hlkwd{data}\hlstd{(pax_data)}
+\hlkwd{data}\hlstd{(pax_meta)}
+\hlkwd{data}\hlstd{(pax_clip)}
+
+\hlcom{# color palette}
+\hlstd{cols} \hlkwb{<-} \hlkwd{wes_palette}\hlstd{(}\hlstr{'Zissou'}\hlstd{,} \hlnum{100}\hlstd{,} \hlstr{'continuous'}\hlstd{)} \hlopt{%>%}
+  \hlstd{as.character} \hlopt{%>%}
+  \hlstd{.[}\hlnum{1}\hlopt{:}\hlnum{60}\hlstd{]}
+
+\hlcom{# change default ggplot theme}
+\hlstd{theme_mine} \hlkwb{<-} \hlkwa{function} \hlstd{(}\hlkwc{base_size} \hlstd{=} \hlnum{12}\hlstd{,} \hlkwc{base_family} \hlstd{=} \hlstr{""}\hlstd{) \{}
+  \hlkwd{theme_bw}\hlstd{(}\hlkwc{base_size} \hlstd{= base_size,} \hlkwc{base_family} \hlstd{= base_family)} \hlopt{%+replace%}
+  \hlkwd{theme}\hlstd{(}
+    \hlkwc{axis.text.x} \hlstd{=} \hlkwd{element_text}\hlstd{(}\hlkwc{size} \hlstd{=} \hlnum{8}\hlstd{),}
+    \hlkwc{plot.background} \hlstd{=} \hlkwd{element_rect}\hlstd{(}\hlkwc{fill}\hlstd{=}\hlstr{'transparent'}\hlstd{,}
+      \hlkwc{colour} \hlstd{=} \hlnum{NA}\hlstd{),}
+    \hlkwc{panel.background} \hlstd{=} \hlkwd{element_rect}\hlstd{(}\hlkwc{fill}\hlstd{=}\hlstr{'transparent'}\hlstd{,}
+      \hlkwc{colour} \hlstd{=} \hlnum{NA}\hlstd{),}
+    \hlkwc{legend.background} \hlstd{=} \hlkwd{element_rect}\hlstd{(}\hlkwc{fill}\hlstd{=}\hlstr{'transparent'}\hlstd{,}
+      \hlkwc{colour} \hlstd{=} \hlnum{NA}\hlstd{),}
+    \hlkwc{strip.background} \hlstd{=} \hlkwd{element_rect}\hlstd{(}\hlkwc{fill} \hlstd{=}
+        \hlkwd{alpha}\hlstd{(cols[}\hlkwd{length}\hlstd{(cols)],} \hlnum{0.5}\hlstd{)),}
+    \hlkwc{legend.key} \hlstd{=} \hlkwd{element_rect}\hlstd{(}\hlkwc{fill} \hlstd{=} \hlstr{'transparent'}\hlstd{,}
+      \hlkwc{colour} \hlstd{=} \hlnum{NA}\hlstd{)}
+    \hlstd{)}
+\hlstd{\}}
+\hlkwd{theme_set}\hlstd{(}\hlkwd{theme_mine}\hlstd{())}
+
+\hlcom{# upper limit on boxplots}
+\hlstd{y_max}\hlkwb{<-} \hlnum{7}
+\hlstd{y_lab} \hlkwb{<-} \hlkwd{expression}\hlstd{(}
+  \hlkwd{paste}\hlstd{(}\hlstr{'ln-chlorophyll  '}\hlstd{,}\hlkwd{italic}\hlstd{(a),}\hlstr{' ('}\hlstd{,}\hlkwd{italic}\hlstd{(mu),}\hlstr{'g'}\hlstd{,l}\hlopt{^-}\hlnum{1}\hlstd{,}\hlstr{')'}\hlstd{)}
+  \hlstd{)}
+
+\hlcom{# make plots for each station}
+\hlstd{stats} \hlkwb{<-} \hlkwd{unique}\hlstd{(pax_meta}\hlopt{$}\hlstd{STATION)}
+\hlkwd{pdf}\hlstd{(}\hlstr{'figs/pax_chl.pdf'}\hlstd{,} \hlkwc{height} \hlstd{=} \hlnum{5}\hlstd{,} \hlkwc{width} \hlstd{=} \hlnum{10}\hlstd{,} \hlkwc{family} \hlstd{=} \hlstr{'serif'}\hlstd{)}
+\hlkwa{for}\hlstd{(stat} \hlkwa{in} \hlstd{stats)\{}
+
+  \hlcom{# add yr, month columns}
+  \hlstd{pax_stat} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data, STATION} \hlopt{==} \hlstd{stat)} \hlopt{%>%}
+    \hlkwd{mutate}\hlstd{(}
+      \hlkwc{mo} \hlstd{=} \hlkwd{strftime}\hlstd{(date,} \hlstr{'%m'}\hlstd{),}
+      \hlkwc{yr} \hlstd{=} \hlkwd{strftime}\hlstd{(date,} \hlstr{'%Y'}\hlstd{)}
+    \hlstd{)}
+
+  \hlcom{# medians for plotting}
+  \hlstd{yr_med} \hlkwb{<-} \hlkwd{group_by}\hlstd{(pax_stat, yr)} \hlopt{%>%}
+    \hlkwd{summarize}\hlstd{(}\hlkwc{yr_med} \hlstd{=} \hlkwd{median}\hlstd{(lnchla,} \hlkwc{na.rm} \hlstd{= T))}
+  \hlstd{mo_med} \hlkwb{<-} \hlkwd{group_by}\hlstd{(pax_stat, mo)} \hlopt{%>%}
+    \hlkwd{summarize}\hlstd{(}\hlkwc{mo_med} \hlstd{=} \hlkwd{median}\hlstd{(lnchla,} \hlkwc{na.rm} \hlstd{= T))}
+
+  \hlcom{# combine with original dataset}
+  \hlstd{pax_stat} \hlkwb{<-} \hlkwd{left_join}\hlstd{(pax_stat, yr_med,} \hlkwc{by} \hlstd{=} \hlstr{'yr'}\hlstd{)} \hlopt{%>%}
+    \hlkwd{left_join}\hlstd{(mo_med,} \hlkwc{by} \hlstd{=} \hlstr{'mo'}\hlstd{)}
+
+  \hlcom{# boxplot by year}
+  \hlstd{p1} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(pax_stat,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= yr,} \hlkwc{y} \hlstd{= lnchla,} \hlkwc{fill} \hlstd{= yr_med))} \hlopt{+}
+    \hlkwd{geom_boxplot}\hlstd{()} \hlopt{+}
+    \hlkwd{scale_x_discrete}\hlstd{(}\hlstr{'Year'}\hlstd{)} \hlopt{+}
+        \hlkwd{scale_y_continuous}\hlstd{(}
+                \hlstd{y_lab,}
+                \hlkwc{limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, y_max)}
+                \hlstd{)} \hlopt{+}
+    \hlkwd{scale_fill_gradientn}\hlstd{(}\hlkwc{colours} \hlstd{= cols)} \hlopt{+}
+    \hlkwd{theme_classic}\hlstd{()} \hlopt{+}
+    \hlkwd{theme}\hlstd{(}\hlkwc{legend.position} \hlstd{=} \hlstr{'none'}\hlstd{,}
+      \hlkwc{axis.text.x} \hlstd{=} \hlkwd{element_text}\hlstd{(}\hlkwc{size} \hlstd{=} \hlnum{8}\hlstd{,} \hlkwc{angle} \hlstd{=} \hlnum{90}\hlstd{,} \hlkwc{hjust} \hlstd{=} \hlnum{1}\hlstd{)}
+      \hlstd{)}
+
+  \hlcom{# boxplot by month}
+  \hlstd{p2} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(pax_stat,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= mo,} \hlkwc{y} \hlstd{= lnchla,} \hlkwc{fill} \hlstd{= mo_med))} \hlopt{+}
+    \hlkwd{geom_boxplot}\hlstd{()} \hlopt{+}
+    \hlkwd{scale_x_discrete}\hlstd{(}\hlstr{'Month'}\hlstd{)} \hlopt{+}
+    \hlkwd{scale_y_continuous}\hlstd{(}
+                \hlstd{y_lab,}
+                \hlkwc{limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, y_max)}
+                \hlstd{)} \hlopt{+}
+    \hlkwd{scale_fill_gradientn}\hlstd{(}\hlkwc{colours} \hlstd{= cols)} \hlopt{+}
+    \hlkwd{theme_classic}\hlstd{()} \hlopt{+}
+    \hlkwd{theme}\hlstd{(}\hlkwc{legend.position} \hlstd{=} \hlstr{'none'}\hlstd{)}
+
+  \hlcom{# map}
+
+  \hlstd{stat_meta} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_meta, STATION} \hlopt{==} \hlstd{stat)}
+  \hlstd{p3} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(pax_meta,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= LONG,} \hlkwc{y} \hlstd{= LAT))} \hlopt{+}
+    \hlkwd{geom_polygon}\hlstd{(}\hlkwc{data} \hlstd{= pax_clip,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= long,} \hlkwc{y} \hlstd{= lat,} \hlkwc{group} \hlstd{= group),}
+      \hlkwc{fill} \hlstd{=} \hlkwd{alpha}\hlstd{(cols[}\hlnum{10}\hlstd{],} \hlnum{0.8}\hlstd{))} \hlopt{+}
+    \hlkwd{geom_text}\hlstd{(}\hlkwc{size} \hlstd{=} \hlnum{7}\hlstd{,} \hlkwd{aes}\hlstd{(}\hlkwc{label} \hlstd{= STATION),} \hlkwc{alpha} \hlstd{=} \hlnum{0.7}\hlstd{,} \hlkwc{colour} \hlstd{=} \hlstr{'black'}\hlstd{)} \hlopt{+}
+    \hlkwd{coord_map}\hlstd{(}
+      \hlkwc{xlim} \hlstd{=} \hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{76.78}\hlstd{,} \hlopt{-}\hlnum{76.36}\hlstd{),}
+      \hlkwc{ylim} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{38.27}\hlstd{,} \hlnum{38.85}\hlstd{)}
+    \hlstd{)} \hlopt{+}
+    \hlcom{# geom_point(data = stat_meta, size = 16, colour = 'red') +}
+    \hlkwd{geom_text}\hlstd{(}\hlkwc{data} \hlstd{= stat_meta,} \hlkwd{aes}\hlstd{(}\hlkwc{label} \hlstd{= STATION),} \hlkwc{col} \hlstd{=} \hlstr{'red'}\hlstd{,} \hlkwc{size} \hlstd{=} \hlnum{7}\hlstd{)} \hlopt{+}
+    \hlkwd{theme}\hlstd{(}\hlkwc{axis.title} \hlstd{=} \hlkwd{element_blank}\hlstd{())}
+
+  \hlkwd{grid.arrange}\hlstd{(}
+    \hlkwd{arrangeGrob}\hlstd{(p1, p2,} \hlkwc{nrow} \hlstd{=} \hlnum{2}\hlstd{),}
+    \hlstd{p3,}
+    \hlkwc{ncol} \hlstd{=} \hlnum{2}\hlstd{,}
+    \hlkwc{widths} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0.8}\hlstd{,} \hlnum{0.5}\hlstd{)}
+    \hlstd{)}
+\hlstd{\}}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\end{kframe}
 
 \end{document}

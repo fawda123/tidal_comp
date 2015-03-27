@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  24 MAR 2015 17:13
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  27 MAR 2015 10:17
 entering extended mode
 **dat_proc.tex
 (M:\docs\tidal_comp\text\dat_proc.tex
@@ -638,58 +638,87 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 [1
 
 {C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 130
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 133
 .
 
 (C:/PROGRA~1/R/R-31~1.3/share/texmf/tex/latex\omscmtt.fd
 File: omscmtt.fd 
 )
 LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 130.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 133.
  [2]
 <figs/unnamed-chunk-41.pdf, id=19, 505.89pt x 325.215pt>
 File: figs/unnamed-chunk-41.pdf Graphic file (type pdf)
 
 <use figs/unnamed-chunk-41.pdf>
-Package pdftex.def Info: figs/unnamed-chunk-41.pdf used on input line 198.
+Package pdftex.def Info: figs/unnamed-chunk-41.pdf used on input line 202.
 (pdftex.def)             Requested size: 469.75502pt x 301.99028pt.
 
 <figs/unnamed-chunk-42.pdf, id=20, 505.89pt x 325.215pt>
 File: figs/unnamed-chunk-42.pdf Graphic file (type pdf)
 
 <use figs/unnamed-chunk-42.pdf>
-Package pdftex.def Info: figs/unnamed-chunk-42.pdf used on input line 199.
+Package pdftex.def Info: figs/unnamed-chunk-42.pdf used on input line 203.
 (pdftex.def)             Requested size: 469.75502pt x 301.99028pt.
- [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 206.
-Package atenddvi Info: Last page = 4.
- [4 <M:/docs/tidal_comp/text/figs/unnamed-chunk-41.pdf> <M:/docs/tidal_comp/tex
-t/figs/unnamed-chunk-42.pdf>]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 206.
+ [3] [4 <M:/docs/tidal_comp/text/figs/unnamed-chunk-41.pdf> <M:/docs/tidal_comp
+/text/figs/unnamed-chunk-42.pdf>]
+Overfull \hbox (11.89522pt too wide) in paragraph at lines 303--303
+[]    []\OT1/cmtt/m/n/12 geom_text[][]([][]size[] []=[] []7[][],[] []aes[][]([]
+[]label[] []= STATION),[] []alpha[] []=[] []0.7[][],[] []colour[] []=[] []blac
+k[][])[] []+[][] 
+ []
 
-(M:\docs\tidal_comp\text\dat_proc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 206.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 206.
+
+Overfull \hbox (11.89522pt too wide) in paragraph at lines 309--309
+[]    []\OT1/cmtt/m/n/12 geom_text[][]([][]data[] []= stat_meta,[] []aes[][]([]
+[]label[] []= STATION),[] []col[] []=[] []red[][],[] []size[] []=[] []7[][])[
+] []+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 321
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 321
+ []
+
+[5]
+Underfull \vbox (badness 10000) detected at line 321
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 321
+ []
+
+[6]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 323.
+Package atenddvi Info: Last page = 7.
+ [7]
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 323.
+ (M:\docs\tidal_comp\text\dat_proc.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 323.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 323.
 Package rerunfilecheck Info: File `dat_proc.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 206.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 323.
  ) 
 Here is how much of TeX's memory you used:
- 10680 strings out of 493921
- 174233 string characters out of 3147282
- 304484 words of memory out of 3000000
+ 10683 strings out of 493921
+ 174251 string characters out of 3147282
+ 314484 words of memory out of 3000000
  13820 multiletter control sequences out of 15000+200000
  5744 words of font info for 22 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,6n,42p,377b,385s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,6n,42p,456b,385s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/P
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on dat_proc.pdf (4 pages, 133050 bytes).
+Output written on dat_proc.pdf (7 pages, 139821 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
- 7 named destinations out of 1000 (max. 500000)
+ 73 PDF objects out of 1000 (max. 8388607)
+ 10 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

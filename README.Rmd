@@ -11,6 +11,8 @@ This repository contains materials for comparing generalized additive models (GA
 
 ### Data files
  
+`pax_chldata.RData` Chlorophyll data for Patuxent stations including bottom and surface.
+
 `pax_clip.RData` SpatialPolygonsDataFrame of the Patuxent taken from a cut polygon of Chesapeake Bay.
 
 `pax_data.RData` Processed water quality data for water quality stations in the Patuxent River Estuary, 1985 to 2014.  Created in dat_proc.Rnw.

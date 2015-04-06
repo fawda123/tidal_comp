@@ -24,7 +24,7 @@
 library(knitr)
 # set global chunk options
 opts_chunk$set(fig.path = 'figs/', fig.align = 'center', fig.show = 'hold',message = F, results = 'asis',dev = 'pdf',dev.args=list(family='serif'), fig.pos = '!ht', warning = F, tangle = TRUE)
-options(replace.assign=TRUE,width=90)
+options(replace.assign=TRUE,width=80)
 @
 
 \begin{document}
@@ -35,6 +35,8 @@ options(replace.assign=TRUE,width=90)
 \title{Using WRTDS to evaluate chlorophyll trends in the Patuxent River estuary}
 \author{Marcus W. Beck, Rebecca Murphy}
 \maketitle
+
+To note: Focus on TF1.6 and LE1.3.  There are interesting changes before/after 2003 in chlorophyll, coincides with Hurricane Isabel.
 
 The following is a description and presentation of preliminary results of the application of WRTDS to tidal waters of the Patuxent River Estuary.  
 
@@ -74,7 +76,7 @@ for(tid in names(tidals)){
 
 Create separate WRTDS models for each station.
 <<eval = FALSE>>=
-# process datasets in parellel
+# process datasets in parallel
 library(doParallel)
 library(foreach)
 num_cores <- detectCores()

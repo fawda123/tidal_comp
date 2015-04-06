@@ -81,6 +81,8 @@
 \author{Marcus W. Beck, Rebecca Murphy}
 \maketitle
 
+To note: Focus on TF1.6 and LE1.3.  There are interesting changes before/after 2003 in chlorophyll, coincides with Hurricane Isabel.
+
 The following is a description and presentation of preliminary results of the application of WRTDS to tidal waters of the Patuxent River Estuary.  
 
 \begin{kframe}
@@ -121,7 +123,7 @@ The following is a description and presentation of preliminary results of the ap
 Create separate WRTDS models for each station.
 \begin{kframe}
 \begin{alltt}
-\hlcom{# process datasets in parellel}
+\hlcom{# process datasets in parallel}
 \hlkwd{library}\hlstd{(doParallel)}
 \hlkwd{library}\hlstd{(foreach)}
 \hlstd{num_cores} \hlkwb{<-} \hlkwd{detectCores}\hlstd{()}

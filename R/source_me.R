@@ -16,7 +16,7 @@ names(grd) <- c('sal', 'yrs', 'mos')
 cl <- makeCluster(8)
 registerDoParallel(cl)
 
-tomod <- pax_data[pax_data$STATION %in% stats[1], ]
+tomod <- pax_data[pax_data$STATION %in% stats[2], ]
 tomod$limval <- 0
 tomod$STATION <- NULL
 
@@ -25,7 +25,7 @@ ests <- foreach (i = 1:nrow(grd)) %dopar% {
   
   # log
   sink('C:/Users/mbeck/Desktop/log.txt')
-  cat(i)
+  cat(i, '\n')
   print(Sys.time() - strt)
   sink()
   
@@ -39,4 +39,12 @@ ests <- foreach (i = 1:nrow(grd)) %dopar% {
   mod
   
 }
-  
+
+# create names for indexing
+# note that column order was changed but doesn't affect order of results
+# new order is day_num, year, sal
+names(ests) <- paste(grd[, 3], grd[, 2], grd[, 1])
+
+TF16ests <- ests
+save(TF16ests, file = 'data/TF16ests.RData')
+save(TF16ests, file = 'shiny/TF16ests.RData')

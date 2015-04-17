@@ -5,7 +5,7 @@ library(doParallel)
 
 data(pax_data)
 
-stats <- c('LE1.3', 'TF1.6')
+stats <- c('LE1.3', 'TF1.6', 'TF1.7')
 
 sal <- seq(0.25, 15, length = 5)
 yrs <- seq(1, 30, length = 5)
@@ -16,7 +16,7 @@ names(grd) <- c('sal', 'yrs', 'mos')
 cl <- makeCluster(8)
 registerDoParallel(cl)
 
-tomod <- pax_data[pax_data$STATION %in% stats[2], ]
+tomod <- pax_data[pax_data$STATION %in% stats[3], ]
 tomod$limval <- 0
 tomod$STATION <- NULL
 
@@ -45,6 +45,6 @@ ests <- foreach (i = 1:nrow(grd)) %dopar% {
 # new order is day_num, year, sal
 names(ests) <- paste(grd[, 3], grd[, 2], grd[, 1])
 
-TF16ests <- ests
-save(TF16ests, file = 'data/TF16ests.RData')
-save(TF16ests, file = 'shiny/TF16ests.RData')
+TF17ests <- ests
+save(TF17ests, file = 'data/TF17ests.RData')
+save(TF17ests, file = 'patux_wtreg/TF17ests.RData')

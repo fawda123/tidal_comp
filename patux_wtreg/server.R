@@ -7,7 +7,8 @@ library(WRTDStidal)
 # load data
 load('LE13ests.RData')
 load('TF16ests.RData')
-mods <- list(LE1.3 = LE13ests, TF1.6 = TF16ests)
+load('TF17ests.RData')
+mods <- list(LE1.3 = LE13ests, TF1.6 = TF16ests, TF1.7 = TF17ests)
 load('pax_data.RData')
 pax_data$lim <- 0
 

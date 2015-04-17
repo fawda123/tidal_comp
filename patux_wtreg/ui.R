@@ -11,7 +11,7 @@ shinyUI(pageWithSidebar(
     
     selectInput(inputId = 'stat',
       label = h4('Pick station'),
-      choices = c('TF1.6', 'LE1.3'), 
+      choices = c('TF1.6', 'TF1.7', 'LE1.3'), 
       selected = 'LE1.3'),
     
     uiOutput("daterng"),

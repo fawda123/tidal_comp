@@ -37,7 +37,7 @@ shinyUI(pageWithSidebar(
     selectInput(inputId = 'logspace',
       label = h4('Chlorophyll'),
       choices = c('observed', 'log'), 
-      selected = 'observed'
+      selected = 'log'
       ),
     
     textInput("col_vec",
@@ -58,6 +58,8 @@ shinyUI(pageWithSidebar(
       
       tabPanel("Observed data", 
         
+      h5(HTML('View the raw chlorophyll (top) and salinity (bottom) data for the time series.')),   
+        
         column(3, 
           selectInput(inputId = 'obstype',
             label = h4('Plot type'),
@@ -72,13 +74,17 @@ shinyUI(pageWithSidebar(
       
       tabPanel("Weights plot", 
         
+        h5(HTML('The plots illustrate the weights that are used when fitting a weighted regression in reference to a single observation. The plots indicate one example of many because a single model is used for each unique observation during the fitting process.  The top plot shows salinity over time with the points colored and sized by the combined weight vector. The remaining four plots show the weights over time for each separate weighting component (months/days, year, and salinity) and the final combined vector.  The date at the top is the closest date in the observed data to the reference position.')), 
+        
         uiOutput("refdate"),
         
         plotOutput("wtsplot", height = "100%")
         
       ),
       
-      tabPanel("Predictions", 
+      tabPanel("Predictions and performance", 
+        
+        h5(HTML('Plot combined predicted (points) and normalized (lines) results from a tidal object to evaluate the influence of salinity changes on chlorophyll. Values can be shown as annual mean aggregations or as monthly results.')),
         
         fluidRow(
           
@@ -93,13 +99,21 @@ shinyUI(pageWithSidebar(
           
         ),
         
-        plotOutput("resplot", height = "100%")
+        plotOutput("resplot", height = "100%"),
+        
+        h4('Performance metrics for each model'), 
+        
+        h5(HTML('Performance metrics for each model include goodness of fit (gfit), root mean square error (rmse), and normalized mean square error (nmse).  Goodness of fit is calculated as 1 minus the ratio between the sum of absolute deviations in the fully parameterized models and the sum of absolute deviations in the null (non-conditional) quantile model. Root mean square error is based on square root of the mean of the squared residuals. Normalized mean square error is the sum of the squared errors divided by the sum of the non-conditional errors (i.e., sum of the squared values of the observed minus the mean of the observed). This measure allows comparability of error values for data with different ranges, although the interpretation for quantile models is not clear.')),
+        
+        tableOutput("tableperf")
         
       ),
       
       tabPanel("Seasonal grid plot", 
       
         fluidRow(
+          
+          h5(HTML('Plot the relationship between chlorophyll and salinity across the time series using a gridded surface for chlorophyll. The plot is limited to the same month throughout the time series to limit seasonal variation. The plot is also constrained to the fifth and ninety-fifth percentile of observed salinity values during the month of interest to limit the predictions within the data domain. Linear interpolation is used to create a smoother surface.  The raw data in the interpolation grid can be seen by setting the smoothing factor to one.')), 
           
           column(3, 
             selectInput(inputId = 'month',

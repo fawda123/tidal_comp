@@ -1,6 +1,6 @@
 # packages to use
-library(WRTDStidal)
-# devtools::load_all('M:/docs/wtreg_for_estuaries')
+# library(WRTDStidal)
+devtools::load_all('M:/docs/wtreg_for_estuaries')
 
 # functions to use
 
@@ -182,6 +182,17 @@ shinyServer(function(input, output) {
       col_vec = col_vec, tau = tau, sal_fac = sal_fac)
 
     },height = 350, width = 700)
+  
+  # table of performance metrics
+  output$tableperf <- renderTable({
+    
+    to_tab <- wrtdsperf(ests())
+    to_tab <- attr(to_tab, 'perf')
+    to_tab <- to_tab[rev(1:nrow(to_tab)), ]
+    
+    to_tab
+  
+  }, include.rownames = F)
   
 
 })

@@ -42,7 +42,7 @@ shinyUI(pageWithSidebar(
     
     textInput("col_vec",
       label = h4('Color palette'), 
-      value = 'Spectral'),
+      value = NULL),
     
     submitButton("Submit"), 
     
@@ -84,8 +84,6 @@ shinyUI(pageWithSidebar(
       
       tabPanel("Predictions and performance", 
         
-        h5(HTML('Plot combined predicted (points) and normalized (lines) results from a tidal object to evaluate the influence of salinity changes on chlorophyll. Values can be shown as annual mean aggregations or as monthly results.')),
-        
         fluidRow(
           
           column(4, 
@@ -94,16 +92,29 @@ shinyUI(pageWithSidebar(
               choices = c('annual', 'monthly'), 
               selected = 'annual'
               )
-            
+          ),
+          
+          column(4, 
+            uiOutput('taubox')
           )
           
         ),
+        
+        h4(HTML('Observed and predicted')), 
+        
+        h5(HTML('Observed chlorophyll (points) and model predictions (lines) as a function of salinity/flow, season, and year.')),
+        
+        plotOutput("fitplot", height = "100%"),
+        
+        h4(HTML('Predicted and flow-normalized estimates')), 
+        
+        h5(HTML('Predicted (points) and salinity/flow normalized (lines) results from to evaluate the influence of salinity changes on chlorophyll. Substantial differences between lines and points would indicate effects of flow on chlorophyll.')),
         
         plotOutput("resplot", height = "100%"),
         
         h4('Performance metrics for each model'), 
         
-        h5(HTML('Performance metrics for each model include goodness of fit (gfit), root mean square error (rmse), and normalized mean square error (nmse).  Goodness of fit is calculated as 1 minus the ratio between the sum of absolute deviations in the fully parameterized models and the sum of absolute deviations in the null (non-conditional) quantile model. Root mean square error is based on square root of the mean of the squared residuals. Normalized mean square error is the sum of the squared errors divided by the sum of the non-conditional errors (i.e., sum of the squared values of the observed minus the mean of the observed). This measure allows comparability of error values for data with different ranges, although the interpretation for quantile models is not clear.')),
+        h5(HTML('Performance metrics for each model include goodness of fit (gfit), root mean square error (rmse), and normalized mean square error (nmse).  Goodness of fit is calculated as 1 minus the ratio between the sum of absolute deviations in the fully parameterized models and the sum of absolute deviations in the null (non-conditional) quantile model. Root mean square error is based on square root of the mean of the squared residuals, whereas normalized mean square error is the sum of the squared errors divided by the sum of the non-conditional errors.')),
         
         tableOutput("tableperf")
         
@@ -113,26 +124,24 @@ shinyUI(pageWithSidebar(
       
         fluidRow(
           
-          h5(HTML('Plot the relationship between chlorophyll and salinity across the time series using a gridded surface for chlorophyll. The plot is limited to the same month throughout the time series to limit seasonal variation. The plot is also constrained to the fifth and ninety-fifth percentile of observed salinity values during the month of interest to limit the predictions within the data domain. Linear interpolation is used to create a smoother surface.  The raw data in the interpolation grid can be seen by setting the smoothing factor to one.')), 
+          h5(HTML('Plot the relationship between chlorophyll and salinity across the time series using a gridded surface for chlorophyll.  Plots are facetted by month to reduce seasonal variation in the observed trends. The plots are also constrained to the fifth and ninety-fifth percentile of observed salinity values during the month of interest to limit the predictions within the data domain. Linear interpolation is used to create a smoother surface.  The raw data in the interpolation grid can be seen by setting the smoothing factor to one.  Processing time may be excessive for large smoothing factors (e.g., > 10).')), 
           
           column(3, 
-            selectInput(inputId = 'month',
-              label = h4('Grid month'),
-              choices = as.character(seq(1, 12)), 
-              selected = '7'
-              )
+            textInput("month",
+              label = h4('Months'), 
+              value = '1:12')
           ),
           
           column(3, 
-            uiOutput('tau')
+            uiOutput('tauinp')
           ), 
           
           column(3, 
             numericInput(inputId = 'sal_fac',
               label = h4('Smoothing factor'),
-              value = 10,
+              value = 3,
               min = 1, 
-              max = 20,
+              max = 10,
               step = 1
               )
           )

@@ -1,5 +1,6 @@
 # packages to use
 # library(WRTDStidal)
+library(survival)
 devtools::load_all('M:/docs/wtreg_for_estuaries')
 
 # functions to use
@@ -77,19 +78,34 @@ shinyServer(function(input, output) {
     
   })
   
-  # for quantile selections
-  output$tau <- renderUI({
+  # for quantile selections, preds/norms
+  output$taubox <- renderUI({
+
+    tau <- gsub('^fit', '', names(attr(ests(), 'fits')))
+
+    checkboxGroupInput('taubox', 
+      label = h4('Quantile'),
+      choices = tau,
+      selected = tau,
+      inline = TRUE
+      )
+  
+  })
+  
+  # for quantile selections, gridplot
+  output$tauinp <- renderUI({
 
     tau <- gsub('^fit', '', names(attr(ests(), 'fits')))
     tau_sel <- tau[round(length(tau)/2)]
 
-    selectInput('tau', 
+    selectInput('tauinp', 
       label = h4('Quantile'),
       choices = tau,
       selected = tau_sel
       )
   
   })
+  
   
   ## plots
   
@@ -133,12 +149,14 @@ shinyServer(function(input, output) {
  
     },height = 700, width = 700)
   
-  # results plot
-  output$resplot <- renderPlot({
+  
+  # predictions and flow norms plot
+  output$fitplot <- renderPlot({
     
     # inputs
     dt_rng <- input$dt_rng
-
+    tau <- as.numeric(input$taubox)
+    
     # aggregation period
     annuals <- TRUE
     if(input$annuals == 'monthly') annuals <- FALSE
@@ -147,8 +165,38 @@ shinyServer(function(input, output) {
     logspace <- FALSE
     if(input$logspace == 'log') logspace <- TRUE
     
+    # get color vector as parsed text string
+    col_vec <- input$col_vec
+    col_vec <- try(eval(parse(text = col_vec)), silent = TRUE)
+    if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
+    
     # create plot
-    prdnrmplot(ests(), annuals = annuals, logspace = logspace, dt_rng = dt_rng)
+    fitplot(ests(), annuals = annuals, col_vec = col_vec, tau = tau, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8)
+
+    }, height = 350, width = 700)
+  
+  # predictions and flow norms plot
+  output$resplot <- renderPlot({
+    
+    # inputs
+    dt_rng <- input$dt_rng
+    tau <- as.numeric(input$taubox)
+
+    # aggregation period
+    annuals <- TRUE
+    if(input$annuals == 'monthly') annuals <- FALSE
+    
+    # get color vector as parsed text string
+    col_vec <- input$col_vec
+    col_vec <- try(eval(parse(text = col_vec)), silent = T)
+    if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
+    
+    # chlorophyll trans
+    logspace <- FALSE
+    if(input$logspace == 'log') logspace <- TRUE
+    
+    # create plot
+    prdnrmplot(ests(), annuals = annuals, logspace = logspace, tau = tau, col_vec = col_vec, dt_rng = dt_rng, size = 3, alpha = 0.8)
 
     },height = 350, width = 700)
   
@@ -156,10 +204,9 @@ shinyServer(function(input, output) {
   output$gridplot <- renderPlot({
     
     # inputs
-    stat <- input$stat
     dt_rng <- input$dt_rng
     month <- input$month
-    tau <- input$tau
+    tau <- input$tauinp
     sal_fac <- input$sal_fac
 
     # format date range
@@ -167,6 +214,9 @@ shinyServer(function(input, output) {
       dt_rng <- as.numeric(strftime(dt_rng, '%Y'))
       dt_rng <- seq(dt_rng[1], dt_rng[2])
     }
+    
+    # months
+    month <- eval(parse(text = month))
     
     # chlorophyll trans
     logspace <- FALSE
@@ -178,10 +228,10 @@ shinyServer(function(input, output) {
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
 
     # create plot
-    gridplot(ests(), month = as.numeric(month), logspace = logspace, years = dt_rng, 
+    gridplot(ests(), month = month, logspace = logspace, years = dt_rng, 
       col_vec = col_vec, tau = tau, sal_fac = sal_fac)
 
-    },height = 350, width = 700)
+    },height = 500, width = 700)
   
   # table of performance metrics
   output$tableperf <- renderTable({

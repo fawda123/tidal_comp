@@ -145,7 +145,7 @@ shinyServer(function(input, output) {
     col_vec <- try(eval(parse(text = col_vec)), silent = T)
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
     
-    wtsplot(dat(), ref = refdt, wins = wins, dt_rng = dt_rng, col_vec = col_vec, alpha = 0.8)
+    wtsplot(dat(), ref = refdt, wins = wins, dt_rng = dt_rng, col_vec = col_vec, alpha = 0.8, min_obs = FALSE)
  
     },height = 700, width = 700)
   

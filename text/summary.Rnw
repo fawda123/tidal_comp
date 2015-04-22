@@ -1,0 +1,537 @@
+\documentclass[serif]{beamer}
+\usetheme{Boadilla}
+\usetheme{Boadilla}
+\usepackage{graphicx}
+\usepackage[final]{animate}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{shapes,arrows,positioning,shadows}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
+\usepackage{subfig}
+\usepackage{pgf}
+\usepackage{pgffor}
+
+% knitr and global options
+<<setup, include = F, cache = F>>=
+library(knitr)
+# global knitr options
+opts_chunk$set(fig.path = 'figs/', fig.align = 'center', fig.show = 'hold', message = FALSE, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = FALSE, cache = T, prompt = TRUE, background = '#EDF8FB')
+#global R optoins
+options(replace.assign = TRUE, width = 60, digits = 1)
+@
+
+% load R libraries
+<<eval = T, echo = F, cache = F, message = F>>=
+library(WRTDStidal)
+library(dplyr)
+library(ggplot2)
+library(wesanderson)
+library(scales)
+library(gridExtra)
+# devtools::load_all('M:/docs/wtreg_for_estuaries')
+@
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+\begin{document}
+
+\title[Comparison of WRTDS and GAMs]{Comparison of WRTDS and GAMs for evaluting long-term trends in chlorophyll}
+
+\author[Beck, Murphy]{Marcus W. Beck\inst{1} \and Rebecca Murphy\inst{2}}
+
+\date{April 30, 2015}
+
+\institute[]{\inst{1} ORISE post-doc, USEPA National Health and Environmental Effects Research Laboratory, Gulf Ecology Division, \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} Chesapeake Bay Program, \href{mailto:rmurphy@umces.edu}{rmurphy@umces.edu}}
+
+%%%%%%
+\begin{frame}
+\titlepage
+\end{frame}
+
+%%%%%%
+\begin{frame}{Today's call}
+\begin{itemize}
+\item Motivation for the analysis \\~\\
+\item Site selection \\~\\
+\item Exploratory evaluation of trends \\~\\
+\item Initial applications of WRTDS/GAMS \\~\\
+\item Group discussion (and throughout) 
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Study motivation}
+\begin{itemize}
+\item WRTDS and GAMS recently used to evaluate water quality trends in tidal waters \\~\\
+\item The relative values of each approach have not been evaluated - empirical description, desired products \\~\\
+\item Comparisons could inform use of each model for management/restoration or for describing long-term changes \\~\\
+\end{itemize}
+\Bigtxt{Goal: Provide a description of the relative abilities of GAMs and WRTDS to describe long-term changes in time series of response endpoints in tidal waters}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Objectives}
+\begin{itemize}
+\item Provide a narrative comparison of the statistical foundation, both as a general description and as a means to evaluate water quality trends \\~\\
+\item Use each technique to describe water quality changes in a common dataset with known historical changes in water quality drivers \\~\\
+\item Compare each technique's ability to describe changes, as well as the differences in the information provided by each \\~\\
+\item Apply to simulated data to evaluate the ability to reproduce flow-normalized trends
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Site selection}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+Monitoring stations in the Patuxent River Estuary... \\~\\
+\begin{itemize}
+\item longitudinal gradient from watershed to mainstem influences \\~\\
+\item hurricane impacts \\~\\
+\item well-studied (Testa, Kemp, Hagy, etc.)
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\centerline{\fbox{\includegraphics[width = 0.9\textwidth]{M:/docs/tidal_comp/figs/stations.png}}}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Site selection}
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+Monitoring stations in the Patuxent River Estuary... \\~\\
+\begin{itemize}
+\item TF1.7, LE1.1 based on data distribution - monthly from 1986 -- 2014\\~\\
+\item surface chlorophyll only (okay?)  \\~\\
+\item vertically integrated salinity \\~\\
+\item No detection limit issues
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\centerline{\fbox{\includegraphics[width = 0.9\textwidth]{M:/docs/tidal_comp/figs/stations.png}}}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+<<eval = F, echo = F, results = 'hide', cache = F>>=
+data(pax_data)
+data(pax_meta)
+data(pax_clip)
+
+# color palette
+cols <- wes_palette('Zissou', 100, 'continuous') %>% 
+  as.character %>% 
+  .[1:60]
+
+# change default ggplot theme
+theme_mine <- function (base_size = 12, base_family = "") {
+  theme_bw(base_size = base_size, base_family = base_family) %+replace% 
+  theme(
+    axis.text.x = element_text(size = 8), 
+    plot.background = element_rect(fill='transparent', 
+      colour = NA),
+    panel.background = element_rect(fill='transparent', 
+      colour = NA),
+    legend.background = element_rect(fill='transparent', 
+      colour = NA),
+    strip.background = element_rect(fill = 
+        alpha(cols[length(cols)], 0.5)),
+    legend.key = element_rect(fill = 'transparent', 
+      colour = NA)
+    )   
+}
+theme_set(theme_mine())
+
+# upper limit on boxplots
+y_max<- 7
+y_lab <- expression(
+  paste('ln-chlorophyll  ',italic(a),' (',italic(mu),'g',l^-1,')')
+  )
+
+# make plots for each station
+stats <- unique(pax_meta$STATION)
+pdf('text/figs/pax_chl.pdf', height = 4, width = 8, family = 'serif')
+for(stat in stats){
+
+  # add yr, month columns
+  pax_stat <- filter(pax_data, STATION == stat) %>% 
+    mutate(
+      mo = strftime(date, '%m'),
+      yr = strftime(date, '%Y')
+    )
+
+  # medians for plotting
+  yr_med <- group_by(pax_stat, yr) %>% 
+    summarize(yr_med = median(lnchla, na.rm = T))
+  mo_med <- group_by(pax_stat, mo) %>% 
+    summarize(mo_med = median(lnchla, na.rm = T))
+  
+  # combine with original dataset
+  pax_stat <- left_join(pax_stat, yr_med, by = 'yr') %>% 
+    left_join(mo_med, by = 'mo')
+
+  # boxplot by year
+  p1 <- ggplot(pax_stat, aes(x = yr, y = lnchla, fill = yr_med)) + 
+    geom_boxplot() +
+    scale_x_discrete('Year') +
+  	scale_y_continuous(
+  		y_lab,
+  		limits = c(0, y_max)
+  		) + 
+    scale_fill_gradientn(colours = cols) + 
+    theme_classic() +
+    theme(legend.position = 'none', 
+      axis.text.x = element_text(size = 8, angle = 90, hjust = 1)
+      )
+
+  # boxplot by month
+  p2 <- ggplot(pax_stat, aes(x = mo, y = lnchla, fill = mo_med)) + 
+    geom_boxplot() +
+    scale_x_discrete('Month') +
+    scale_y_continuous(
+  		y_lab,
+  		limits = c(0, y_max)
+  		) + 
+    scale_fill_gradientn(colours = cols) + 
+    theme_classic() + 
+    theme(legend.position = 'none')
+
+  # map
+  
+  stat_meta <- filter(pax_meta, STATION == stat)
+  p3 <- ggplot(pax_meta, aes(x = LONG, y = LAT)) + 
+    geom_polygon(data = pax_clip, aes(x = long, y = lat, group = group),
+      fill = alpha(cols[10], 0.8)) +
+    geom_text(size = 7, aes(label = STATION), alpha = 0.7, colour = 'black') +
+    coord_map(
+      xlim = c(-76.78, -76.36),
+      ylim = c(38.27, 38.85)
+    ) +
+    # geom_point(data = stat_meta, size = 16, colour = 'red') +
+    geom_text(data = stat_meta, aes(label = STATION), col = 'red', size = 7) +
+    theme(axis.title = element_blank())
+      
+  grid.arrange(
+    arrangeGrob(p1, p2, nrow = 2),
+    p3, 
+    ncol = 2, 
+    widths = c(0.8, 0.5)
+    )
+}
+dev.off()
+
+@
+\begin{frame}{Some exploratory graphs}
+Summaries of annual and seasonal trends by station \\~\\
+\begin{center}
+\foreach \n in {1,...,10}{\includegraphics<\n>[width = \textwidth, page = \n]{figs/pax_chl.pdf}}
+\end{center}
+\end{frame}
+
+%%%%%%
+<<eval = F, echo = F, cache = F>>=
+data(pax_data)
+data(pax_meta)
+data(pax_clip)
+
+# change default ggplot theme
+theme_mine <- function (base_size = 12, base_family = "") {
+  theme_bw(base_size = base_size, base_family = base_family) %+replace% 
+  theme(
+    axis.text.x = element_text(size = 8), 
+    plot.background = element_rect(fill='transparent', 
+      colour = NA),
+    panel.background = element_rect(fill='transparent', 
+      colour = NA),
+    legend.background = element_rect(fill='transparent', 
+      colour = NA),
+    strip.background = element_rect(fill = 
+        alpha(cols[length(cols)], 0.5)),
+    legend.key = element_rect(fill = 'transparent', 
+      colour = NA)
+    )   
+}
+theme_set(theme_mine())
+
+# y axis label
+y_lab <- expression(
+  paste('ln-chlorophyll  ',italic(a),' (',italic(mu),'g',l^-1,')')
+  )
+
+# color for water for continuity with last fig
+wt_col <- wes_palette('Zissou', 100, 'continuous')[10] %>% 
+  alpha(0.8)
+
+# function for color that is not linear by rank
+cRamp <- function(x, alpha_val = 0.8){
+
+  # colors to use
+  cols <- wes_palette('Zissou', 1000, 'continuous') %>% 
+    as.character %>% 
+    .[1:600]
+
+  # map the values to the colors
+  x_rang <- (x - min(x, na.rm = T))/diff(range(x, na.rm = T))
+  cols <- colorRamp(cols)(x_rang)
+  apply(cols, 1, function(val){
+    if(NaN %in% val) NA
+    else
+    rgb(val[1], val[2], val[3], alpha = alpha_val * 255, maxColorValue = 255)
+    })
+  
+  }
+
+# format pax_meta for mrg with pax_plo
+pax_meta <- select(pax_meta, STATION, LONG, LAT) %>% 
+  mutate(STATION = as.character(STATION))
+
+# add month to pax data
+pax_data <- mutate(pax_data, 
+  mo = as.numeric(strftime(date, '%m')),
+  yr = strftime(date, '%Y')
+  ) %>% 
+  mutate(STATION = as.character(STATION))
+
+# get monthly medians by station, add coords
+pax_mo <- group_by(pax_data, STATION, mo) %>% 
+  summarize(lnchla = median(lnchla, na.rm = T)) %>% 
+  mutate(
+    ptsz = rescale(lnchla, c(3, 12)),
+    cols = cRamp(lnchla, alpha_val = 1)
+    ) %>% 
+  ungroup %>% 
+  left_join(., pax_meta, by = 'STATION') %>% 
+  select(-lnchla) %>% 
+  full_join( ., pax_data, by = c('STATION', 'mo'))
+
+# make plots for each station
+mons <- sort(unique(pax_mo$mo))
+pdf('text/figs/pax_trnds.pdf', height = 4, width = 8, family = 'serif')
+for(mon in mons){
+
+  # for map
+  pax_map <- filter(pax_mo, mo %in% mon) %>% 
+    select(STATION, ptsz, cols, LONG, LAT) %>% 
+    unique
+
+  # for boxplots
+  pax_box <- filter(pax_mo, mo %in% mon)
+  
+  # reorder STATION variable along trib axis
+  stats <- c('TF1.3', 'TF1.4', 'TF1.5', 'TF1.6', 'TF1.7', 
+    'RET1.1', 'LE1.1', 'LE1.2', 'LE1.3', 'LE1.4')
+  pax_map$STATION <- factor(pax_map$STATION, level = stats)
+  pax_map <- pax_map[order(pax_map$STATION), ]
+  pax_box$STATION <- factor(pax_box$STATION, level = stats)
+  
+  # medians for plotting
+  pbox <- ggplot(na.omit(pax_box), aes(x = STATION, y = lnchla)) + 
+      geom_boxplot(fill = pax_map$cols) +
+      scale_y_continuous(
+      	y_lab,
+    		limits = c(-1, 7)
+    		) + 
+      theme_classic() + 
+      theme(
+        legend.position = 'none',
+        axis.title.x = element_blank()
+        )
+
+  # for month on the map
+  mo_labs <- c('January', 'February', 'March', 'April', 'May', 'June', 'July', 
+    'August', 'September', 'October', 'November', 'December')
+  mo_labs <- data.frame(
+    LONG = -76.45, 
+    LAT = 38.7, 
+    mo = mo_labs[which(mon == mons)]
+    )
+  
+  # map
+  pmap <- ggplot(pax_meta, aes(x = LONG, y = LAT)) + 
+    geom_polygon(data = pax_clip, aes(x = long, y = lat, group = group),
+      fill = wt_col) +
+    coord_map(
+      xlim = c(-76.78, -76.36),
+      ylim = c(38.27, 38.85)
+    ) +
+    geom_text(data = mo_labs, aes(label = mo)) + 
+    geom_point(data = pax_map, size = pax_map$ptsz,
+      pch = 21, fill = pax_map$cols, colour = 'black') +
+    theme_mine() + 
+    theme(axis.title = element_blank())
+   
+  #combine
+  grid.arrange(
+    pbox, pmap, ncol =2, widths = c(1, 0.5)
+    )
+  
+}
+dev.off()
+
+@
+\begin{frame}{Some exploratory graphs}
+Chlorophyll changes by month, annual aggregations \\~\\
+\begin{center}
+\foreach \n in {1,...,12}{\includegraphics<\n>[width = \textwidth, page = \n]{figs/pax_trnds.pdf}}
+\end{center}
+\end{frame}
+
+%%%%%%
+<<eval = F, echo = F, cache = F>>=
+data(pax_data)
+data(pax_meta)
+data(pax_clip)
+
+# change default ggplot theme
+theme_mine <- function (base_size = 12, base_family = "") {
+  theme_bw(base_size = base_size, base_family = base_family) %+replace% 
+  theme(
+    axis.text.x = element_text(size = 8), 
+    plot.background = element_rect(fill='transparent', 
+      colour = NA),
+    panel.background = element_rect(fill='transparent', 
+      colour = NA),
+    legend.background = element_rect(fill='transparent', 
+      colour = NA),
+    strip.background = element_rect(fill = 
+        alpha(cols[length(cols)], 0.5)),
+    legend.key = element_rect(fill = 'transparent', 
+      colour = NA)
+    )   
+}
+theme_set(theme_mine())
+
+# y axis label
+y_lab <- expression(
+  paste('ln-chlorophyll  ',italic(a),' (',italic(mu),'g',l^-1,')')
+  )
+
+# color for water for continuity with last fig
+wt_col <- wes_palette('Zissou', 100, 'continuous')[10] %>% 
+  alpha(0.8)
+
+# function for color that is not linear by rank
+cRamp <- function(x, alpha_val = 0.8){
+
+  # colors to use
+  cols <- wes_palette('Zissou', 1000, 'continuous') %>% 
+    as.character %>% 
+    .[1:600]
+
+  # map the values to the colors
+  x_rang <- (x - min(x, na.rm = T))/diff(range(x, na.rm = T))
+  cols <- colorRamp(cols)(x_rang)
+  apply(cols, 1, function(val){
+    if(NaN %in% val) NA
+    else
+    rgb(val[1], val[2], val[3], alpha = alpha_val * 255, maxColorValue = 255)
+    })
+  
+  }
+
+# format pax_meta for mrg with pax_plo
+pax_meta <- select(pax_meta, STATION, LONG, LAT) %>% 
+  mutate(STATION = as.character(STATION))
+
+# add month to pax data
+pax_data <- mutate(pax_data, 
+  mo = as.numeric(strftime(date, '%m')),
+  yr = strftime(date, '%Y')
+  ) %>% 
+  mutate(STATION = as.character(STATION))
+
+# get annual medians by station, add coords
+pax_yr <- group_by(pax_data, STATION, yr) %>% 
+  summarize(lnchla = median(lnchla, na.rm = T)) %>% 
+  mutate(
+    ptsz = rescale(lnchla, c(3, 12)),
+    cols = cRamp(lnchla, alpha_val = 1)
+    ) %>% 
+  ungroup %>% 
+  left_join(., pax_meta, by = 'STATION') %>% 
+  select(-lnchla) %>% 
+  full_join( ., pax_data, by = c('STATION', 'yr'))
+
+# make plots for each station
+yr_vals <- sort(unique(pax_yr$yr))
+pdf('text/figs/pax_yrtrnds.pdf', height = 4, width = 8, family = 'serif')
+for(yr_val in yr_vals){
+
+  # for map
+  pax_map <- filter(pax_yr, yr %in% yr_val) %>% 
+    select(STATION, ptsz, cols, LONG, LAT) %>% 
+    unique
+
+  # for boxplots
+  pax_box <- filter(pax_yr, yr %in% yr_val)
+  
+  # reorder STATION variable along trib axis
+  stats <- c('TF1.3', 'TF1.4', 'TF1.5', 'TF1.6', 'TF1.7', 
+    'RET1.1', 'LE1.1', 'LE1.2', 'LE1.3', 'LE1.4')
+  pax_map$STATION <- factor(pax_map$STATION, level = stats)
+  pax_map <- pax_map[order(pax_map$STATION), ]
+  pax_box$STATION <- factor(pax_box$STATION, level = stats)
+  
+  # medians for plotting
+  pbox <- ggplot(na.omit(pax_box), aes(x = STATION, y = lnchla)) + 
+      geom_boxplot(fill = pax_map$cols) +
+      scale_y_continuous(
+        y_lab,
+    		limits = c(-1, 7)
+    		) + 
+      theme_classic() + 
+      theme(
+        legend.position = 'none',
+        axis.title.x = element_blank()
+        )
+
+  # for month on the map
+  yr_labs <- yr_vals
+  yr_labs <- data.frame(
+    LONG = -76.45, 
+    LAT = 38.7, 
+    yr = yr_labs[which(yr_val == yr_vals)]
+    )
+  
+  # map
+  pmap <- ggplot(pax_meta, aes(x = LONG, y = LAT)) + 
+    geom_polygon(data = pax_clip, aes(x = long, y = lat, group = group),
+      fill = wt_col) +
+    coord_map(
+      xlim = c(-76.78, -76.36),
+      ylim = c(38.27, 38.85)
+    ) +
+    geom_text(data = yr_labs, aes(label = yr)) + 
+    geom_point(data = pax_map, size = pax_map$ptsz,
+      pch = 21, fill = pax_map$cols, colour = 'black') +
+    theme_mine() + 
+    theme(axis.title = element_blank())
+   
+  #combine
+  grid.arrange(
+    pbox, pmap, ncol = 2, widths = c(1, 0.5)
+    )
+  
+}
+dev.off()
+
+@
+\begin{frame}{Some exploratory graphs}
+Chlorophyll changes by year, monthly aggregations \\~\\
+\begin{center}
+\foreach \n in {1,...,29}{\includegraphics<\n>[width = \textwidth, page = \n]{figs/pax_yrtrnds.pdf}}
+\end{center}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Initial application of WRTDS/GAMs}
+
+\end{frame}
+
+\end{document}

@@ -18,20 +18,20 @@ shinyUI(pageWithSidebar(
     
     selectInput("day_num", 
       label = h4("Seasonal window"), 
-      choices = as.character(seq(0.1, 2, length = 5)),
-      selected = '0.575'
+      choices = as.character(seq(1, 13, length = 5)),
+      selected = '0.1'
     ),
     
     selectInput("year", 
       label = h4('Year window'), 
-      choices = as.character(seq(1, 30, length = 5)),
-      selected = '8.25'
+      choices = as.character(seq(2, 30, length = 5)),
+      selected = '1'
     ),
     
     selectInput("sal", 
       label = h4("Salinity window"), 
-      choices = as.character(seq(0.25, 15, length = 5)),
-      selected = '3.9375'
+      choices = as.character(seq(1, 15, length = 5)),
+      selected = '0.25'
     ),
     
     selectInput(inputId = 'logspace',

@@ -95,6 +95,14 @@ shinyUI(pageWithSidebar(
           ),
           
           column(4, 
+            selectInput(inputId = 'modout',
+              label = h4('Model output'),
+              choices = c('predicted', 'flow-normalized'), 
+              selected = 'flow-normalized'
+              )
+          ),
+          
+          column(4, 
             uiOutput('taubox')
           )
           
@@ -105,6 +113,18 @@ shinyUI(pageWithSidebar(
         h5(HTML('Observed chlorophyll (points) and model predictions (lines) as a function of salinity/flow, season, and year.')),
         
         plotOutput("fitplot", height = "100%"),
+        
+        h4(HTML('Observed and predicted by month')), 
+        
+        h5(HTML('Observed chlorophyll (points) and model predictions (lines) by month')),
+        
+        column(3, 
+            textInput("fitmonth",
+              label = h4('Months'), 
+              value = '1:12')
+          ),
+        
+        plotOutput("fitmoplot", height = "100%"),
         
         h4(HTML('Predicted and flow-normalized estimates')), 
         

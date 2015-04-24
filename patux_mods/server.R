@@ -8,8 +8,7 @@ library(survival)
 # load data
 load('LE13ests.RData')
 load('TF16ests.RData')
-load('TF17ests.RData')
-mods <- list(LE1.3 = LE13ests, TF1.6 = TF16ests, TF1.7 = TF17ests)
+mods <- list(LE1.3 = LE13ests, TF1.6 = TF16ests)
 load('pax_data.RData')
 pax_data$lim <- 0
 
@@ -157,6 +156,10 @@ shinyServer(function(input, output) {
     dt_rng <- input$dt_rng
     tau <- as.numeric(input$taubox)
     
+    # get model output
+    modout <- TRUE
+    if(input$modout == 'flow-normalized') modout <- FALSE
+    
     # aggregation period
     annuals <- TRUE
     if(input$annuals == 'monthly') annuals <- FALSE
@@ -171,9 +174,37 @@ shinyServer(function(input, output) {
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
     
     # create plot
-    fitplot(ests(), annuals = annuals, col_vec = col_vec, tau = tau, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8)
+    fitplot(ests(), annuals = annuals, predicted = modout, col_vec = col_vec, tau = tau, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8)
 
     }, height = 350, width = 700)
+  
+  # predictions and flow norms plot
+  output$fitmoplot <- renderPlot({
+    
+    # inputs
+    dt_rng <- input$dt_rng
+    tau <- as.numeric(input$taubox)
+    month <- eval(parse(text = input$fitmonth))
+    
+    # months
+
+    # chlorophyll trans
+    logspace <- FALSE
+    if(input$logspace == 'log') logspace <- TRUE
+    
+    # get model output
+    modout <- TRUE
+    if(input$modout == 'flow-normalized') modout <- FALSE
+    
+    # get color vector as parsed text string
+    col_vec <- input$col_vec
+    col_vec <- try(eval(parse(text = col_vec)), silent = TRUE)
+    if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
+    
+    # create plot
+    fitmoplot(ests(), month = month, col_vec = col_vec, tau = tau, predicted = modout, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8, ncol = 3)
+
+    }, height = 500, width = 700)
   
   # predictions and flow norms plot
   output$resplot <- renderPlot({

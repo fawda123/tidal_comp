@@ -5,7 +5,7 @@ library(doParallel)
 
 data(pax_data)
 
-stats <- c('LE1.3', 'TF1.6', 'TF1.7')
+stats <- c('LE1.3', 'TF1.7')
 
 sal <- c(seq(1, 10, by = 2), 30)
 yrs <- c(seq(2, 13, by = 2), 50)

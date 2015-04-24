@@ -208,6 +208,7 @@ shinyServer(function(input, output) {
     month <- input$month
     tau <- input$tauinp
     sal_fac <- input$sal_fac
+    gridsorlines <- input$gridsorlines
 
     # format date range
     if(!is.null(dt_rng)){
@@ -228,8 +229,13 @@ shinyServer(function(input, output) {
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
 
     # create plot
-    gridplot(ests(), month = month, logspace = logspace, years = dt_rng, 
-      col_vec = col_vec, tau = tau, sal_fac = sal_fac)
+    if(gridsorlines == 'grid'){
+      gridplot(ests(), month = month, logspace = logspace, years = dt_rng, 
+        col_vec = col_vec, tau = tau, sal_fac = sal_fac)
+    } else {
+      dynaplot(ests(), month = month, logspace = logspace, years = dt_rng, 
+        col_vec = col_vec, tau = tau)
+    }
 
     },height = 500, width = 700)
   

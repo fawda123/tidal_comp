@@ -18,20 +18,20 @@ shinyUI(pageWithSidebar(
     
     selectInput("day_num", 
       label = h4("Seasonal window"), 
-      choices = as.character(seq(1, 13, length = 5)),
-      selected = '0.1'
+      choices = as.character(c(seq(0.5, 1, by = 0.25), 1.5, 2, 10)),
+      selected = '0.5'
     ),
     
     selectInput("year", 
       label = h4('Year window'), 
-      choices = as.character(seq(2, 30, length = 5)),
-      selected = '1'
+      choices = as.character(c(seq(2, 13, by = 2), 50)),
+      selected = '8'
     ),
     
     selectInput("sal", 
       label = h4("Salinity window"), 
-      choices = as.character(seq(1, 15, length = 5)),
-      selected = '0.25'
+      choices = as.character(c(seq(1, 10, by = 2), 30)),
+      selected = '3'
     ),
     
     selectInput(inputId = 'logspace',
@@ -125,6 +125,13 @@ shinyUI(pageWithSidebar(
         fluidRow(
           
           h5(HTML('Plot the relationship between chlorophyll and salinity across the time series using a gridded surface for chlorophyll.  Plots are facetted by month to reduce seasonal variation in the observed trends. The plots are also constrained to the fifth and ninety-fifth percentile of observed salinity values during the month of interest to limit the predictions within the data domain. Linear interpolation is used to create a smoother surface.  The raw data in the interpolation grid can be seen by setting the smoothing factor to one.  Processing time may be excessive for large smoothing factors (e.g., > 10).')), 
+          
+          column(3, 
+            selectInput("gridsorlines",
+              label = h4('Plot type'),
+              choices = c('grid', 'line'), 
+              selected = 'grid')
+          ),
           
           column(3, 
             textInput("month",

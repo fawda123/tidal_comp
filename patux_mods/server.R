@@ -1,14 +1,33 @@
 # packages to use
 library(WRTDStidal)
 library(survival)
+library(XML)
 # devtools::load_all('M:/docs/wtreg_for_estuaries')
 
-# functions to use
+# get files on server
+files_s3 <- httr::GET('https://s3.amazonaws.com/patux/')$content
+files_s3 <- rawToChar(files_s3)
+files_s3 <- htmlTreeParse(files_s3, useInternalNodes = T)
+files_s3 <- xpathSApply(files_s3, '//contents//key', xmlValue)
 
-# load data
-load('LE13ests.RData')
-load('TF16ests.RData')
-mods <- list(LE1.3 = LE13ests, TF1.6 = TF16ests)
+mods <- vector('list', length(files_s3))
+names(mods) <- files_s3
+for(fl in files_s3){
+
+  raw_content <- paste0('https://s3.amazonaws.com/patux/', fl)
+  raw_content <- httr::GET(raw_content)$content
+  connect <- rawConnection(raw_content)
+  load(connect)
+  nm <- gsub('\\.RData', '', fl)
+  dat <- get(nm)
+  rm(list = nm)
+  close(connect) 
+  mods[[fl]] <- dat
+  
+}
+names(mods) <- c('LE1.3','TF1.6')
+
+# raw data
 load('pax_data.RData')
 pax_data$lim <- 0
 

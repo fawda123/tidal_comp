@@ -13,7 +13,7 @@ mos <- c(seq(0.5, 1, by = 0.25), 1.5, 2, 10)
 grd <- expand.grid(sal, yrs, mos)
 names(grd) <- c('sal', 'yrs', 'mos')
 
-cl <- makeCluster(4)
+cl <- makeCluster(7)
 registerDoParallel(cl)
 
 strt <- Sys.time()
@@ -39,19 +39,12 @@ for(stat in stats){
     # fit model
     mod <- WRTDStidal::modfit(tomod, wins = wins, tau = c(0.1, 0.5, 0.9), min_obs = FALSE, trace = T)
   
-    mod
+    nm <- paste(grd[i, 3], grd[i, 2], grd[i, 1], sep = '_')
+    
+    nm <- paste0(stat, '_' , nm)
+    assign(nm, mod)
+    save(list = nm, file = paste0('data/', nm, '.RData'))
   
   }
 
-  # create names for indexing
-  # note that column order was changed but doesn't affect order of results
-  # new order is day_num, year, sal
-  names(ests) <- paste(grd[, 3], grd[, 2], grd[, 1])
-
-  # save output
-  flnm <- paste0(gsub('\\.', '', stat), 'ests')
-  assign(flnm, ests)
-  save(list = flnm, file = paste0('M:/docs/tidal_comp/data/', flnm, '.RData'))
-  save(list = flnm, file = paste0('M:/docs/tidal_comp/patux_wtreg/', flnm, '.RData'))
-  
 }

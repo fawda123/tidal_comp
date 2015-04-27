@@ -286,7 +286,6 @@ shinyServer(function(input, output) {
   output$tableperf <- renderTable({
     
     to_tab <- wrtdsperf(ests())
-    to_tab <- attr(to_tab, 'perf')
     to_tab <- to_tab[rev(1:nrow(to_tab)), ]
     
     to_tab

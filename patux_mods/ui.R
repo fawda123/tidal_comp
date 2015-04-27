@@ -134,7 +134,7 @@ shinyUI(pageWithSidebar(
         
         h4('Performance metrics for each model'), 
         
-        h5(HTML('Performance metrics for each model include goodness of fit (gfit), root mean square error (rmse), and normalized mean square error (nmse).  Goodness of fit is calculated as 1 minus the ratio between the sum of absolute deviations in the fully parameterized models and the sum of absolute deviations in the null (non-conditional) quantile model. Root mean square error is based on square root of the mean of the squared residuals, whereas normalized mean square error is the sum of the squared errors divided by the sum of the non-conditional errors.')),
+        h5(HTML('Performance metrics for each model include goodness of fit (gfit), root mean square error (rmse), and normalized mean square error (nmse).  Goodness of fit is calculated as 1 minus the ratio between the sum of absolute deviations in the fully parameterized models and the sum of absolute deviations in the null (non-conditional) quantile model. Root mean square error is the square root of the mean of the squared residuals, whereas normalized mean square error is the sum of the squared errors divided by the sum of the non-conditional errors.  Metrics apply only to chlorophyll values in log-space.')),
         
         tableOutput("tableperf")
         

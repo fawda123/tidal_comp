@@ -130,7 +130,7 @@ Monitoring stations in the Patuxent River Estuary... \\~\\
 \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
-\centerline{\fbox{\includegraphics[width = 0.9\textwidth]{M:/docs/tidal_comp/figs/stations.png}}}
+\centerline{\fbox{\includegraphics[width = 0.9\textwidth]{figs/stations.png}}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -148,7 +148,7 @@ Monitoring stations in the Patuxent River Estuary... \\~\\
 \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
-\centerline{\fbox{\includegraphics[width = 0.9\textwidth]{M:/docs/tidal_comp/figs/stations.png}}}
+\centerline{\fbox{\includegraphics[width = 0.9\textwidth]{figs/stations.png}}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -182,15 +182,43 @@ Chlorophyll changes by year, monthly aggregations \\~\\
 
 %%%%%%
 \begin{frame}{Initial application of WRTDS/GAMs}
-
+Only preliminary evaluations so far... \\~\\
+WRTDS and GAMs applied to TF1.6, LE1.3 \\~\\
+General questions \\~\\
+\begin{itemize}
+\item Do the models produce reasonable results for Patuxent? \\~\\
+\item Are the results comparable? \\~\\
+\end{itemize}
 \end{frame}
 
 %%%%%%
-\begin{frame}{misc}
-Other talking points
-what window widths
-salinity v flow
-best ways to compare
+\begin{frame}{Initial application of WRTDS/GAMs}
+Online \href{https://beckmw.shinyapps.io/patux_mods/}{widget} to evaluate WRTDS results - uses \href{https://github.com/fawda123/wtreg_for_estuaries}{WRTDStidal} package \\~\\
+\centerline{\fbox{\includegraphics[width = 0.75\textwidth]{figs/widget.png}}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Initial application of WRTDS/GAMs}
+GAMs showing comparable results...
+\end{frame}
+
+%%%%%%
+\begin{frame}{Discussion points}
+\begin{itemize}
+\item General consensus that we are on the right track?\\~\\
+\item Best ways to compare (simple metrics, comparison of flow-normalized, etc.) \\~\\
+\item Salinity vs flow for model development \\~\\
+\item Mean vs quantile comparisons \\~\\
+\item Effect of fitting process on results (window combos, no. of knots)
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Discussion points}
+Contacts: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}, \href{mailto:rmurphy@chesapeakebay.net}{rmurphy@chesapeakebay.net} \\~\\
+Widget: \href{https://beckmw.shinyapps.io/patux_mods/}{https://beckmw.shinyapps.io/patux\_mods/} \\~\\
+WRTDStidal: \href{https://github.com/fawda123/wtreg_for_estuaries}{https://github.com/fawda123/wtreg\_for\_estuaries} \\~\\
+This presentation: \href{https://github.com/fawda123/tidal_comp/raw/master/text/summary.pdf}{https://github.com/fawda123/tidal\_comp/raw/master/text/summary.pdf}
 \end{frame}
 
 \end{document}

@@ -5,7 +5,7 @@ library(doParallel)
 
 data(pax_data)
 
-stats <- c('LE1.3', 'TF1.7')
+stats <- c('TF1.6', 'LE1.3')
 
 sal <- c(seq(1, 10, by = 2), 30)
 yrs <- c(seq(2, 13, by = 2), 50)
@@ -13,7 +13,7 @@ mos <- c(seq(0.5, 1, by = 0.25), 1.5, 2, 10)
 grd <- expand.grid(sal, yrs, mos)
 names(grd) <- c('sal', 'yrs', 'mos')
 
-cl <- makeCluster(7)
+cl <- makeCluster(6)
 registerDoParallel(cl)
 
 strt <- Sys.time()

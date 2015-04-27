@@ -4,28 +4,11 @@ library(survival)
 library(XML)
 # devtools::load_all('M:/docs/wtreg_for_estuaries')
 
-# get files on server
+# get names of files on server
 files_s3 <- httr::GET('https://s3.amazonaws.com/patux/')$content
 files_s3 <- rawToChar(files_s3)
 files_s3 <- htmlTreeParse(files_s3, useInternalNodes = T)
 files_s3 <- xpathSApply(files_s3, '//contents//key', xmlValue)
-
-mods <- vector('list', length(files_s3))
-names(mods) <- files_s3
-for(fl in files_s3){
-
-  raw_content <- paste0('https://s3.amazonaws.com/patux/', fl)
-  raw_content <- httr::GET(raw_content)$content
-  connect <- rawConnection(raw_content)
-  load(connect)
-  nm <- gsub('\\.RData', '', fl)
-  dat <- get(nm)
-  rm(list = nm)
-  close(connect) 
-  mods[[fl]] <- dat
-  
-}
-names(mods) <- c('LE1.3','TF1.6')
 
 # raw data
 load('pax_data.RData')
@@ -56,12 +39,22 @@ shinyServer(function(input, output) {
     # get station
     stat <- input$stat
     
-    out <- mods[[stat]]
+    # get windows
+    wins <- paste(input$day_num, input$year, input$sal, sep = '_')
     
-    # find element that matches window selection
-    wins <- paste(input$day_num, input$year, input$sal)
-    out <- out[[which(wins == names(out))]]
-    
+    # object and file names
+    nm <- paste(stat, wins, sep = '_')
+    fl <- paste0(nm, '.RData')
+
+    # upload
+    raw_content <- paste0('https://s3.amazonaws.com/patux/', fl)
+    raw_content <- httr::GET(raw_content)$content
+    connect <- rawConnection(raw_content)
+    load(connect)
+    out <- get(nm)
+    rm(list = nm)
+    close(connect) 
+
     return(out)
     
   })

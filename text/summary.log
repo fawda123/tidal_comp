@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  29 APR 2015 08:53
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  30 APR 2015 08:44
 entering extended mode
 **summary.tex
 (M:\docs\tidal_comp\text\summary.tex
@@ -1490,7 +1490,7 @@ LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4> not available
 File: figs/stations.png Graphic file (type png)
 
 <use figs/stations.png>
-Package pdftex.def Info: figs/stations.png used on input line 136.
+Package pdftex.def Info: figs/stations.png used on input line 135.
 (pdftex.def)             Requested size: 138.6277pt x 201.15979pt.
  [5
 
@@ -1498,7 +1498,7 @@ Package pdftex.def Info: figs/stations.png used on input line 136.
 File: figs/stations.png Graphic file (type png)
 
 <use figs/stations.png>
-Package pdftex.def Info: figs/stations.png used on input line 154.
+Package pdftex.def Info: figs/stations.png used on input line 153.
 (pdftex.def)             Requested size: 138.6277pt x 201.15979pt.
  [6
 
@@ -1507,7 +1507,7 @@ Package pdftex.def Info: figs/stations.png used on input line 154.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 1>
-Package pdftex.def Info: figs/pax_chl.pdf, page1 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page1 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [7
 
@@ -1516,7 +1516,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page1 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 2>
-Package pdftex.def Info: figs/pax_chl.pdf, page2 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page2 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [8
 
@@ -1525,7 +1525,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page2 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 3>
-Package pdftex.def Info: figs/pax_chl.pdf, page3 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page3 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [9
 
@@ -1534,7 +1534,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page3 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 4>
-Package pdftex.def Info: figs/pax_chl.pdf, page4 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page4 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [10
 
@@ -1543,7 +1543,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page4 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 5>
-Package pdftex.def Info: figs/pax_chl.pdf, page5 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page5 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [11
 
@@ -1552,7 +1552,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page5 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 6>
-Package pdftex.def Info: figs/pax_chl.pdf, page6 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page6 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [12
 
@@ -1561,7 +1561,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page6 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 7>
-Package pdftex.def Info: figs/pax_chl.pdf, page7 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page7 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [13
 
@@ -1570,7 +1570,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page7 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 8>
-Package pdftex.def Info: figs/pax_chl.pdf, page8 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page8 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [14
 
@@ -1579,7 +1579,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page8 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 9>
-Package pdftex.def Info: figs/pax_chl.pdf, page9 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page9 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [15
 
@@ -1588,7 +1588,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page9 used on input line 163.
 File: figs/pax_chl.pdf Graphic file (type pdf)
 
 <use figs/pax_chl.pdf, page 10>
-Package pdftex.def Info: figs/pax_chl.pdf, page10 used on input line 163.
+Package pdftex.def Info: figs/pax_chl.pdf, page10 used on input line 162.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [16
 
@@ -1597,7 +1597,7 @@ Package pdftex.def Info: figs/pax_chl.pdf, page10 used on input line 163.
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 1>
-Package pdftex.def Info: figs/pax_trnds.pdf, page1 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page1 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [17
 
@@ -1606,7 +1606,7 @@ e=2, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 2>
-Package pdftex.def Info: figs/pax_trnds.pdf, page2 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page2 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [18
 
@@ -1615,7 +1615,7 @@ e=3, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 3>
-Package pdftex.def Info: figs/pax_trnds.pdf, page3 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page3 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [19
 
@@ -1624,7 +1624,7 @@ e=4, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 4>
-Package pdftex.def Info: figs/pax_trnds.pdf, page4 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page4 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [20
 
@@ -1633,7 +1633,7 @@ e=5, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 5>
-Package pdftex.def Info: figs/pax_trnds.pdf, page5 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page5 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [21
 
@@ -1642,7 +1642,7 @@ e=6, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 6>
-Package pdftex.def Info: figs/pax_trnds.pdf, page6 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page6 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [22
 
@@ -1651,7 +1651,7 @@ e=7, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 7>
-Package pdftex.def Info: figs/pax_trnds.pdf, page7 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page7 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [23
 
@@ -1660,7 +1660,7 @@ e=8, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 8>
-Package pdftex.def Info: figs/pax_trnds.pdf, page8 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page8 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [24
 
@@ -1669,7 +1669,7 @@ e=9, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 9>
-Package pdftex.def Info: figs/pax_trnds.pdf, page9 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page9 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [25
 
@@ -1678,7 +1678,7 @@ e=10, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 10>
-Package pdftex.def Info: figs/pax_trnds.pdf, page10 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page10 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [26
 
@@ -1687,7 +1687,7 @@ e=11, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 11>
-Package pdftex.def Info: figs/pax_trnds.pdf, page11 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page11 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [27
 
@@ -1696,7 +1696,7 @@ ge=12, 578.16pt x 289.08pt>
 File: figs/pax_trnds.pdf Graphic file (type pdf)
 
 <use figs/pax_trnds.pdf, page 12>
-Package pdftex.def Info: figs/pax_trnds.pdf, page12 used on input line 172.
+Package pdftex.def Info: figs/pax_trnds.pdf, page12 used on input line 171.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [28
 
@@ -1705,7 +1705,7 @@ page=1, 578.16pt x 289.08pt>
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 1>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page1 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page1 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [29
 
@@ -1714,7 +1714,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page1 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 2>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page2 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page2 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [30
 
@@ -1723,7 +1723,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page2 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 3>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page3 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page3 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [31
 
@@ -1732,7 +1732,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page3 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 4>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page4 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page4 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [32
 
@@ -1741,7 +1741,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page4 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 5>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page5 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page5 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [33
 
@@ -1750,7 +1750,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page5 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 6>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page6 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page6 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [34
 
@@ -1759,7 +1759,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page6 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 7>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page7 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page7 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [35
 
@@ -1768,7 +1768,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page7 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 8>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page8 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page8 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [36
 
@@ -1777,7 +1777,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page8 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 9>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page9 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page9 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [37
 
@@ -1786,7 +1786,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page9 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 10>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page10 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page10 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [38
 
@@ -1795,7 +1795,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page10 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 11>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page11 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page11 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [39
 
@@ -1804,7 +1804,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page11 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 12>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page12 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page12 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [40
 
@@ -1813,7 +1813,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page12 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 13>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page13 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page13 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [41
 
@@ -1822,7 +1822,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page13 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 14>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page14 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page14 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [42
 
@@ -1831,7 +1831,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page14 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 15>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page15 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page15 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [43
 
@@ -1840,7 +1840,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page15 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 16>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page16 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page16 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [44
 
@@ -1849,7 +1849,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page16 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 17>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page17 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page17 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [45
 
@@ -1858,7 +1858,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page17 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 18>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page18 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page18 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [46
 
@@ -1867,7 +1867,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page18 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 19>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page19 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page19 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [47
 
@@ -1876,7 +1876,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page19 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 20>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page20 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page20 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [48
 
@@ -1885,7 +1885,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page20 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 21>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page21 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page21 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [49
 
@@ -1894,7 +1894,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page21 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 22>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page22 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page22 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [50
 
@@ -1903,7 +1903,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page22 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 23>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page23 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page23 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [51
 
@@ -1912,7 +1912,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page23 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 24>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page24 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page24 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [52
 
@@ -1921,7 +1921,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page24 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 25>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page25 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page25 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [53
 
@@ -1930,7 +1930,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page25 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 26>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page26 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page26 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [54
 
@@ -1939,7 +1939,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page26 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 27>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page27 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page27 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [55
 
@@ -1948,7 +1948,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page27 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 28>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page28 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page28 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [56
 
@@ -1957,7 +1957,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page28 used on input line 181.
 File: figs/pax_yrtrnds.pdf Graphic file (type pdf)
 
 <use figs/pax_yrtrnds.pdf, page 29>
-Package pdftex.def Info: figs/pax_yrtrnds.pdf, page29 used on input line 181.
+Package pdftex.def Info: figs/pax_yrtrnds.pdf, page29 used on input line 180.
 (pdftex.def)             Requested size: 342.2953pt x 171.14679pt.
  [57
 
@@ -1967,7 +1967,7 @@ Package pdftex.def Info: figs/pax_yrtrnds.pdf, page29 used on input line 181.
 File: figs/widget.png Graphic file (type png)
 
 <use figs/widget.png>
-Package pdftex.def Info: figs/widget.png used on input line 198.
+Package pdftex.def Info: figs/widget.png used on input line 197.
 (pdftex.def)             Requested size: 256.72147pt x 182.45209pt.
  [59
 
@@ -1977,7 +1977,7 @@ Package pdftex.def Info: figs/widget.png used on input line 198.
 [61
 
 ]
-Overfull \hbox (9.27924pt too wide) in paragraph at lines 223--223
+Overfull \hbox (9.27924pt too wide) in paragraph at lines 222--222
 [][]\OT1/cmr/m/n/10.95 https://github.com/fawda123/tidal[]comp/raw/master/text/
 summary.pdf[][]  
  []
@@ -1989,11 +1989,11 @@ Package atenddvi Info: Last page = 62.
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 225.
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 225.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 224.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 224.
  (M:\docs\tidal_comp\text\summary.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 225.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 225.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 224.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 224.
 Package rerunfilecheck Info: File `summary.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -2001,7 +2001,7 @@ Package rerunfilecheck Info: File `summary.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 225.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 224.
  ) 
 Here is how much of TeX's memory you used:
  28250 strings out of 493921
@@ -2016,7 +2016,7 @@ Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on summary.pdf (62 pages, 4566236 bytes).
+Output written on summary.pdf (62 pages, 4566168 bytes).
 PDF statistics:
  2338 PDF objects out of 2487 (max. 8388607)
  125 named destinations out of 1000 (max. 500000)

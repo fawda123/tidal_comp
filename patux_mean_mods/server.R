@@ -238,6 +238,8 @@ shinyServer(function(input, output) {
     col_vec <- try(eval(parse(text = col_vec)), silent = TRUE)
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
 
+    browser()
+    
     # create plot
     if(gridsorlines == 'grid'){
       gridplot(ests(), month = month, logspace = logspace, years = dt_rng, 

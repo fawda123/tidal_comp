@@ -37,11 +37,11 @@ for(stat in stats){
     wins <- with(wins, list(mos, yrs, sal))
     
     # fit model
-    mod <- WRTDStidal::modfit(tomod, wins = wins, resp_type = 'mean', min_obs = FALSE, trace = T)
+    mod <- WRTDStidal::modfit(tomod, wins = wins, resp_type = 'quantile', min_obs = FALSE, trace = T)
   
     nm <- paste(grd[i, 3], grd[i, 2], grd[i, 1], sep = '_')
     
-    nm <- paste0(stat, 'mean_' , nm)
+    nm <- paste0(stat, '_' , nm)
     assign(nm, mod)
     save(list = nm, file = paste0('data/', nm, '.RData'))
   

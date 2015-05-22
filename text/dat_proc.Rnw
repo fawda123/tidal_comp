@@ -51,25 +51,30 @@ The data were first imported into R.
 # created March 2015, M. Beck
 
 ## packages to use
-# this is just to load dplyr, ggplot2
-devtools::load_all('M:/docs/tidal_comp/TidalComp')
+library(dplyr)
+library(gridExtra)
+library(tidyr)
+library(ggplot2)
+library(RColorBrewer)
+library(scales)
+library(wesanderson)
 
 ## import
 
+root_path <- gsub('text', '', getwd())
+
 # meta
-pax_meta <- system.file('PAX_station_info.csv', package = 'TidalComp')
-pax_meta <- read.csv(pax_meta, header = TRUE, 
-  stringsAsFactors = FALSE)
+pax_meta <- read.csv(paste0(root_path, '/inst/PAX_station_info.csv'), 
+  header = TRUE, stringsAsFactors = FALSE)
 
 # data
-pax_data <- system.file('PAX_TRIB_CHLAandSALINITY_85TO14.csv', 
-  package = 'TidalComp')
-pax_data <- read.csv(pax_data, header = TRUE, 
-  stringsAsFactors = FALSE)
+pax_data <- read.csv(paste0(root_path, '/inst/PAX_TRIB_CHLAandSALINITY_85TO14.csv'), 
+  header = TRUE, stringsAsFactors = FALSE) 
 
 # flow data, combined with data after processing in a later chunk
-flow_data <- system.file('PatuxentDailyFlow_84to14.csv', 
-  package = 'TidalComp')
+pax_flow <- read.csv(paste0(root_path, '/inst/PatuxentDailyFlow_84to15.csv'), 
+  header = TRUE, stringsAsFactors = FALSE)
+pax_flow <- mutate(pax_flow, date = as.Date(date, format = '%m/%d/%Y'))
 
 # remove 1985 from pax_data
 pax_data <- filter(pax_data, !grepl('/1985$', date))
@@ -134,12 +139,12 @@ bchl_tmp <- filter(pax_data,
 
 @
 
-The data were recombined by date and station.  Some plots of the raw data are below.
+The data were recombined by date and station.  Daily flow data were also merged by matching only the days in the water quality data.  Some plots of the raw data are below.
 <<eval = TRUE, cache = FALSE, fig = TRUE, fig.width = 7, fig.height = 4.5>>=
 ## 
 # merge surface chl and salinity data, then plot
-
-pax_data <- full_join(schl_tmp, sal_tmp, by = c('date', 'STATION'))
+pax_data <- full_join(schl_tmp, sal_tmp, by = c('date', 'STATION')) %>% 
+  left_join(pax_flow, by = 'date')
 
 # merge surface and bottom chlorophyll
 pax_chldata <- full_join(schl_tmp, bchl_tmp, by = c('date', 'STATION')) %>% 

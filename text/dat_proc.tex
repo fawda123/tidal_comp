@@ -120,7 +120,11 @@ The data were first imported into R.
 \hlcom{# flow data, combined with data after processing in a later chunk}
 \hlstd{pax_flow} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlkwd{paste0}\hlstd{(root_path,} \hlstr{'/inst/PatuxentDailyFlow_84to15.csv'}\hlstd{),}
   \hlkwc{header} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{stringsAsFactors} \hlstd{=} \hlnum{FALSE}\hlstd{)}
-\hlstd{pax_flow} \hlkwb{<-} \hlkwd{mutate}\hlstd{(pax_flow,} \hlkwc{date} \hlstd{=} \hlkwd{as.Date}\hlstd{(date,} \hlkwc{format} \hlstd{=} \hlstr{'%m/%d/%Y'}\hlstd{))}
+\hlstd{pax_flow} \hlkwb{<-} \hlkwd{mutate}\hlstd{(pax_flow,}
+  \hlkwc{date} \hlstd{=} \hlkwd{as.Date}\hlstd{(date,} \hlkwc{format} \hlstd{=} \hlstr{'%m/%d/%Y'}\hlstd{),}
+  \hlkwc{lnQ} \hlstd{=} \hlkwd{log}\hlstd{(flow_cfs)}
+  \hlstd{)} \hlopt{%>%}
+  \hlkwd{select}\hlstd{(}\hlopt{-}\hlstd{flow_cfs)}
 
 \hlcom{# remove 1985 from pax_data}
 \hlstd{pax_data} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data,} \hlopt{!}\hlkwd{grepl}\hlstd{(}\hlstr{'/1985$'}\hlstd{, date))}

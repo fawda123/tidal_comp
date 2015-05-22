@@ -74,8 +74,12 @@ pax_data <- read.csv(paste0(root_path, '/inst/PAX_TRIB_CHLAandSALINITY_85TO14.cs
 # flow data, combined with data after processing in a later chunk
 pax_flow <- read.csv(paste0(root_path, '/inst/PatuxentDailyFlow_84to15.csv'), 
   header = TRUE, stringsAsFactors = FALSE)
-pax_flow <- mutate(pax_flow, date = as.Date(date, format = '%m/%d/%Y'))
-
+pax_flow <- mutate(pax_flow, 
+  date = as.Date(date, format = '%m/%d/%Y'),
+  lnQ = log(flow_cfs)
+  ) %>% 
+  select(-flow_cfs)
+  
 # remove 1985 from pax_data
 pax_data <- filter(pax_data, !grepl('/1985$', date))
 

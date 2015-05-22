@@ -67,6 +67,10 @@ pax_data <- system.file('PAX_TRIB_CHLAandSALINITY_85TO14.csv',
 pax_data <- read.csv(pax_data, header = TRUE, 
   stringsAsFactors = FALSE)
 
+# flow data, combined with data after processing in a later chunk
+flow_data <- system.file('PatuxentDailyFlow_84to14.csv', 
+  package = 'TidalComp')
+
 # remove 1985 from pax_data
 pax_data <- filter(pax_data, !grepl('/1985$', date))
 

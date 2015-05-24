@@ -20,13 +20,19 @@ shinyServer(function(input, output) {
   ## reactive data based on inputs
   
   # raw data
-  dat <- reactive({
+  dat <- eventReactive(input$getdat, {
 
     stat <- input$stat
+    exp <- input$exp
+    exprm <- 'lnQ'
+    if(exp != 'Salinity') exprm <- 'sal'
+  
     out <- pax_data[pax_data$STATION %in% stat, ]
     
-    # make tidal object
+    ## make the tidal object
     out$STATION <- NULL
+    out <- out[, !names(out) %in% exprm]
+
     out <- tidal(na.omit(out))
     
     return(out)
@@ -34,18 +40,21 @@ shinyServer(function(input, output) {
   })
   
   # modelled data
-  ests <- reactive({
+  ests <- eventReactive(input$getdat, {
 
     # get station
     stat <- input$stat
+    exp <- input$exp
+    expfl <- 'sal'
+    if(exp == 'Flow') expfl <- 'flo'
     
     # get windows
     wins <- paste(input$day_num, input$year, input$sal, sep = '_')
     
     # object and file names
-    nm <- paste0(stat, 'mean_', wins)
+    nm <- paste0(stat, expfl, '_', wins)
     fl <- paste0(nm, '.RData')
-    
+
     # upload
     raw_content <- paste0('https://s3.amazonaws.com/patuxmean/', fl)
     raw_content <- httr::GET(raw_content)$content
@@ -97,18 +106,33 @@ shinyServer(function(input, output) {
     # inputs
     obstype <- input$obstype
     dt_rng <- input$dt_rng
+    exp <- input$exp
+    expin <- 'Flow'
+    if(exp == 'Salinity') expin <- 'Salinity'
     
     # points or lines
     lines <- TRUE
     if(obstype == 'points') lines <- FALSE
-    
+
     # chlorophyll trans
     logspace <- FALSE
     if(input$logspace == 'log') logspace <- TRUE
     
+    # sort out names for facets to pass to ggplot
+    facet_names <- list(
+      'chl'= chllab(logspace),
+      'sal' = expin
+    )
+    names(facet_names)[1] <- grep('chla$', names(dat()), value = TRUE)
+        
+    facet_labeller <- function(variable,value){
+      return(facet_names[value])
+    }
+
     # get color vector as parsed text string
     p <- obsplot(dat(), lines = lines, dt_rng = dt_rng, logspace = logspace, 
       alpha = 0.6, size = 4, lwd = 0.7)
+    p <- p + facet_grid(variable ~ .,  labeller = facet_labeller)
     p
  
     },height = 400, width = 700)
@@ -140,7 +164,7 @@ shinyServer(function(input, output) {
     
     # get model output
     modout <- TRUE
-    if(input$modout == 'salinity-normalized') modout <- FALSE
+    if(input$modout == 'normalized') modout <- FALSE
     
     # aggregation period
     annuals <- TRUE
@@ -175,7 +199,7 @@ shinyServer(function(input, output) {
     
     # get model output
     modout <- TRUE
-    if(input$modout == 'salinity-normalized') modout <- FALSE
+    if(input$modout == 'normalized') modout <- FALSE
     
     # get color vector as parsed text string
     col_vec <- input$col_vec
@@ -237,8 +261,6 @@ shinyServer(function(input, output) {
     col_vec <- input$col_vec
     col_vec <- try(eval(parse(text = col_vec)), silent = TRUE)
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
-
-    browser()
     
     # create plot
     if(gridsorlines == 'grid'){

@@ -9,13 +9,21 @@ shinyUI(pageWithSidebar(
   # Sidebar with a slider input for number of observations
   sidebarPanel(
     
+    actionButton('getdat', label = "Get data!"),
+    
     selectInput(inputId = 'stat',
       label = h4('Pick station'),
-      choices = c('TF1.6', 'LE1.3'), 
-      selected = 'LE1.3'),
+      choices = c('TF1.6', 'LE1.2'), 
+      selected = 'LE1.2'),
     
     uiOutput("daterng"),
     
+    selectInput(inputId = 'exp', 
+      label = h4('Pick explanatory variable'), 
+      choices = c('Flow', 'Salinity'), 
+      selected = 'Salinity'
+    ),
+      
     selectInput("day_num", 
       label = h4("Seasonal window"), 
       choices = as.character(c(seq(0.5, 1, by = 0.25), 2, 10)),
@@ -29,9 +37,9 @@ shinyUI(pageWithSidebar(
     ),
     
     selectInput("sal", 
-      label = h4("Salinity window"), 
-      choices = as.character(c(seq(5, 15, by = 3), 30)),
-      selected = '5'
+      label = h4("Salinity/flow window"), 
+      choices = as.character(c(seq(0.5, 1, by = 0.1), 5)),
+      selected = '0.5'
     ),
     
     selectInput(inputId = 'logspace',
@@ -43,8 +51,6 @@ shinyUI(pageWithSidebar(
     textInput("col_vec",
       label = h4('Color palette'), 
       value = NULL),
-    
-    submitButton("Submit"), 
     
     width = 3
     
@@ -97,7 +103,7 @@ shinyUI(pageWithSidebar(
           column(4, 
             selectInput(inputId = 'modout',
               label = h4('Model output'),
-              choices = c('predicted', 'salinity-normalized'), 
+              choices = c('predicted', 'normalized'), 
               selected = 'salinity-normalized'
               )
           )

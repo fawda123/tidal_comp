@@ -33,7 +33,7 @@ shinyServer(function(input, output) {
     out$STATION <- NULL
     out <- out[, !names(out) %in% exprm]
 
-    out <- tidal(na.omit(out))
+    out <- list(dat = tidal(na.omit(out)), exp = exp)
     
     return(out)
     
@@ -64,7 +64,7 @@ shinyServer(function(input, output) {
     rm(list = nm)
     close(connect) 
 
-    return(out)
+    return(list(dat = out, exp = exp))
     
   })
   
@@ -73,7 +73,7 @@ shinyServer(function(input, output) {
   # for initial window center
   output$refdate <- renderUI({
 
-    refs <- as.Date(mean(dat()$date), format = '%Y-%m-%d', 
+    refs <- as.Date(mean(dat()$dat[, 'date']), format = '%Y-%m-%d', 
       origin = '1970-01-01')
     
     dateInput('refdt', 
@@ -87,7 +87,7 @@ shinyServer(function(input, output) {
   # for initial date range
   output$daterng <- renderUI({
 
-    rngs <- range(dat()$date)
+    rngs <- range(dat()$dat[, 'date'])
     
     dateRangeInput("dt_rng",
       label = h4("Pick date range"), 
@@ -102,13 +102,10 @@ shinyServer(function(input, output) {
   
   # observed data
   output$obsplot <- renderPlot({
-    
+
     # inputs
     obstype <- input$obstype
     dt_rng <- input$dt_rng
-    exp <- input$exp
-    expin <- 'Flow'
-    if(exp == 'Salinity') expin <- 'Salinity'
     
     # points or lines
     lines <- TRUE
@@ -117,20 +114,20 @@ shinyServer(function(input, output) {
     # chlorophyll trans
     logspace <- FALSE
     if(input$logspace == 'log') logspace <- TRUE
-    
+
     # sort out names for facets to pass to ggplot
     facet_names <- list(
       'chl'= chllab(logspace),
-      'sal' = expin
+      'sal' = dat()$exp
     )
-    names(facet_names)[1] <- grep('chla$', names(dat()), value = TRUE)
+    names(facet_names)[1] <- grep('chla$', names(dat()$dat), value = TRUE)
         
     facet_labeller <- function(variable,value){
       return(facet_names[value])
     }
 
     # get color vector as parsed text string
-    p <- obsplot(dat(), lines = lines, dt_rng = dt_rng, logspace = logspace, 
+    p <- obsplot(dat()$dat, lines = lines, dt_rng = dt_rng, logspace = logspace, 
       alpha = 0.6, size = 4, lwd = 0.7)
     p <- p + facet_grid(variable ~ .,  labeller = facet_labeller)
     p
@@ -151,7 +148,8 @@ shinyServer(function(input, output) {
     col_vec <- try(eval(parse(text = col_vec)), silent = T)
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
     
-    wtsplot(dat(), ref = refdt, wins = wins, dt_rng = dt_rng, col_vec = col_vec, alpha = 0.8, min_obs = FALSE)
+    wtsplot(dat()$dat, ref = refdt, wins = wins, dt_rng = dt_rng, col_vec = col_vec, alpha = 0.8,
+      min_obs = FALSE, ylabs = c(dat()$exp, 'Weights'))
  
     },height = 700, width = 700)
   
@@ -180,7 +178,7 @@ shinyServer(function(input, output) {
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
     
     # create plot
-    fitplot(ests(), annuals = annuals, predicted = modout, col_vec = col_vec, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8)
+    fitplot(ests()$dat, annuals = annuals, predicted = modout, col_vec = col_vec, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8)
 
     }, height = 350, width = 700)
   
@@ -207,7 +205,7 @@ shinyServer(function(input, output) {
     if('try-error' %in% class(col_vec)) col_vec <- input$col_vec
     
     # create plot
-    fitmoplot(ests(), month = month, col_vec = col_vec, predicted = modout, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8, ncol = 3)
+    fitmoplot(ests()$dat, month = month, col_vec = col_vec, predicted = modout, logspace = logspace, dt_rng = dt_rng, size = 3, alpha = 0.8, ncol = 3)
 
     }, height = 500, width = 700)
   
@@ -231,7 +229,7 @@ shinyServer(function(input, output) {
     if(input$logspace == 'log') logspace <- TRUE
     
     # create plot
-    prdnrmplot(ests(), annuals = annuals, logspace = logspace, col_vec = col_vec, dt_rng = dt_rng, size = 3, alpha = 0.8)
+    prdnrmplot(ests()$dat, annuals = annuals, logspace = logspace, col_vec = col_vec, dt_rng = dt_rng, size = 3, alpha = 0.8)
 
     },height = 350, width = 700)
   
@@ -243,7 +241,7 @@ shinyServer(function(input, output) {
     month <- input$month
     sal_fac <- input$sal_fac
     gridsorlines <- input$gridsorlines
-
+    
     # format date range
     if(!is.null(dt_rng)){
       dt_rng <- as.numeric(strftime(dt_rng, '%Y'))
@@ -264,13 +262,17 @@ shinyServer(function(input, output) {
     
     # create plot
     if(gridsorlines == 'grid'){
-      gridplot(ests(), month = month, logspace = logspace, years = dt_rng, 
+      p <- gridplot(ests()$dat, month = month, logspace = logspace, years = dt_rng, 
         col_vec = col_vec, sal_fac = sal_fac)
+      p + scale_y_continuous(ests()$exp)
     } else {
-      dynaplot(ests(), month = month, logspace = logspace, years = dt_rng, 
+      p <- dynaplot(ests()$dat, month = month, logspace = logspace, years = dt_rng, 
         col_vec = col_vec)
+      p + scale_x_continuous(ests()$exp)
     }
 
+    # get appropriate y axis title
+ 
     },height = 500, width = 700)
   
 

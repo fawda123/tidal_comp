@@ -42,6 +42,8 @@ options(replace.assign=TRUE,width=90)
 
 \section{Outline}
 \begin{outline}
+
+\0 Introduction
 \1 Needs
 \2 Quantitative tools that describe trends in water quality time series are needed to identify factors that influence ecosystem condition and to evaluate the effects of management activities in the context of multiple drivers
 \2 Recent adaptation of statistical models for evaluating water quality time series have shown promise for application in tidal waters, specifically \ac{GAM} and \ac{WRTDS}
@@ -52,33 +54,37 @@ options(replace.assign=TRUE,width=90)
 \1 Objectives:
 \2 Provide a narrative comparison of the statistical foundation of each technique, both as a general description and as a means to evaluate water quality time series
 \2 Use each technique to develop an empirical description of water quality changes in a common dataset with known historical changes in water quality drivers
+\2 Apply the models to simulated data to evaluate ability of the models to describe true changes
 \2 Compare each technique's ability to describe changes, as well as the differences in the information provided by each
 \2 Provide recommendations on the most appropriate context for using each method
-\1 Approach
-\2 Identify candidate datasets for evaluating each method with attention on locations with known historical changes in drivers of water quality variation
-\3 Patuxent River - longitudinal gradient from watershed to mainstem influences
-\2 Quantitative comparison
-\3 Explanatory power of each method - explained variance in the response and potential sources of uncertainy.
-\3 Similarity of predictions - simple scatterplots, similarity coefficients, similarity by time periods, etc.
-\3 Similarity of flow-normalized results - simple scatterplots, similarity coefficients, similarity by time periods, etc.
-\2 Qualitative comparison
-\3 Computational requirements and potential limitations
-\3 Data needs or transferability of each technique to novel datasets
-\3 Products, e.g., conditional quantiles of \ac{WRTDS}, confidence intervals for \acp{GAM}, handling censored data, hypothesis testing vs description
-\3 Appropriate context for using each approach
+
+\0 Methods
+\1 Patuxent River Estuary background
+\2 longitudinal gradient from watershed to mainstem influences, LE1.2, TF1.6
+\2 Show plots of trends over time in observed data
+\1 Quantitative comparison
+\2 Explanatory power of each method - explained variance/fit in the response, histograms of errors (see page 14 in Moyer) - we can test for significant differences in the errors using a two-side t-test. 
+\2 Similarity of predictions - observed data, simple scatterplots, similarity coefficients, similarity by time periods, etc.
+\2 Indications of change - direction/magnitude of trends by different time periods
+\2 Similarity of flow-normalized results - simulated data, simple scatterplots, similarity coefficients, similarity by time periods, etc.
+
+\0 Results
+\1 Predicions with actual data
+\1 Simulations
+
+\0 Discussion
+\1 Qualitative comparison
+\2 Computational requirements and potential limitations
+\2 Data needs or transferability of each technique to novel datasets
+\2 Products, e.g., conditional quantiles of \ac{WRTDS}, confidence intervals for \acp{GAM}, handling censored data, hypothesis testing vs description
+\2 Appropriate context for using each approach
+
 \end{outline}
 
 \section{To do}
 \begin{enumerate}
 \item Start reviewing papers of methods comparison
-\item Run models on dataset from Rebecca
-\item Do not split stations
-\item Salinity-integration across depths
-\item Surface chlorophyll only
-\item Modify wrtds code for arbitrary time steps
+\item How to create simulated dataset...
 \end{enumerate}
-
-\section{Data documentation}
-I downloaded the data from R. Murphy email (March 13, 2015), imported into R, and exported as .RData file. 
 
 \end{document}

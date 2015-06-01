@@ -17,6 +17,8 @@ This repository contains materials for comparing generalized additive models (GA
 
 `pax_data.RData` Processed water quality data for water quality stations in the Patuxent River Estuary, 1985 to 2014.  Created in dat_proc.Rnw.
 
-`pax_fits.RData` Fitted WRTDS results for `pax_data.RData`, created in wrtds_ex.RData.
+`pax_fits.RData` Fitted WRTDS results for `pax_data.RData`, created in wrtds_ex.RData. All stations.
 
 `pax_meta.RData` Metadata for water quality stations in the Patuxent River Estuary, created in dat_proc.Rnw.
+
+`pax_wrtds.RData` WRTDS fits for LE1.2, TF1.6, flow and salinity as explanatory variables, set half-window widths of 0.5 mos, 10 yrs, and 0.5 flo/sal

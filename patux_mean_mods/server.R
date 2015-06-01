@@ -233,6 +233,19 @@ shinyServer(function(input, output) {
 
     },height = 350, width = 700)
   
+  # table of performance metrics
+  output$tableperf <- renderTable({
+    
+    # chlorophyll trans
+    logspace <- FALSE
+    if(input$logspace == 'log') logspace <- TRUE
+    
+    to_tab <- wrtdsperf(ests()$dat, logspace = logspace)
+    to_tab
+  
+  }, include.rownames = F)
+  
+  
   # grid plot
   output$gridplot <- renderPlot({
     

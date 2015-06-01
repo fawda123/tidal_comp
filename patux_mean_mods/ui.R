@@ -110,6 +110,12 @@ shinyUI(pageWithSidebar(
           
         ),
         
+        h4('Performance metrics'), 
+        
+        h5(HTML('Performance metrics include root mean square error (rmse) and normalized mean square error (nmse).  Root mean square error is the square root of the mean of the squared residuals, whereas normalized mean square error is the sum of the squared errors divided by the sum of the non-conditional errors.  Residuals are observed minus predicted values.')),
+        
+        tableOutput("tableperf"),
+        
         h4(HTML('Observed and predicted')), 
         
         h5(HTML('Observed chlorophyll (points) and model predictions (lines) as a function of salinity, season, and year.')),
@@ -136,7 +142,7 @@ shinyUI(pageWithSidebar(
         
       ),
       
-      tabPanel("Dynamic plots", 
+      tabPanel("Interpolation grids", 
       
         fluidRow(
           

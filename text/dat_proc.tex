@@ -191,7 +191,8 @@ The data were recombined by date and station.  Flow data were also merged by mat
 \hlcom{## }
 \hlcom{# merge surface chl and salinity data, then plot}
 \hlstd{pax_data} \hlkwb{<-} \hlkwd{full_join}\hlstd{(chl_tmp, sal_tmp,} \hlkwc{by} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'date'}\hlstd{,} \hlstr{'STATION'}\hlstd{))} \hlopt{%>%}
-  \hlkwd{left_join}\hlstd{(pax_flow,} \hlkwc{by} \hlstd{=} \hlstr{'date'}\hlstd{)}
+  \hlkwd{left_join}\hlstd{(pax_flow,} \hlkwc{by} \hlstd{=} \hlstr{'date'}\hlstd{)} \hlopt{%>%}
+  \hlkwd{as.data.frame}\hlstd{(.)}
 
 \hlcom{# save the data}
 \hlstd{save_path} \hlkwb{<-} \hlkwd{gsub}\hlstd{(}\hlstr{'text$'}\hlstd{,} \hlstr{'data'}\hlstd{,} \hlkwd{getwd}\hlstd{())}
@@ -310,20 +311,13 @@ Here are some code chunks for figures.  The first creates boxplot summaries of a
     \hlkwc{widths} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0.8}\hlstd{,} \hlnum{0.5}\hlstd{)}
     \hlstd{)}
 \hlstd{\}}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in do.call("{}layer"{}, list(mapping = mapping, data = data, stat = stat, : object 'pax\_clip' not found}}\begin{alltt}
 \hlkwd{dev.off}\hlstd{()}
 \end{alltt}
-\end{kframe}pdf 
-  2 
-
+\end{kframe}
 
 This plot shows changes in chlorophyll concentrations by month.
 \begin{kframe}
 \begin{alltt}
-\hlstd{devtools}\hlopt{::}\hlkwd{load_all}\hlstd{()}
 \hlkwd{data}\hlstd{(pax_data)}
 \hlkwd{data}\hlstd{(pax_meta)}
 \hlkwd{data}\hlstd{(pax_clip)}
@@ -466,7 +460,6 @@ This plot shows changes in chlorophyll concentrations by month.
 This plot shows changes in chlorophyll concentrations by year.
 \begin{kframe}
 \begin{alltt}
-\hlstd{devtools}\hlopt{::}\hlkwd{load_all}\hlstd{()}
 \hlkwd{data}\hlstd{(pax_data)}
 \hlkwd{data}\hlstd{(pax_meta)}
 \hlkwd{data}\hlstd{(pax_clip)}

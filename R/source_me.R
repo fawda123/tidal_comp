@@ -10,10 +10,10 @@ library(doParallel)
 
 data(pax_data)
 
-# which variable to use for flow?
+# which variable to use for flow? salinity...
 pax_data <- pax_data[, !names(pax_data) %in% 'lnQ']
 
-stats <- c('TF1.6', 'LE1.2')
+stats <- c('LE1.2')
 
 sal <- c(seq(0.5, 1, by = 0.1), 5)
 yrs <- c(seq(5, 15, by = 3), 50)
@@ -72,7 +72,7 @@ data(pax_data)
 pax_data <- pax_data[, !names(pax_data) %in% 'sal']
 names(pax_data)[names(pax_data) %in% 'lnQ'] <- 'sal'
 
-stats <- c('TF1.6', 'LE1.2')
+stats <- c('TF1.6')
 
 sal <- c(seq(0.5, 1, by = 0.1), 5)
 yrs <- c(seq(5, 15, by = 3), 50)

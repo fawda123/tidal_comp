@@ -140,7 +140,8 @@ The data were recombined by date and station.  Flow data were also merged by mat
 ## 
 # merge surface chl and salinity data, then plot
 pax_data <- full_join(chl_tmp, sal_tmp, by = c('date', 'STATION')) %>% 
-  left_join(pax_flow, by = 'date')
+  left_join(pax_flow, by = 'date') %>% 
+  as.data.frame(.)
 
 # save the data
 save_path <- gsub('text$', 'data', getwd())

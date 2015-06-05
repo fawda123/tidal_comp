@@ -72,14 +72,17 @@ pax_data <- read.csv(paste0(root_path, '/inst/PAX_TRIB_CHLAandSALINITY_85TO14.cs
   header = TRUE, stringsAsFactors = FALSE) 
 
 # flow data, combined with data after processing in a later chunk
+# a left moving window average (5 days) is used
 pax_flow <- read.csv(paste0(root_path, '/inst/PatuxentDailyFlow_84to15.csv'), 
   header = TRUE, stringsAsFactors = FALSE)
 pax_flow <- mutate(pax_flow, 
   date = as.Date(date, format = '%m/%d/%Y'),
-  lnQ = log(flow_cfs)
+  Q = stats::filter(flow_cfs, rep(1, 5)/5, sides = 1, 
+    method = 'convolution'), 
+  lnQ = log(Q)
   ) %>% 
-  select(-flow_cfs)
-  
+  select(-flow_cfs, -Q)
+
 # remove 1985 from pax_data
 pax_data <- filter(pax_data, !grepl('/1985$', date))
 
@@ -98,7 +101,7 @@ Salinity data were vertically-integrated for each  unique date. The integration 
 # function for vertical integration
 int_fun <- function(TOTAL_DEPTH, DEPTH, AvgValue){
   
-  # only interpolate if > 1 salinity value
+  # only interpolate if > 1 value
   if(length(na.omit(AvgValue)) < 2 ) return(na.omit(AvgValue))
   
   # setup for interpolation
@@ -121,48 +124,27 @@ sal_tmp <- filter(pax_data, PARAMETER == 'SALINITY') %>%
   summarize(sal = int_fun(TOTAL_DEPTH, DEPTH, AvgValue))
 @
 
-Chlorophyll values at each station were retained only for surface samples and no `problem' codes.  Chlorophyll were also transformed with the natural-log.  
+Chlorophyll values at each station were also vertically-integrated.  
 <<eval = TRUE, cache = FALSE>>=
-##
-# get only surface estimates for chlorophyll
-# remove those w/ problem codes (only a few obs)
-schl_tmp <- filter(pax_data, 
-  PARAMETER == 'CHLA' & LAYER == 'S'& PROBLEM == ''
-  ) %>% 
-  mutate(lnchla = log(AvgValue)) %>%
+# process, same as for salinity
+chl_tmp <- filter(pax_data, PARAMETER == 'CHLA') %>% 
   mutate(date = as.Date(date, format = '%m/%d/%Y')) %>% 
-  select(date, STATION, lnchla)
-
-# repeat but for bottom chlorophyll
-bchl_tmp <- filter(pax_data, 
-  PARAMETER == 'CHLA' & LAYER == 'B'& PROBLEM == ''
-  ) %>% 
-  mutate(lnchla = log(AvgValue)) %>%
-  mutate(date = as.Date(date, format = '%m/%d/%Y')) %>% 
-  select(date, STATION, lnchla)
-
+  group_by(date, STATION) %>% 
+  summarize(chla = int_fun(TOTAL_DEPTH, DEPTH, AvgValue)) %>% 
+  mutate(lnchla = log(chla)) %>% 
+  select(-chla)
 @
 
-The data were recombined by date and station.  Daily flow data were also merged by matching only the days in the water quality data.  Some plots of the raw data are below.
+The data were recombined by date and station.  Flow data were also merged by matching only the days in the water quality data.  Some plots of the raw data are below.
 <<eval = TRUE, cache = FALSE, fig = TRUE, fig.width = 7, fig.height = 4.5>>=
 ## 
 # merge surface chl and salinity data, then plot
-pax_data <- full_join(schl_tmp, sal_tmp, by = c('date', 'STATION')) %>% 
+pax_data <- full_join(chl_tmp, sal_tmp, by = c('date', 'STATION')) %>% 
   left_join(pax_flow, by = 'date')
-
-# merge surface and bottom chlorophyll
-pax_chldata <- full_join(schl_tmp, bchl_tmp, by = c('date', 'STATION')) %>% 
-  mutate(
-    lnchla_s = lnchla.x,
-    lnchla_b = lnchla.y
-    ) %>% 
-  select(-lnchla.x, -lnchla.y) %>% 
-  gather('loc', 'lnval', 3, 4)
 
 # save the data
 save_path <- gsub('text$', 'data', getwd())
 save(pax_data, file = paste0(save_path, '/pax_data.RData'))
-save(pax_chldata, file = paste0(save_path, '/pax_chldata.RData'))
 save(pax_meta, file = paste0(save_path, '/pax_meta.RData'))
 save_path <- gsub('text$', 'inst', getwd())
 write.csv(pax_data, paste0(save_path, '/pax_data.csv'), 
@@ -171,7 +153,6 @@ write.csv(pax_data, paste0(save_path, '/pax_data.csv'),
 
 Here are some code chunks for figures.  The first creates boxplot summaries of annual and seasonal trends by station.
 <<eval = F>>=
-devtools::load_all()
 data(pax_data)
 data(pax_meta)
 data(pax_clip)
@@ -282,7 +263,6 @@ dev.off()
 
 This plot shows changes in chlorophyll concentrations by month.
 <<eval = F>>=
-devtools::load_all()
 data(pax_data)
 data(pax_meta)
 data(pax_clip)
@@ -424,7 +404,6 @@ dev.off()
 
 This plot shows changes in chlorophyll concentrations by year.
 <<eval = F>>=
-devtools::load_all()
 data(pax_data)
 data(pax_meta)
 data(pax_clip)

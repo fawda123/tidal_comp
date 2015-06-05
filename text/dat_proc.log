@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  22 MAY 2015 11:03
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  5 JUN 2015 16:05
 entering extended mode
 **dat_proc.tex
 (M:\docs\tidal_comp\text\dat_proc.tex
@@ -641,7 +641,7 @@ Overfull \hbox (48.94524pt too wide) in paragraph at lines 117--117
  []
 
 
-Overfull \hbox (5.72021pt too wide) in paragraph at lines 121--121
+Overfull \hbox (5.72021pt too wide) in paragraph at lines 122--122
 [][]\OT1/cmtt/m/n/12 pax_flow[] []<-[] []read.csv[][]([][]paste0[][](root_path,
 [] []/inst/PatuxentDailyFlow_84to15.csv[][]),[][] 
  []
@@ -649,113 +649,119 @@ Overfull \hbox (5.72021pt too wide) in paragraph at lines 121--121
 [1
 
 {C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 146
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 149
 .
 
 (C:/PROGRA~1/R/R-32~1.0/share/texmf/tex/latex\omscmtt.fd
 File: omscmtt.fd 
 )
 LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 146.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 149.
  [2] [3]
-Overfull \hbox (11.89522pt too wide) in paragraph at lines 315--315
+Overfull \hbox (11.89522pt too wide) in paragraph at lines 297--297
 []    []\OT1/cmtt/m/n/12 geom_text[][]([][]size[] []=[] []7[][],[] []aes[][]([]
 []label[] []= STATION),[] []alpha[] []=[] []0.7[][],[] []colour[] []=[] []blac
 k[][])[] []+[][] 
  []
 
 
-Overfull \hbox (11.89522pt too wide) in paragraph at lines 321--321
+Overfull \hbox (11.89522pt too wide) in paragraph at lines 303--303
 []    []\OT1/cmtt/m/n/12 geom_text[][]([][]data[] []= stat_meta,[] []aes[][]([]
 []label[] []= STATION),[] []col[] []=[] []red[][],[] []size[] []=[] []7[][])[
 ] []+[][] 
  []
 
+
+Overfull \hbox (11.89522pt too wide) in paragraph at lines 316--316
+[]\OT1/cmtt/m/n/12 ## Error in do.call("layer", list(mapping = mapping, data = 
+data, stat = stat,
+ []
+
 [4]
-Underfull \vbox (badness 10000) detected at line 333
+Underfull \vbox (badness 10000) detected at line 319
  []
 
 
-Underfull \vbox (badness 10000) detected at line 333
+Underfull \vbox (badness 10000) detected at line 319
  []
 
 [5]
-Underfull \vbox (badness 10000) detected at line 333
- []
-
-
-Underfull \vbox (badness 10000) detected at line 333
- []
-
-[6]
-Overfull \hbox (5.72021pt too wide) in paragraph at lines 385--385
+Overfull \hbox (5.72021pt too wide) in paragraph at lines 373--373
 []    []\OT1/cmtt/m/n/12 rgb[][](val[[][]1[][]], val[[][]2[][]], val[[][]3[][]]
 ,[] []alpha[] []= alpha_val[] []*[] []255[][],[] []maxColorValue[] []=[] []255[
 ][])[][] 
  []
 
 
-Overfull \hbox (11.89522pt too wide) in paragraph at lines 447--447
+Overfull \hbox (11.89522pt too wide) in paragraph at lines 435--435
 []  []\OT1/cmtt/m/n/12 mo_labs[] []<-[] []c[][]([][]January[][],[] []Februar
 y[][],[] []March[][],[] []April[][],[] []May[][],[] []June[][],[] []J
 uly[][],[][] 
  []
 
-[7]
-Underfull \vbox (badness 10000) detected at line 476
+[6]
+Underfull \vbox (badness 10000) detected at line 464
  []
 
 
-Underfull \vbox (badness 10000) detected at line 476
+Underfull \vbox (badness 10000) detected at line 464
+ []
+
+[7]
+Underfull \vbox (badness 10000) detected at line 464
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 464
  []
 
 [8]
-Underfull \vbox (badness 10000) detected at line 476
- []
-
-
-Underfull \vbox (badness 10000) detected at line 476
- []
-
-[9]
-Overfull \hbox (5.72021pt too wide) in paragraph at lines 528--528
+Overfull \hbox (5.72021pt too wide) in paragraph at lines 516--516
 []    []\OT1/cmtt/m/n/12 rgb[][](val[[][]1[][]], val[[][]2[][]], val[[][]3[][]]
 ,[] []alpha[] []= alpha_val[] []*[] []255[][],[] []maxColorValue[] []=[] []255[
 ][])[][] 
  []
 
-[10]
-Underfull \vbox (badness 10000) detected at line 618
+[9]
+Underfull \vbox (badness 10000) detected at line 606
  []
 
 
-Underfull \vbox (badness 10000) detected at line 618
+Underfull \vbox (badness 10000) detected at line 606
+ []
+
+[10]
+Underfull \vbox (badness 10000) detected at line 606
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 606
  []
 
 [11]
-Underfull \vbox (badness 10000) detected at line 618
+Underfull \vbox (badness 10000) detected at line 606
  []
 
 
-Overfull \vbox (2.23665pt too high) detected at line 618
+Underfull \vbox (badness 10000) detected at line 606
  []
 
 [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 620.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 608.
 Package atenddvi Info: Last page = 13.
  [13]
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 620.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 608.
  (M:\docs\tidal_comp\text\dat_proc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 620.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 620.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 608.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 608.
 Package rerunfilecheck Info: File `dat_proc.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 620.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 608.
  ) 
 Here is how much of TeX's memory you used:
  10677 strings out of 493921
  174004 string characters out of 3147282
- 319484 words of memory out of 3000000
+ 324484 words of memory out of 3000000
  13812 multiletter control sequences out of 15000+200000
  5744 words of font info for 22 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
@@ -765,7 +771,7 @@ rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on dat_proc.pdf (13 pages, 92998 bytes).
+Output written on dat_proc.pdf (13 pages, 92474 bytes).
 PDF statistics:
  87 PDF objects out of 1000 (max. 8388607)
  16 named destinations out of 1000 (max. 500000)

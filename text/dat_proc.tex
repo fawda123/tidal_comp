@@ -118,13 +118,16 @@ The data were first imported into R.
   \hlkwc{header} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{stringsAsFactors} \hlstd{=} \hlnum{FALSE}\hlstd{)}
 
 \hlcom{# flow data, combined with data after processing in a later chunk}
+\hlcom{# a left moving window average (5 days) is used}
 \hlstd{pax_flow} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlkwd{paste0}\hlstd{(root_path,} \hlstr{'/inst/PatuxentDailyFlow_84to15.csv'}\hlstd{),}
   \hlkwc{header} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{stringsAsFactors} \hlstd{=} \hlnum{FALSE}\hlstd{)}
 \hlstd{pax_flow} \hlkwb{<-} \hlkwd{mutate}\hlstd{(pax_flow,}
   \hlkwc{date} \hlstd{=} \hlkwd{as.Date}\hlstd{(date,} \hlkwc{format} \hlstd{=} \hlstr{'%m/%d/%Y'}\hlstd{),}
-  \hlkwc{lnQ} \hlstd{=} \hlkwd{log}\hlstd{(flow_cfs)}
+  \hlkwc{Q} \hlstd{= stats}\hlopt{::}\hlkwd{filter}\hlstd{(flow_cfs,} \hlkwd{rep}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{5}\hlstd{)}\hlopt{/}\hlnum{5}\hlstd{,} \hlkwc{sides} \hlstd{=} \hlnum{1}\hlstd{,}
+    \hlkwc{method} \hlstd{=} \hlstr{'convolution'}\hlstd{),}
+  \hlkwc{lnQ} \hlstd{=} \hlkwd{log}\hlstd{(Q)}
   \hlstd{)} \hlopt{%>%}
-  \hlkwd{select}\hlstd{(}\hlopt{-}\hlstd{flow_cfs)}
+  \hlkwd{select}\hlstd{(}\hlopt{-}\hlstd{flow_cfs,} \hlopt{-}\hlstd{Q)}
 
 \hlcom{# remove 1985 from pax_data}
 \hlstd{pax_data} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data,} \hlopt{!}\hlkwd{grepl}\hlstd{(}\hlstr{'/1985$'}\hlstd{, date))}
@@ -145,7 +148,7 @@ Salinity data were vertically-integrated for each  unique date. The integration 
 \hlcom{# function for vertical integration}
 \hlstd{int_fun} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{TOTAL_DEPTH}\hlstd{,} \hlkwc{DEPTH}\hlstd{,} \hlkwc{AvgValue}\hlstd{)\{}
 
-  \hlcom{# only interpolate if > 1 salinity value}
+  \hlcom{# only interpolate if > 1 value}
   \hlkwa{if}\hlstd{(}\hlkwd{length}\hlstd{(}\hlkwd{na.omit}\hlstd{(AvgValue))} \hlopt{<} \hlnum{2} \hlstd{)} \hlkwd{return}\hlstd{(}\hlkwd{na.omit}\hlstd{(AvgValue))}
 
   \hlcom{# setup for interpolation}
@@ -169,50 +172,30 @@ Salinity data were vertically-integrated for each  unique date. The integration 
 \end{alltt}
 \end{kframe}
 
-Chlorophyll values at each station were retained only for surface samples and no `problem' codes.  Chlorophyll were also transformed with the natural-log.  
+Chlorophyll values at each station were also vertically-integrated.  
 \begin{kframe}
 \begin{alltt}
-\hlcom{##}
-\hlcom{# get only surface estimates for chlorophyll}
-\hlcom{# remove those w/ problem codes (only a few obs)}
-\hlstd{schl_tmp} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data,}
-  \hlstd{PARAMETER} \hlopt{==} \hlstr{'CHLA'} \hlopt{&} \hlstd{LAYER} \hlopt{==} \hlstr{'S'}\hlopt{&} \hlstd{PROBLEM} \hlopt{==} \hlstr{''}
-  \hlstd{)} \hlopt{%>%}
-  \hlkwd{mutate}\hlstd{(}\hlkwc{lnchla} \hlstd{=} \hlkwd{log}\hlstd{(AvgValue))} \hlopt{%>%}
+\hlcom{# process, same as for salinity}
+\hlstd{chl_tmp} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data, PARAMETER} \hlopt{==} \hlstr{'CHLA'}\hlstd{)} \hlopt{%>%}
   \hlkwd{mutate}\hlstd{(}\hlkwc{date} \hlstd{=} \hlkwd{as.Date}\hlstd{(date,} \hlkwc{format} \hlstd{=} \hlstr{'%m/%d/%Y'}\hlstd{))} \hlopt{%>%}
-  \hlkwd{select}\hlstd{(date, STATION, lnchla)}
-
-\hlcom{# repeat but for bottom chlorophyll}
-\hlstd{bchl_tmp} \hlkwb{<-} \hlkwd{filter}\hlstd{(pax_data,}
-  \hlstd{PARAMETER} \hlopt{==} \hlstr{'CHLA'} \hlopt{&} \hlstd{LAYER} \hlopt{==} \hlstr{'B'}\hlopt{&} \hlstd{PROBLEM} \hlopt{==} \hlstr{''}
-  \hlstd{)} \hlopt{%>%}
-  \hlkwd{mutate}\hlstd{(}\hlkwc{lnchla} \hlstd{=} \hlkwd{log}\hlstd{(AvgValue))} \hlopt{%>%}
-  \hlkwd{mutate}\hlstd{(}\hlkwc{date} \hlstd{=} \hlkwd{as.Date}\hlstd{(date,} \hlkwc{format} \hlstd{=} \hlstr{'%m/%d/%Y'}\hlstd{))} \hlopt{%>%}
-  \hlkwd{select}\hlstd{(date, STATION, lnchla)}
+  \hlkwd{group_by}\hlstd{(date, STATION)} \hlopt{%>%}
+  \hlkwd{summarize}\hlstd{(}\hlkwc{chla} \hlstd{=} \hlkwd{int_fun}\hlstd{(TOTAL_DEPTH, DEPTH, AvgValue))} \hlopt{%>%}
+  \hlkwd{mutate}\hlstd{(}\hlkwc{lnchla} \hlstd{=} \hlkwd{log}\hlstd{(chla))} \hlopt{%>%}
+  \hlkwd{select}\hlstd{(}\hlopt{-}\hlstd{chla)}
 \end{alltt}
 \end{kframe}
 
-The data were recombined by date and station.  Daily flow data were also merged by matching only the days in the water quality data.  Some plots of the raw data are below.
+The data were recombined by date and station.  Flow data were also merged by matching only the days in the water quality data.  Some plots of the raw data are below.
 \begin{kframe}
 \begin{alltt}
 \hlcom{## }
 \hlcom{# merge surface chl and salinity data, then plot}
-\hlstd{pax_data} \hlkwb{<-} \hlkwd{full_join}\hlstd{(schl_tmp, sal_tmp,} \hlkwc{by} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'date'}\hlstd{,} \hlstr{'STATION'}\hlstd{))} \hlopt{%>%}
+\hlstd{pax_data} \hlkwb{<-} \hlkwd{full_join}\hlstd{(chl_tmp, sal_tmp,} \hlkwc{by} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'date'}\hlstd{,} \hlstr{'STATION'}\hlstd{))} \hlopt{%>%}
   \hlkwd{left_join}\hlstd{(pax_flow,} \hlkwc{by} \hlstd{=} \hlstr{'date'}\hlstd{)}
-
-\hlcom{# merge surface and bottom chlorophyll}
-\hlstd{pax_chldata} \hlkwb{<-} \hlkwd{full_join}\hlstd{(schl_tmp, bchl_tmp,} \hlkwc{by} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{'date'}\hlstd{,} \hlstr{'STATION'}\hlstd{))} \hlopt{%>%}
-  \hlkwd{mutate}\hlstd{(}
-    \hlkwc{lnchla_s} \hlstd{= lnchla.x,}
-    \hlkwc{lnchla_b} \hlstd{= lnchla.y}
-    \hlstd{)} \hlopt{%>%}
-  \hlkwd{select}\hlstd{(}\hlopt{-}\hlstd{lnchla.x,} \hlopt{-}\hlstd{lnchla.y)} \hlopt{%>%}
-  \hlkwd{gather}\hlstd{(}\hlstr{'loc'}\hlstd{,} \hlstr{'lnval'}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
 
 \hlcom{# save the data}
 \hlstd{save_path} \hlkwb{<-} \hlkwd{gsub}\hlstd{(}\hlstr{'text$'}\hlstd{,} \hlstr{'data'}\hlstd{,} \hlkwd{getwd}\hlstd{())}
 \hlkwd{save}\hlstd{(pax_data,} \hlkwc{file} \hlstd{=} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_data.RData'}\hlstd{))}
-\hlkwd{save}\hlstd{(pax_chldata,} \hlkwc{file} \hlstd{=} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_chldata.RData'}\hlstd{))}
 \hlkwd{save}\hlstd{(pax_meta,} \hlkwc{file} \hlstd{=} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_meta.RData'}\hlstd{))}
 \hlstd{save_path} \hlkwb{<-} \hlkwd{gsub}\hlstd{(}\hlstr{'text$'}\hlstd{,} \hlstr{'inst'}\hlstd{,} \hlkwd{getwd}\hlstd{())}
 \hlkwd{write.csv}\hlstd{(pax_data,} \hlkwd{paste0}\hlstd{(save_path,} \hlstr{'/pax_data.csv'}\hlstd{),}
@@ -223,7 +206,6 @@ The data were recombined by date and station.  Daily flow data were also merged 
 Here are some code chunks for figures.  The first creates boxplot summaries of annual and seasonal trends by station.
 \begin{kframe}
 \begin{alltt}
-\hlstd{devtools}\hlopt{::}\hlkwd{load_all}\hlstd{()}
 \hlkwd{data}\hlstd{(pax_data)}
 \hlkwd{data}\hlstd{(pax_meta)}
 \hlkwd{data}\hlstd{(pax_clip)}
@@ -328,9 +310,15 @@ Here are some code chunks for figures.  The first creates boxplot summaries of a
     \hlkwc{widths} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0.8}\hlstd{,} \hlnum{0.5}\hlstd{)}
     \hlstd{)}
 \hlstd{\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in do.call("{}layer"{}, list(mapping = mapping, data = data, stat = stat, : object 'pax\_clip' not found}}\begin{alltt}
 \hlkwd{dev.off}\hlstd{()}
 \end{alltt}
-\end{kframe}
+\end{kframe}pdf 
+  2 
+
 
 This plot shows changes in chlorophyll concentrations by month.
 \begin{kframe}

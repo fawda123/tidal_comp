@@ -17,12 +17,6 @@ shinyUI(pageWithSidebar(
       selected = 'LE1.2'),
     
     uiOutput("daterng"),
-    
-    selectInput(inputId = 'exp', 
-      label = h4('Pick explanatory variable'), 
-      choices = c('Flow', 'Salinity'), 
-      selected = 'Salinity'
-    ),
       
     selectInput("day_num", 
       label = h4("Seasonal window"), 

@@ -23,7 +23,8 @@ shinyServer(function(input, output) {
   dat <- eventReactive(input$getdat, {
 
     stat <- input$stat
-    exp <- input$exp
+    exp <- 'Salinity'
+    if(stat == 'TF1.6') exp <- 'Flow'
     exprm <- 'lnQ'
     if(exp != 'Salinity') exprm <- 'sal'
   
@@ -44,7 +45,8 @@ shinyServer(function(input, output) {
 
     # get station
     stat <- input$stat
-    exp <- input$exp
+    exp <- 'Salinity'
+    if(stat == 'TF1.6') exp <- 'Flow'
     expfl <- 'sal'
     if(exp == 'Flow') expfl <- 'flo'
     

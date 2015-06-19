@@ -42,6 +42,11 @@ pax_chl$chla <- NULL
 obs_dat <- merge(pax_chl, pax_flow, by = 'date')
 obs_dat <- filter(obs_dat, year > 2004)
 
+#######
+# assume that chlorophyll follows functional forum in wrtds 
+# find error structures of chlorophyll residuals using observed data
+# create sims using sim Q and sim error structure
+
 # flow mod
 # requires lnQ and decimal time
 lnQ_sim <- function(dat_in){
@@ -73,14 +78,7 @@ lnQ_sim <- function(dat_in){
   
 }
 
-sim_dat <- lnQ_sim(obs_dat)
-
-##
-# create chl
-lnchla_sim <- function(dat_in, yr = NULL){
-  
-  if(!'lnQ_sim' %in% names(dat_in))
-    stop('No simulated discharge data, run lnQ_sim first')
+lnchla_err <- function(dat_in, yr = NULL) {
   
   # pick yr for stationary mod, defaults to median
   if(is.null(yr))
@@ -90,8 +88,8 @@ lnchla_sim <- function(dat_in, yr = NULL){
   # data for the year to get stationary mod
   stat_dat <- filter(dat_in, year == yr)
   
-  # stationary mod using wrtds form
-  chlmod <- lm(lnchla ~ dec_time + lnQ_sim + sin(2 * pi * dec_time) + cos(2 * pi * dec_time), 
+  # stationary mod using wrtds form, uses observed discharge
+  chlmod <- lm(lnchla ~ dec_time + lnQ + sin(2 * pi * dec_time) + cos(2 * pi * dec_time), 
     data = stat_dat)
   
   # get model predictions, merge by decimal month in original data
@@ -119,47 +117,110 @@ lnchla_sim <- function(dat_in, yr = NULL){
   rng <- range(dat_in$res, na.rm = T)
   errs <- scales::rescale(errs, to = rng)
   
-  # simulated data as mean model plus errors x sd for each year
-  sim_out <- with(dat_in, as.numeric({mu_lnchla +  lamb * errs}))
+  # create errors x sd for each year
+  err_out <- with(dat_in, as.numeric({lamb * errs}))
 
   # add to output  
-  dat_in$lnchla_sim <- sim_out
+  dat_in$errs <- err_out
   
   # remove extra cols, sort on date
-  dat_in <- select(dat_in, date, sal, lnchla, Q, lnQ, jday, year, day, dec_time, lnQ_sim, lnchla_sim) %>% 
+  dat_in <- select(dat_in, date, sal, lnchla, Q, lnQ, jday, year, day, dec_time, lamb, errs, lnQ_sim) %>% 
     arrange(date)
   
   return(dat_in)
   
 }
 
-sim_vals <- lnchla_sim(sim_dat)
+lnchla_sim <- function(dat_in, lnQ_coef = NULL){
+  
+  if(!'errs' %in% names(dat_in)) 
+    stop('Need error simulation from chlorophyll residuals')
+  
+  if(!'lnQ_sim' %in% names(dat_in)) 
+    stop('Need simulated flow data')
+  
+  if(is.null(lnQ_coef)) lnQ_coef <- rep(1, length = nrow(dat_in))
+  
+  # seasonal chla component, no discharge
+  lnchla_noQ <- lm(lnchla ~ dec_time + sin(2 * pi * dec_time) + cos(2 * pi * dec_time), 
+    data = dat_in)
+  lnchla_noQ <- predict(lnchla_noQ) + with(dat_in, lamb * errs)
+  
+  # add discharge, rescale
+  lnchla_Q <- lnchla_noQ + with(dat_in, lnQ_coef * scale(lnQ_sim, scale = FALSE))
+  
+  dat_in$lnchla_noQ <- lnchla_noQ
+  dat_in$lnchla_Q <- lnchla_Q
+  
+  return(dat_in)
+  
+}
 
-toplo <- reshape2::melt(sim_vals, id.vars = 'date', 
-  measure.vars = c('lnQ', 'lnQ_sim', 'lnchla', 'lnchla_sim'))
+all_sims <- function(dat_in, ...){
 
-ggplot(toplo, aes(x = date, y = value, group = variable, colour = variable)) + 
+  out <- lnQ_sim(dat_in) %>% 
+    lnchla_err %>% 
+    lnchla_sim(., ...)
+ 
+  return(out)
+ 
+}
+
+# sample the simulated dataset witha random selection by month
+samp_sim <- function(dat_in, month_samps = 1){
+ 
+  dat_in$mos <- strftime(dat_in$date, '%m')
+
+  splits <- split(dat_in, dat_in[, c('year', 'mos')])
+  
+  sels <- lapply(splits, function(x){
+    tosel <- sample(1:nrow(x), size = month_samps)
+    x[tosel, ]
+  })
+
+  sels <- do.call('rbind', sels)
+  sels <- sels[order(sels$date), ]
+  row.names(sels) <- 1:nrow(sels)
+  sels$mos <- NULL
+
+  return(sels)
+   
+}
+  
+  
+coefs <- dnorm(seq(-7, 7, length = nrow(obs_dat)))
+coefs <- scales::rescale(coefs, c(-7, 7))
+toeval <- all_sims(obs_dat, lnQ_coef = coefs)
+
+toplo <- reshape2::melt(toeval, id.vars = 'date', 
+  measure.vars = c('lnQ_sim', 'lnchla', 'lnchla_noQ', 'lnchla_Q'))
+
+p1 <- ggplot(toplo, aes(x = date, y = value, group = variable, colour = variable)) + 
   geom_line() + 
   theme_bw() + 
   facet_wrap(~variable)
+ 
+toeval2 <- samp_sim(toeval)
+ 
+toplo2 <- reshape2::melt(toeval2, id.vars = 'date', 
+  measure.vars = c('lnQ_sim', 'lnchla', 'lnchla_noQ', 'lnchla_Q'))
+
+p2 <- ggplot(toplo2, aes(x = date, y = value, group = variable, colour = variable)) + 
+  geom_line() + 
+  theme_bw() + 
+  facet_wrap(~variable)
+
+grid.arrange(p1, p2, ncol = 1)
 
 ##
-# create sample dataset for monthly 
-sim_mo <- sim_vals[sim_vals$day == c(23), ]
+# try some mods
 
-toplo <- reshape2::melt(sim_mo, id.vars = 'date', 
-  measure.vars = c('lnQ', 'lnQ_sim', 'lnchla', 'lnchla_sim'))
+tomod <- select(toeval2, date, lnchla_Q, lnQ_sim)
+names(tomod) <- c('date', 'chla', 'sal')
+tomod$lim <- -5
 
-ggplot(toplo, aes(x = date, y = value, group = variable, colour = variable)) + 
-  geom_line() + 
-  theme_bw() + 
-  facet_wrap(~variable)
+eval <- modfit(tomod, resp_type = 'mean', wins = list(20, 1, 20))
 
-# run wrtds
-sim_mo <- select(sim_mo, date, lnchla, lnQ)
-sim_mo$lim <- -2
-names(sim_mo) <- names(chldat)
+plot(chla ~ fits, eval)
+plot(eval$norm, toeval2$lnchla_noQ)
 
-mod <- modfit(sim_mo, wins = list(1, 5, 0.3), resp_type = 'mean')
-
-prdnrmplot(mod)

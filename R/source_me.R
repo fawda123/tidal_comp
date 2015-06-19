@@ -4,6 +4,7 @@
 # salinity first, LE1.2
 
 library(WRTDStidal)
+# devtools::load_all("M:/docs/wtreg_for_estuaries")
 library(foreach)
 library(doParallel)
 
@@ -14,13 +15,7 @@ pax_data <- pax_data[, !names(pax_data) %in% 'lnQ']
 
 stat <- c('LE1.2')
 
-sal <- c(seq(0.5, 1, by = 0.1))
-yrs <- c(seq(5, 15, by = 2))
-mos <- c(seq(0.5, 1, by = 0.25), 1.5, 2)
-grd <- expand.grid(sal, yrs, mos)
-names(grd) <- c('sal', 'yrs', 'mos')
-
-cl <- makeCluster(8)
+cl <- makeCluster(4)
 registerDoParallel(cl)
 
 tomod <- pax_data[pax_data$STATION %in% stat, ]
@@ -28,11 +23,11 @@ row.names(tomod) <- 1:nrow(tomod)
 tomod$limval <- 0
 tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
-tomod <- tidal(tomod)
-
+tomod <- tidalmean(tomod)
+ 
 # eval
-resLE12 <- wtssrch(tomod, grd)
-save(resLE12, file = 'resLE12.RData')
+optimLE12 <- winsrch_optim(tomod)
+save(optimLE12, file = 'C:/Users/mbeck/Desktop/optimLE12.RData')
 
 ###
 # flow second, TF16
@@ -45,7 +40,7 @@ names(pax_data)[names(pax_data) %in% 'lnQ'] <- 'sal'
 
 stat <- c('TF1.6')
 
-cl <- makeCluster(8)
+cl <- makeCluster(4)
 registerDoParallel(cl)
 
 tomod <- pax_data[pax_data$STATION %in% stat, ]
@@ -53,8 +48,8 @@ row.names(tomod) <- 1:nrow(tomod)
 tomod$limval <- 0
 tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
-tomod <- tidal(tomod)
+tomod <- tidalmean(tomod)
 
 # eval
-resTF16 <- wtssrch(tomod, grd)
-save(resTF16, file = 'resTF16.RData')
+optimTF16 <- winsrch_optim(tomod)
+save(optimTF16, file = 'C:/Users/mbeck/Desktop/optimTF16.RData')

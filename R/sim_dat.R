@@ -88,43 +88,45 @@ lnchla_err <- function(dat_in, yr = NULL) {
   # data for the year to get stationary mod
   stat_dat <- filter(dat_in, year == yr)
   
-  # stationary mod using wrtds form, uses observed discharge
-  chlmod <- lm(lnchla ~ dec_time + lnQ + sin(2 * pi * dec_time) + cos(2 * pi * dec_time), 
-    data = stat_dat)
+  # use wrtds for the year
+  tomod <- select(stat_dat, date, lnchla, lnQ) %>% 
+    rename(
+      chla = lnchla,
+      sal = lnQ
+    ) %>% 
+    mutate(lim = -1e6)
+  chlmod <- modfit(tomod, resp_type = 'mean')
+  chlmod <- chlscls(chlmod)
   
-  # get model predictions, merge by decimal month in original data
-  dec_mo <- stat_dat$dec_time - stat_dat$year
-  stat_pred <- data.frame(mu_lnchla = predict(chlmod), dec_mo = dec_mo)
-  dat_in$dec_mo <- with(dat_in, dec_time - year)
-  dat_in <- merge(dat_in, stat_pred, by = 'dec_mo', all.x = TRUE)
-  
-  # get lambda values by year
-  dat_in$res <- with(dat_in, lnchla - mu_lnchla)
-  lamb <- aggregate(res ~ year, dat_in, FUN = sd, na.rm = T)
-  names(lamb)[names(lamb) %in% 'res'] <- 'lamb'
-  dat_in <- merge(dat_in, lamb, by = 'year', all.x = TRUE)
-  
+  # get model residuals, scale parameter, and decimal time minus year
+  stat_toerr <- with(chlmod,
+    data.frame(
+      dec_mo = stat_dat$dec_time - stat_dat$year,
+      res = chla - fits,
+      scls = scls
+      )
+    )
+
   # get arma model from resids
-  mod <- forecast::auto.arima(dat_in$res, d = 0, seasonal = FALSE)
-  ars <- coef(mod)[grep('^ar', names(coef(mod)))]
-  mas <- coef(mod)[grep('^ma', names(coef(mod)))]
+  errmod <- forecast::auto.arima(stat_toerr$res, d = 0, seasonal = FALSE)
+  ars <- coef(errmod)[grep('^ar', names(coef(errmod)))]
+  mas <- coef(errmod)[grep('^ma', names(coef(errmod)))]
   
   # simulate rnorm errors using arma(p,q) process 
   errs <- arima.sim(list(ar = ars, ma = mas, order = c(length(ars), 0, length(mas))), n = nrow(dat_in), 
     rand.gen = function(x) rnorm(x, 0, 1))
   
+  # add errors and scl values to dat_in
+  dat_in$errs <- as.numeric(errs)
+  dat_in$dec_mo <- with(dat_in, dec_time - year)
+  dat_in <- left_join(dat_in, stat_toerr, by = 'dec_mo')
+  
   # linear transform errrs to match those in the from the observed data
   rng <- range(dat_in$res, na.rm = T)
   errs <- scales::rescale(errs, to = rng)
   
-  # create errors x sd for each year
-  err_out <- with(dat_in, as.numeric({lamb * errs}))
-
-  # add to output  
-  dat_in$errs <- err_out
-  
   # remove extra cols, sort on date
-  dat_in <- select(dat_in, date, sal, lnchla, Q, lnQ, jday, year, day, dec_time, lamb, errs, lnQ_sim) %>% 
+  dat_in <- select(dat_in, date, sal, lnchla, Q, lnQ, jday, year, day, dec_time, scls, errs, lnQ_sim) %>% 
     arrange(date)
   
   return(dat_in)
@@ -132,7 +134,7 @@ lnchla_err <- function(dat_in, yr = NULL) {
 }
 
 lnchla_sim <- function(dat_in, lnQ_coef = NULL){
-  
+
   if(!'errs' %in% names(dat_in)) 
     stop('Need error simulation from chlorophyll residuals')
   
@@ -144,7 +146,7 @@ lnchla_sim <- function(dat_in, lnQ_coef = NULL){
   # seasonal chla component, no discharge
   lnchla_noQ <- lm(lnchla ~ dec_time + sin(2 * pi * dec_time) + cos(2 * pi * dec_time), 
     data = dat_in)
-  lnchla_noQ <- predict(lnchla_noQ) + with(dat_in, lamb * errs)
+  lnchla_noQ <- predict(lnchla_noQ) + with(dat_in, scls * errs)
   
   # add discharge, rescale
   lnchla_Q <- lnchla_noQ + with(dat_in, lnQ_coef * scale(lnQ_sim, scale = FALSE))
@@ -166,7 +168,7 @@ all_sims <- function(dat_in, ...){
  
 }
 
-# sample the simulated dataset witha random selection by month
+# sample the simulated dataset with a random selection by month
 samp_sim <- function(dat_in, month_samps = 1){
  
   dat_in$mos <- strftime(dat_in$date, '%m')
@@ -187,9 +189,9 @@ samp_sim <- function(dat_in, month_samps = 1){
    
 }
   
-  
 coefs <- dnorm(seq(-7, 7, length = nrow(obs_dat)))
-coefs <- scales::rescale(coefs, c(-7, 7))
+coefs <- 
+coefs <- scales::rescale(coefs, c(0, 8))
 toeval <- all_sims(obs_dat, lnQ_coef = coefs)
 
 toplo <- reshape2::melt(toeval, id.vars = 'date', 
@@ -200,7 +202,7 @@ p1 <- ggplot(toplo, aes(x = date, y = value, group = variable, colour = variable
   theme_bw() + 
   facet_wrap(~variable)
  
-toeval2 <- samp_sim(toeval)
+toeval2 <- samp_sim(toeval, month_samps = 3)
  
 toplo2 <- reshape2::melt(toeval2, id.vars = 'date', 
   measure.vars = c('lnQ_sim', 'lnchla', 'lnchla_noQ', 'lnchla_Q'))
@@ -219,8 +221,9 @@ tomod <- select(toeval2, date, lnchla_Q, lnQ_sim)
 names(tomod) <- c('date', 'chla', 'sal')
 tomod$lim <- -5
 
-eval <- modfit(tomod, resp_type = 'mean', wins = list(20, 1, 20))
+#### asldjfas;lkdjflk;ajer this is not treating window widths correctly. 
+eval <- modfit(tomod, resp_type = 'mean', wins_in = list(20, 100, 20))
 
 plot(chla ~ fits, eval)
-plot(eval$norm, toeval2$lnchla_noQ)
+plot(eval$norm, na.omit(toeval2$lnchla_noQ))
 

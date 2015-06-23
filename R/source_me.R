@@ -23,7 +23,7 @@ row.names(tomod) <- 1:nrow(tomod)
 tomod$limval <- 0
 tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
-tomod <- tidalmean(tomod)
+tomod <- tidalmean(tomod, factr = 1e-3)
  
 # eval
 optimLE12 <- winsrch_optim(tomod)
@@ -48,7 +48,7 @@ row.names(tomod) <- 1:nrow(tomod)
 tomod$limval <- 0
 tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
-tomod <- tidalmean(tomod)
+tomod <- tidalmean(tomod, factr = 1e-3)
 
 # eval
 optimTF16 <- winsrch_optim(tomod)

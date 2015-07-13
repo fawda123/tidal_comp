@@ -230,7 +230,12 @@ tomod$lim <- 1e-6
 
 # run search function - takes a while
 tosrch <- tidalmean(tomod)
-res <- winsrch_optim(tosrch)
+res <- winsrch_optim(tosrch, upper = c(20, 100, 20), lower = c(0.25, 1, 0.25), 
+  min_obs = FALSE, control = list(factr = 1e11))
+res2 <- winsrch_constrOptim(tosrch, upper = c(20, 100, 20), lower = c(0.25, 1, 0.25), 
+  min_obs = FALSE, control = list(factr = 1e11))
+save(res, file = 'C:/Users/mbeck/Desktop/sim_res.RData')
+save(res2, file = 'C:/Users/mbeck/Desktop/sim_res2.RData')
 
 #### create one model
 eval <- modfit(tomod, resp_type = 'mean', wins = list(0.2, 3, 0.2))

@@ -10,8 +10,16 @@ output:
 This repository contains materials for comparing generalized additive models (GAMs) and the recent adapation of Weighted Regression on Time, Discharge, and Season (WRTDS) for tidal waters.  Please see the [WRTDStidal](https://github.com/fawda123/wtreg_for_estuaries) page for an R package to implement WRTDS in tidal waters.
 
 ### Data files
+
+`bestLE12.RData` Optimal WRTDS model for LE12, created in `create_final_mods.R`
  
+`bestTF16.RData` Optimal WRTDS model for TF16, created in `create_final_mods.R`
+
 `obs_dat.RData` Daily chlorophyll and discharge data that is used to create simulated datasets on monthly time steps.
+
+`optimLE12_opt.RData` Results after running `winsrch_optim` for LE12, created in `get_optim.R`
+
+`optimTF16_opt.RData` Results after running `winsrch_optim` for TF16, created in `get_optim.R`
 
 `pax_chldata.RData` Chlorophyll data for Patuxent stations including bottom and surface.
 

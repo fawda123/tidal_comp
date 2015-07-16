@@ -1,69 +1,45 @@
 ###
-# wt reg results for patux, set half-window widths
-# LE1.2, TF1.6, salinty and flow as separate exp vars
+# wt reg window evals for patux
 
-##
-# salinity first
+# salinity first, LE1.2
 
-# devtools::load_all('M:/docs/wtreg_for_estuaries/')
-library(WRTDStidal)
-library(foreach)
-library(doParallel)
+# library(WRTDStidal)
+devtools::load_all("M:/docs/wtreg_for_estuaries")
 
 data(pax_data)
+data(optimLE12_opt)
 
-# stations and master list
-stats <- c('TF1.6', 'LE1.2')
-out <- list()
-
-# which variable to use for flow?
+# which variable to use for flow? salinity...
 pax_data <- pax_data[, !names(pax_data) %in% 'lnQ']
 
-# windows
-wins <- list(0.5, 10, 0.5)
+stat <- c('LE1.2')
 
-for(stat in stats){
+tomod <- pax_data[pax_data$STATION %in% stat, ]
+row.names(tomod) <- 1:nrow(tomod)
+tomod$limval <- 0
+tomod$STATION <- NULL
+tomod <- tomod[order(tomod$date), ]
 
-  tomod <- pax_data[pax_data$STATION %in% stat, ]
-  row.names(tomod) <- 1:nrow(tomod)
-  tomod$limval <- 0
-  tomod$STATION <- NULL
+bestLE12 <- modfit(tomod, resp_type = 'mean', wins = as.list(optimLE12_opt$par), 
+  min_obs = FALSE)
 
-  # fit model
-  mod <- WRTDStidal::modfit(tomod, wins = wins, resp_type = 'mean', min_obs = TRUE, trace = T)
-    
-  # name and save the output
-  nm <- paste0(stat, 'sal_final')
-  assign(nm, mod)
-  out[[nm]] <- get(nm)
-
-}
-
-#
-# flow second
+###
+# flow second, TF16
 
 data(pax_data)
+data(optimTF16_opt)
 
 # which variable to use for flow?
 pax_data <- pax_data[, !names(pax_data) %in% 'sal']
 names(pax_data)[names(pax_data) %in% 'lnQ'] <- 'sal'
 
-for(stat in stats){
+stat <- c('TF1.6')
 
-  tomod <- pax_data[pax_data$STATION %in% stat, ]
-  row.names(tomod) <- 1:nrow(tomod)
-  tomod$limval <- 0
-  tomod$STATION <- NULL
+tomod <- pax_data[pax_data$STATION %in% stat, ]
+row.names(tomod) <- 1:nrow(tomod)
+tomod$limval <- 0
+tomod$STATION <- NULL
+tomod <- tomod[order(tomod$date), ]
 
-  # fit model
-  mod <- WRTDStidal::modfit(tomod, wins = wins, resp_type = 'mean', min_obs = TRUE, trace = T)
-    
-  # name and save the output
-  nm <- paste0(stat, 'flo_final')
-  assign(nm, mod)
-  out[[nm]] <- get(nm)
+bestTF16 <- modfit(tomod, resp_type = 'mean', wins = as.list(optimTF16_opt$par), min_obs = FALSE)
 
-}
-
-pax_wrtds <- out
-save(pax_wrtds, file = 'data/pax_wrtds.RData')

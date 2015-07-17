@@ -45,59 +45,61 @@ devtools::load_all('M:/docs/wtreg_for_estuaries')
 # save(obs_dat, file = 'data/obs_dat.RData')
 
 #######
-# assume that chlorophyll follows functional forum in wrtds 
-# find error structures of chlorophyll residuals using observed data
-# create sims using sim Q and sim error structure
+# create simulated chlorophyll datasets with known bio and flow components
+# daydat is the same as obs_dat, just ported over to WRTDStidal
 
-data(obs_dat)
+data(daydat)
   
 set.seed(123)
-coefs <- dnorm(seq(-7, 7, length = nrow(obs_dat)))
-coefs <- scales::rescale(coefs, c(0, 6))
-toeval <- all_sims(obs_dat, lnQ_coef = coefs)
-toeval2 <- samp_sim(toeval, month_samps = 3)
 
-# toplo <- reshape2::melt(toeval, id.vars = 'date', 
-#   measure.vars = c('lnQ_sim', 'lnchla', 'lnchla_noQ', 'lnchla_Q'))
-# 
-# p1 <- ggplot(toplo, aes(x = date, y = value, group = variable, colour = variable)) + 
-#   geom_line() + 
-#   theme_bw() + 
-#   facet_wrap(~variable)
-# 
-# toplo2 <- reshape2::melt(toeval2, id.vars = 'date', 
-#   measure.vars = c('lnQ_sim', 'lnchla', 'lnchla_noQ', 'lnchla_Q'))
-# 
-# p2 <- ggplot(toplo2, aes(x = date, y = value, group = variable, colour = variable)) + 
-#   geom_line() + 
-#   theme_bw() + 
-#   facet_wrap(~variable)
-# 
-# grid.arrange(p1, p2, ncol = 1)
+# scenarios
+# constant influence
+# no influence
+# steady increase
+# steady decrease
+
+## get simulated discharge
+sims <- lnQ_sim(daydat)
+sims <- lnchla_err(sims)
+
+tomod <- lnchla_sim(sims)
+names(tomod)[names(tomod) %in% 'lnchla_Q'] <- 'sim1'
+tomod$sim2 <- lnchla_sim(sims, lnQ_coef = rep(0, nrow(obs_dat)))$lnchla_Q
+tomod$sim3 <- lnchla_sim(sims, lnQ_coef = seq(0, 1, length = nrow(obs_dat)))$lnchla_Q
+tomod$sim4 <- lnchla_sim(sims, lnQ_coef = seq(1, 0, length = nrow(obs_dat)))$lnchla_Q
+samped <- samp_sim(tomod)
+
+# the daily ts
+toplo <- reshape2::melt(tomod, id.vars = 'date', 
+  measure.vars = c('lnchla', 'lnchla_noQ', 'sim1', 'sim2', 'sim3', 'sim4'))
+
+p1 <- ggplot(toplo, aes(x = date, y = value, group = variable)) + 
+  geom_line() + 
+  theme_bw() + 
+  facet_wrap(~variable)
+
+# the sampled ts
+toplo2 <- reshape2::melt(samped, id.vars = 'date', 
+  measure.vars = c('lnchla', 'lnchla_noQ', 'sim1', 'sim2', 'sim3', 'sim4'))
+
+p2 <- ggplot(toplo2, aes(x = date, y = value, group = variable)) + 
+  geom_line() + 
+  theme_bw() + 
+  facet_wrap(~variable)
+
+grid.arrange(p1, p2, ncol = 1)
 
 ##
 # try some mods
 
-tomod <- select(toeval2, date, lnchla_Q, lnQ_sim)
-names(tomod) <- c('date', 'chla', 'sal')
-tomod$lim <- 1e-6
-
-# library(doParallel)
-# ncores <- detectCores() - 4
-# registerDoParallel(cores = ncores)
-
-# run search function - takes a while
-tosrch <- tidalmean(tomod)
-res <- winsrch_optim(tosrch, upper = c(20, 100, 20), lower = c(0.25, 1, 0.25), 
-  min_obs = FALSE, control = list(factr = 1e11))
-res2 <- winsrch_constrOptim(tosrch, upper = c(20, 100, 20), lower = c(0.25, 1, 0.25), 
-  min_obs = FALSE, control = list(factr = 1e11))
-save(res, file = 'C:/Users/mbeck/Desktop/sim_res.RData')
-save(res2, file = 'C:/Users/mbeck/Desktop/sim_res2.RData')
+testmod <- select(samped, date, sim3, lnQ_sim)
+names(testmod) <- c('date', 'chla', 'sal')
+testmod$lim <- 1e-6
 
 #### create one model
-eval <- modfit(tomod, resp_type = 'mean', wins = list(0.2, 3, 0.2))
+eval <- modfit(testmod, resp_type = 'mean', wins = list(3, 1, 3))
 
 plot(chla ~ fits, eval)
-plot(eval$norm, na.omit(toeval2$lnchla_noQ))
+plot(eval$norm, na.omit(samped$lnchla_noQ))
 
+dynaplot(eval)

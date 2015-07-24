@@ -112,6 +112,10 @@ bestLE12 <- data.frame(bestLE12_wrtds) %>%
   rename(
     fits_gams = fits, 
     norm_gams = norm
+  ) %>% 
+  mutate(
+    res_wrtds = chla - fits_wrtds,
+    res_gams = chla - fits_gams
   )
 
 save(bestLE12, file = 'data/bestLE12.RData')
@@ -128,6 +132,10 @@ bestTF16 <- data.frame(bestTF16_wrtds) %>%
   rename(
     fits_gams = fits, 
     norm_gams = norm
+  ) %>% 
+  mutate(
+    res_wrtds = chla - fits_wrtds,
+    res_gams = chla - fits_gams
   )
 
 save(bestTF16, file = 'data/bestTF16.RData')

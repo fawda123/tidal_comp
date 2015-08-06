@@ -1,6 +1,7 @@
 # create simulated datasets
 library(dplyr)
 library(ggplot2)
+library(gridExtra)
 # library(WRTDStidal)
 devtools::load_all('M:/docs/wtreg_for_estuaries')
 
@@ -63,10 +64,10 @@ sims <- lnQ_sim(daydat)
 sims <- lnchla_err(sims)
 
 tomod <- lnchla_sim(sims)
-names(tomod)[names(tomod) %in% 'lnchla_Q'] <- 'sim1'
-tomod$sim2 <- lnchla_sim(sims, lnQ_coef = rep(0, nrow(obs_dat)))$lnchla_Q
-tomod$sim3 <- lnchla_sim(sims, lnQ_coef = seq(0, 1, length = nrow(obs_dat)))$lnchla_Q
-tomod$sim4 <- lnchla_sim(sims, lnQ_coef = seq(1, 0, length = nrow(obs_dat)))$lnchla_Q
+names(tomod)[names(tomod) %in% 'lnchla_Q'] <- 'sim1' # constant effect
+tomod$sim2 <- lnchla_sim(sims, lnQ_coef = rep(0, nrow(daydat)))$lnchla_Q # no effect
+tomod$sim3 <- lnchla_sim(sims, lnQ_coef = seq(0, 1, length = nrow(daydat)))$lnchla_Q # increasing effect
+tomod$sim4 <- lnchla_sim(sims, lnQ_coef = seq(1, 0, length = nrow(daydat)))$lnchla_Q # decreasing effect
 samped <- samp_sim(tomod)
 
 # the daily ts

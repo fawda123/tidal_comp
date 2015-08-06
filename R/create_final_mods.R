@@ -102,6 +102,13 @@ data(bestLE12_wrtds)
 data(bestTF16_gams)
 data(bestTF16_wrtds)
 
+# import pax to add flow, sal to data objects that did not use either for model fits
+data(pax_data)
+flowsalTF16 <- filter(pax_data, STATION %in% 'TF1.6') %>% 
+  select(date, sal)
+flowsalLE12 <- filter(pax_data, STATION %in% 'LE1.2') %>% 
+  select(date, lnQ)
+
 bestLE12 <- data.frame(bestLE12_wrtds) %>% 
   select(date, dec_time, chla, sal, fits, norm) %>% 
   rename(
@@ -116,7 +123,8 @@ bestLE12 <- data.frame(bestLE12_wrtds) %>%
   mutate(
     res_wrtds = chla - fits_wrtds,
     res_gams = chla - fits_gams
-  )
+  ) %>% 
+  left_join(., flowsalLE12, by = 'date')
 
 save(bestLE12, file = 'data/bestLE12.RData')
 save(bestLE12, file = 'M:/docs/manuscripts/patux_manu/data/bestLE12.RData')
@@ -126,7 +134,7 @@ bestTF16 <- data.frame(bestTF16_wrtds) %>%
   rename(
     fits_wrtds = fits, 
     norm_wrtds = norm,
-    Q = sal
+    lnQ = sal
   ) %>% 
   left_join(., bestTF16_gams, by = 'date') %>% 
   rename(
@@ -136,7 +144,8 @@ bestTF16 <- data.frame(bestTF16_wrtds) %>%
   mutate(
     res_wrtds = chla - fits_wrtds,
     res_gams = chla - fits_gams
-  )
+  ) %>% 
+  left_join(., flowsalTF16, by = 'date')
 
 save(bestTF16, file = 'data/bestTF16.RData')
 save(bestTF16, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16.RData')

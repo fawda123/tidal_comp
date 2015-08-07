@@ -124,7 +124,16 @@ bestLE12 <- data.frame(bestLE12_wrtds) %>%
     res_wrtds = chla - fits_wrtds,
     res_gams = chla - fits_gams
   ) %>% 
-  left_join(., flowsalLE12, by = 'date')
+  left_join(., flowsalLE12, by = 'date') %>% 
+  mutate(
+    mo = as.numeric(strftime(date, '%m')), 
+    yr = as.numeric(strftime(date, '%Y')), 
+    flcat = cut(lnQ, breaks = c(-Inf, quantile(lnQ, c(0.25, 0.5, 0.75)), Inf), labels = c('Flow 1 (Low)', 'Flow 2', 'Flow 3', 'Flow 4 (High)')), 
+    mocat = cut(mo, breaks = c(-Inf, 3, 6, 9, Inf), labels = c('JFM', 'AMJ', 'JAS', 'OND')), 
+    yrcat = cut(yr, breaks = c(-Inf, 1993, 2000, 2007, Inf), 
+      labels = c('1986-1993', '1994-2000', '2001-2007', '2008-2014'))
+  ) %>% 
+  select(-mo, -yr) 
 
 save(bestLE12, file = 'data/bestLE12.RData')
 save(bestLE12, file = 'M:/docs/manuscripts/patux_manu/data/bestLE12.RData')
@@ -145,7 +154,16 @@ bestTF16 <- data.frame(bestTF16_wrtds) %>%
     res_wrtds = chla - fits_wrtds,
     res_gams = chla - fits_gams
   ) %>% 
-  left_join(., flowsalTF16, by = 'date')
+  left_join(., flowsalTF16, by = 'date') %>% 
+  mutate(
+    mo = as.numeric(strftime(date, '%m')), 
+    yr = as.numeric(strftime(date, '%Y')), 
+    flcat = cut(lnQ, breaks = c(-Inf, quantile(lnQ, c(0.25, 0.5, 0.75)), Inf), labels = c('Flow 1 (Low)', 'Flow 2', 'Flow 3', 'Flow 4 (High)')), 
+    mocat = cut(mo, breaks = c(-Inf, 3, 6, 9, Inf), labels = c('JFM', 'AMJ', 'JAS', 'OND')), 
+    yrcat = cut(yr, breaks = c(-Inf, 1993, 2000, 2007, Inf), 
+      labels = c('1986-1993', '1994-2000', '2001-2007', '2008-2014'))
+  ) %>% 
+  select(-mo, -yr) 
 
 save(bestTF16, file = 'data/bestTF16.RData')
 save(bestTF16, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16.RData')

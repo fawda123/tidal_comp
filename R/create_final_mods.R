@@ -59,17 +59,17 @@ library(data.table)
 ###
 # tf16 
 
-tf16_prd <- read_excel('ignore/GAM_Patuxent_2015-07-23.xlsx', sheet = 'TF16predict', skip= 1) %>% 
+tf16_prd <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'TF16predict', skip= 1) %>% 
   mutate(dates = as.Date(dates))
-tf16_nrm <- read_excel('ignore/GAM_Patuxent_2015-07-23.xlsx', sheet = 'TF16FlowNorm', skip= 1) %>%
+tf16_nrm <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'TF16FlowNorm', skip= 1) %>%
   mutate(dates = as.Date(dates))
 
 # gam norm are one per month, merge by nereast date in preds, norms will be duplicated for some months
 bestTF16_gams <- data.table::data.table(tf16_prd, key = 'dates')
 mrgs <- data.table::data.table(tf16_nrm, key = 'dates')
 bestTF16_gams <- as.data.frame(mrgs[bestTF16_gams, roll = 'nearest'])
-names(bestTF16_gams) <- c('date', 'norm', 'dec_time', 'fits')
-bestTF16_gams <- bestTF16_gams[, c(1, 4, 2)]
+names(bestTF16_gams) <- c('date', 'norm', 'dec_time', 'fits', 'se')
+bestTF16_gams <- bestTF16_gams[, c(1, 4, 2, 5)]
 
 save(bestTF16_gams, file = 'data/bestTF16_gams.RData')
 save(bestTF16_gams, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16_gams.RData')
@@ -77,17 +77,17 @@ save(bestTF16_gams, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16_gams.RD
 ###
 # le12
 
-le12_prd <- read_excel('ignore/GAM_Patuxent_2015-07-23.xlsx', sheet = 'LE12predict', skip= 1) %>% 
+le12_prd <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'LE12predict', skip= 1) %>% 
   mutate(dates = as.Date(dates))
-le12_nrm <- read_excel('ignore/GAM_Patuxent_2015-07-23.xlsx', sheet = 'LE12FlowNorm', skip= 1) %>%
+le12_nrm <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'LE12FlowNorm', skip= 1) %>%
   mutate(dates = as.Date(dates))
 
 # gam norm are one per month, merge by nereast date in preds, norms will be duplicated for some months
 bestLE12_gams <- data.table::data.table(le12_prd, key = 'dates')
 mrgs <- data.table::data.table(le12_nrm, key = 'dates')
 bestLE12_gams <- as.data.frame(mrgs[bestLE12_gams, roll = 'nearest'])
-names(bestLE12_gams) <- c('date', 'norm', 'dec_time', 'fits')
-bestLE12_gams <- bestLE12_gams[, c(1, 4, 2)]
+names(bestLE12_gams) <- c('date', 'norm', 'dec_time', 'fits', 'se')
+bestLE12_gams <- bestLE12_gams[, c(1, 4, 2, 5)]
 
 save(bestLE12_gams, file = 'data/bestLE12_gams.RData')
 save(bestLE12_gams, file = 'M:/docs/manuscripts/patux_manu/data/bestLE12_gams.RData')
@@ -118,7 +118,8 @@ bestLE12 <- data.frame(bestLE12_wrtds) %>%
   left_join(., bestLE12_gams, by = 'date') %>% 
   rename(
     fits_gams = fits, 
-    norm_gams = norm
+    norm_gams = norm, 
+    se_gams = se
   ) %>% 
   mutate(
     res_wrtds = chla - fits_wrtds,
@@ -148,7 +149,8 @@ bestTF16 <- data.frame(bestTF16_wrtds) %>%
   left_join(., bestTF16_gams, by = 'date') %>% 
   rename(
     fits_gams = fits, 
-    norm_gams = norm
+    norm_gams = norm, 
+    se_gams = se
   ) %>% 
   mutate(
     res_wrtds = chla - fits_wrtds,

@@ -21,7 +21,7 @@ tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
 
 bestLE12_wrtds <- modfit(tomod, resp_type = 'mean', wins = as.list(optimLE12_opt$par), 
-  min_obs = FALSE)
+  min_obs = FALSE, sal_grd = 30)
 save(bestLE12_wrtds, file = 'data/bestLE12_wrtds.RData')
 save(bestLE12_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestLE12_wrtds.RData')
 
@@ -43,7 +43,8 @@ tomod$limval <- 0
 tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
 
-bestTF16_wrtds <- modfit(tomod, resp_type = 'mean', wins = as.list(optimTF16_opt$par), min_obs = FALSE)
+bestTF16_wrtds <- modfit(tomod, resp_type = 'mean', wins = as.list(optimTF16_opt$par), min_obs = FALSE, 
+  sal_grd = 30)
 save(bestTF16_wrtds, file = 'data/bestTF16_wrtds.RData')
 save(bestTF16_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16_wrtds.RData')
 

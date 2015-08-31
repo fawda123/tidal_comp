@@ -44,63 +44,33 @@ devtools::load_all('M:/docs/wtreg_for_estuaries')
 # obs_dat <- merge(pax_chl, pax_flow, by = 'date')
 # obs_dat <- filter(obs_dat, year > 2004)
 # save(obs_dat, file = 'data/obs_dat.RData')
+# 
+# #######
+# # create simulated chlorophyll datasets with known bio and flow components
+# # daydat is the same as obs_dat, just ported over to WRTDStidal
+# 
+# data(daydat)
+#   
+# set.seed(123)
+# 
+# # scenarios
+# # constant influence
+# # no influence
+# # steady increase
+# 
+# ## get simulated discharge
+# sims_day <- lnQ_sim(daydat)
+# sims_day <- lnchla_err(sims_day)
+# 
+# sims_day <- lnchla_sim(sims_day)
+# names(sims_day)[names(sims_day) %in% 'lnchla_Q'] <- 'sim1' # constant effect
+# sims_day$sim2 <- lnchla_sim(sims_day, lnQ_coef = rep(0, nrow(daydat)))$lnchla_Q # no effect
+# sims_day$sim3 <- lnchla_sim(sims_day, lnQ_coef = seq(0, 1, length = nrow(daydat)))$lnchla_Q # increasing effect
+# sims_mos <- samp_sim(sims_day)
+# 
+# # remove extra columns
+# sims_mos <- select(sims_mos, -dec_time, -sal, -lnchla, -Q, -lnQ, -jday, -year, -day, -errs, -scls)
+# sims_day <- select(sims_day, -dec_time, -sal, -lnchla, -Q, -lnQ, -jday, -year, -day, -errs, -scls)
+# save(sims_day, file = 'data/sims_day.RData')
+# save(sims_mos, file = 'data/sims_mos.RData')
 
-#######
-# create simulated chlorophyll datasets with known bio and flow components
-# daydat is the same as obs_dat, just ported over to WRTDStidal
-
-data(daydat)
-  
-set.seed(123)
-
-# scenarios
-# constant influence
-# no influence
-# steady increase
-# steady decrease
-
-## get simulated discharge
-sims <- lnQ_sim(daydat)
-sims <- lnchla_err(sims)
-
-tomod <- lnchla_sim(sims)
-names(tomod)[names(tomod) %in% 'lnchla_Q'] <- 'sim1' # constant effect
-tomod$sim2 <- lnchla_sim(sims, lnQ_coef = rep(0, nrow(daydat)))$lnchla_Q # no effect
-tomod$sim3 <- lnchla_sim(sims, lnQ_coef = seq(0, 1, length = nrow(daydat)))$lnchla_Q # increasing effect
-tomod$sim4 <- lnchla_sim(sims, lnQ_coef = seq(1, 0, length = nrow(daydat)))$lnchla_Q # decreasing effect
-samped <- samp_sim(tomod)
-
-# the daily ts
-toplo <- reshape2::melt(tomod, id.vars = 'date', 
-  measure.vars = c('lnchla', 'lnchla_noQ', 'sim1', 'sim2', 'sim3', 'sim4'))
-
-p1 <- ggplot(toplo, aes(x = date, y = value, group = variable)) + 
-  geom_line() + 
-  theme_bw() + 
-  facet_wrap(~variable)
-
-# the sampled ts
-toplo2 <- reshape2::melt(samped, id.vars = 'date', 
-  measure.vars = c('lnchla', 'lnchla_noQ', 'sim1', 'sim2', 'sim3', 'sim4'))
-
-p2 <- ggplot(toplo2, aes(x = date, y = value, group = variable)) + 
-  geom_line() + 
-  theme_bw() + 
-  facet_wrap(~variable)
-
-grid.arrange(p1, p2, ncol = 1)
-
-##
-# try some mods
-
-testmod <- select(samped, date, sim3, lnQ_sim)
-names(testmod) <- c('date', 'chla', 'sal')
-testmod$lim <- 1e-6
-
-#### create one model
-eval <- modfit(testmod, resp_type = 'mean', wins = list(3, 1, 3))
-
-plot(chla ~ fits, eval)
-plot(eval$norm, na.omit(samped$lnchla_noQ))
-
-dynaplot(eval)

@@ -30,3 +30,7 @@ This repository contains materials for comparing generalized additive models (GA
 `pax_data.RData` Processed water quality data for water quality stations in the Patuxent River Estuary, 1985 to 2014.  Created in dat_proc.Rnw.
 
 `pax_meta.RData` Metadata for water quality stations in the Patuxent River Estuary, created in dat_proc.Rnw.
+
+`sims_day.RData` Simulated data for manuscript of daily time series that includes chlorophyll with varying effect of discharge (sim1 none, sim2 constant, sim3 increasing).  lnchla_noQ is the biological component of chlorophyll, lnQ_sim is simulated discharge and was used to simulate the flow effect of chlorpohyll.  Created in `sim_dat.R`.
+
+`sims_mos.RData` Same dataset as `sims_day.RData` but using a monthly time step.  Created in `sim_dat.R`.

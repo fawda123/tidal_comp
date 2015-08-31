@@ -45,32 +45,33 @@ devtools::load_all('M:/docs/wtreg_for_estuaries')
 # obs_dat <- filter(obs_dat, year > 2004)
 # save(obs_dat, file = 'data/obs_dat.RData')
 # 
-# #######
-# # create simulated chlorophyll datasets with known bio and flow components
-# # daydat is the same as obs_dat, just ported over to WRTDStidal
-# 
-# data(daydat)
-#   
-# set.seed(123)
-# 
-# # scenarios
-# # constant influence
-# # no influence
-# # steady increase
-# 
-# ## get simulated discharge
-# sims_day <- lnQ_sim(daydat)
-# sims_day <- lnchla_err(sims_day)
-# 
-# sims_day <- lnchla_sim(sims_day)
-# names(sims_day)[names(sims_day) %in% 'lnchla_Q'] <- 'sim1' # constant effect
-# sims_day$sim2 <- lnchla_sim(sims_day, lnQ_coef = rep(0, nrow(daydat)))$lnchla_Q # no effect
-# sims_day$sim3 <- lnchla_sim(sims_day, lnQ_coef = seq(0, 1, length = nrow(daydat)))$lnchla_Q # increasing effect
-# sims_mos <- samp_sim(sims_day)
-# 
-# # remove extra columns
-# sims_mos <- select(sims_mos, -dec_time, -sal, -lnchla, -Q, -lnQ, -jday, -year, -day, -errs, -scls)
-# sims_day <- select(sims_day, -dec_time, -sal, -lnchla, -Q, -lnQ, -jday, -year, -day, -errs, -scls)
-# save(sims_day, file = 'data/sims_day.RData')
-# save(sims_mos, file = 'data/sims_mos.RData')
+#######
+# create simulated chlorophyll datasets with known bio and flow components
+# daydat is the same as obs_dat, just ported over to WRTDStidal
 
+data(daydat)
+  
+set.seed(123)
+
+# scenarios
+# constant influence
+# no influence
+# steady increase
+
+## get simulated discharge
+sims_day <- lnQ_sim(daydat)
+sims_day <- lnchla_err(sims_day)
+
+sims_day <- lnchla_sim(sims_day)
+names(sims_day)[names(sims_day) %in% 'lnchla_Q'] <- 'sim1' # constant effect
+sims_day$sim2 <- lnchla_sim(sims_day, lnQ_coef = rep(0, nrow(daydat)))$lnchla_Q # no effect
+sims_day$sim3 <- lnchla_sim(sims_day, lnQ_coef = seq(0, 1, length = nrow(daydat)))$lnchla_Q # increasing effect
+sims_mos <- samp_sim(sims_day)
+
+# remove extra columns
+sims_mos <- select(sims_mos, -dec_time, -sal, -lnchla, -Q, -lnQ, -jday, -year, -day, -errs, -scls)
+sims_day <- select(sims_day, -dec_time, -sal, -lnchla, -Q, -lnQ, -jday, -year, -day, -errs, -scls)
+save(sims_day, file = 'data/sims_day.RData')
+save(sims_mos, file = 'data/sims_mos.RData')
+save(sims_day, file = 'M:/docs/manuscripts/patux_manu/data/sims_day.RData')
+save(sims_mos, file = 'M:/docs/manuscripts/patux_manu/data/sims_mos.RData')

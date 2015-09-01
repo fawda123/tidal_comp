@@ -170,3 +170,56 @@ bestTF16 <- data.frame(bestTF16_wrtds) %>%
 
 save(bestTF16, file = 'data/bestTF16.RData')
 save(bestTF16, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16.RData')
+
+######
+# recreate optimal simulation models
+
+rm(list = ls())
+
+###
+# sim1
+
+data(sims_mos)
+data(sim1_opt)
+
+# recreate mod
+bestsim1 <- select(sims_mos, date,  sim1, lnQ_sim)
+names(bestsim1) <- c('date', 'chla', 'sal')
+bestsim1$lim <- 0
+
+bestsim1_wrtds <- modfit(bestsim1, resp_type = 'mean', wins = as.list(sim1_opt$par), min_obs = FALSE, 
+  sal_div = 50)
+# save(bestsim1_wrtds, file = 'data/bestsim1_wrtds.RData')
+# save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim1_wrtds.RData')
+
+###
+# sim2
+
+data(sims_mos)
+data(sim2_opt)
+
+# recreate mod
+bestsim2 <- select(sims_mos, date,  sim2, lnQ_sim)
+names(bestsim2) <- c('date', 'chla', 'sal')
+bestsim2$lim <- 0
+
+bestsim2_wrtds <- modfit(bestsim2, resp_type = 'mean', wins = as.list(sim2_opt$par), min_obs = FALSE, 
+  sal_div = 50)
+# save(bestsim2_wrtds, file = 'data/bestsim2_wrtds.RData')
+# save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim2_wrtds.RData')
+
+###
+# sim3
+
+data(sims_mos)
+data(sim3_opt)
+
+# recreate mod
+bestsim3 <- select(sims_mos, date,  sim3, lnQ_sim)
+names(bestsim3) <- c('date', 'chla', 'sal')
+bestsim3$lim <- 0
+
+bestsim3_wrtds <- modfit(bestsim3, resp_type = 'mean', wins = as.list(sim3_opt$par), min_obs = FALSE, 
+  sal_div = 50)
+# save(bestsim3_wrtds, file = 'data/bestsim3_wrtds.RData')
+# save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim3_wrtds.RData')

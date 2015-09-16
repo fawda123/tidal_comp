@@ -87,7 +87,7 @@ sim1$lim <- 0
 sim1 <- tidalmean(sim1)
 
 sim1_opt <- winsrch_optim(sim1, upper = c(1, 20, 1), lower = c(0.25, 1, 0.25), 
-  min_obs = FALSE, k = 20)
+  min_obs = FALSE, k = 5)
 save(sim1_opt, file = 'data/sim1_opt.RData')
 
 # second simulation
@@ -97,7 +97,7 @@ sim2$lim <- 0
 sim2 <- tidalmean(sim2)
 
 sim2_opt <- winsrch_optim(sim2, upper = c(1, 20, 1), lower = c(0.25, 1, 0.25), 
-  min_obs = FALSE, k = 20)
+  min_obs = FALSE, k = 5)
 save(sim2_opt, file = 'data/sim2_opt.RData')
 
 # third simulation
@@ -107,5 +107,5 @@ sim3$lim <- 0
 sim3 <- tidalmean(sim3)
 
 sim3_opt <- winsrch_optim(sim3, upper = c(1, 20, 1), lower = c(0.25, 1, 0.25), 
-  min_obs = FALSE, k = 20)
+  min_obs = FALSE, k = 5)
 save(sim3_opt, file = 'data/sim3_opt.RData')

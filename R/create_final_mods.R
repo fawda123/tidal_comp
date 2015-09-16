@@ -60,17 +60,19 @@ library(data.table)
 ###
 # tf16 
 
-tf16_prd <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'TF16predict', skip= 1) %>% 
+tf16_prd <- read_excel('ignore/GAM_Patuxent_2015-09-15-CIs.xlsx', sheet = 'TF16predict', skip= 1) %>% 
   mutate(dates = as.Date(dates))
-tf16_nrm <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'TF16FlowNorm', skip= 1) %>%
+tf16_nrm <- read_excel('ignore/GAM_Patuxent_2015-09-15-CIs.xlsx', sheet = 'TF16FlowNorm', skip= 1) %>%
   mutate(dates = as.Date(dates))
 
-# gam norm are one per month, merge by nereast date in preds, norms will be duplicated for some months
+# merge predicted and norms
+# the data table appraoch was used for older versions of the results 
+# not necessary here but kept it cause lazy
 bestTF16_gams <- data.table::data.table(tf16_prd, key = 'dates')
 mrgs <- data.table::data.table(tf16_nrm, key = 'dates')
 bestTF16_gams <- as.data.frame(mrgs[bestTF16_gams, roll = 'nearest'])
-names(bestTF16_gams) <- c('date', 'norm', 'dec_time', 'fits', 'se')
-bestTF16_gams <- bestTF16_gams[, c(1, 4, 2, 5)]
+bestTF16_gams <- select(bestTF16_gams, dates, lnchla, FlowNorm_lnchla, se)
+names(bestTF16_gams) <- c('date', 'fits', 'norm', 'se')
 
 save(bestTF16_gams, file = 'data/bestTF16_gams.RData')
 save(bestTF16_gams, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16_gams.RData')
@@ -78,17 +80,17 @@ save(bestTF16_gams, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16_gams.RD
 ###
 # le12
 
-le12_prd <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'LE12predict', skip= 1) %>% 
+le12_prd <- read_excel('ignore/GAM_Patuxent_2015-09-15-CIs.xlsx', sheet = 'LE12predict', skip= 1) %>% 
   mutate(dates = as.Date(dates))
-le12_nrm <- read_excel('ignore/GAM_Patuxent_2015-08-11.xlsx', sheet = 'LE12FlowNorm', skip= 1) %>%
+le12_nrm <- read_excel('ignore/GAM_Patuxent_2015-09-15-CIs.xlsx', sheet = 'LE12FlowNorm', skip= 1) %>%
   mutate(dates = as.Date(dates))
 
 # gam norm are one per month, merge by nereast date in preds, norms will be duplicated for some months
 bestLE12_gams <- data.table::data.table(le12_prd, key = 'dates')
 mrgs <- data.table::data.table(le12_nrm, key = 'dates')
 bestLE12_gams <- as.data.frame(mrgs[bestLE12_gams, roll = 'nearest'])
-names(bestLE12_gams) <- c('date', 'norm', 'dec_time', 'fits', 'se')
-bestLE12_gams <- bestLE12_gams[, c(1, 4, 2, 5)]
+bestLE12_gams <- select(bestLE12_gams, dates, lnchla, FlowNorm_lnchla, se)
+names(bestLE12_gams) <- c('date', 'fits', 'norm', 'se')
 
 save(bestLE12_gams, file = 'data/bestLE12_gams.RData')
 save(bestLE12_gams, file = 'M:/docs/manuscripts/patux_manu/data/bestLE12_gams.RData')
@@ -172,7 +174,7 @@ save(bestTF16, file = 'data/bestTF16.RData')
 save(bestTF16, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16.RData')
 
 ######
-# recreate optimal simulation models
+# recreate optimal simulation models for WRTDS
 
 rm(list = ls())
 
@@ -223,3 +225,9 @@ bestsim3_wrtds <- modfit(bestsim3, resp_type = 'mean', wins = as.list(sim3_opt$p
   sal_div = 50)
 # save(bestsim3_wrtds, file = 'data/bestsim3_wrtds.RData')
 # save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim3_wrtds.RData')
+
+# pdf('C:/Users/mbeck/Desktop/wrtds_sims.pdf', height = 6, width = 7, family = 'serif')
+# dynaplot(bestsim1_wrtds) + ggtitle('Sim1')
+# dynaplot(bestsim2_wrtds) + ggtitle('Sim2')
+# dynaplot(bestsim3_wrtds) + ggtitle('Sim3')
+# dev.off()

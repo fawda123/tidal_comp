@@ -11,6 +11,8 @@ This repository contains materials for comparing generalized additive models (GA
  
 `bestLE12_gams.RData` Optimal GAM for LE12, created in `create_final_mods.R`
  
+`bestsim_wrtds.RData` Best WRTDS model objects for each of three simulated monthly time series, created in `create_final_mods.R`.
+ 
 `bestTF16.RData` combined dataset for best WRTDS and GAM for TF16, includes observed data, created in `create_final_mods.R`
  
 `bestTF16_wrtds.RData` Optimal WRTDS model for TF16, created in `create_final_mods.R`
@@ -37,6 +39,8 @@ This repository contains materials for comparing generalized additive models (GA
 
 `sim3_opt.RData` Results of `winsrch_optim` for sim3 dataset in `sims_mos.RData`, created in `get_optim.R.`
 
-`sims_day.RData` Simulated data for manuscript of daily time series that includes chlorophyll with varying effect of discharge (sim1 none, sim2 constant, sim3 increasing).  lnchla_noQ is the biological component of chlorophyll, lnQ_sim is simulated discharge and was used to simulate the flow effect of chlorpohyll.  Created in `sim_dat.R`.
+`sim_res.RData` Combined results from WRTDS and GAM for predictions and flow-normalized predictions for each of three simulated time series in `sims_mos.RData`, created in `create_final_mods.R`.  Data are in long format with columns for `date`, `lnchla_noQ ` (biological chlorophyll for comparison with `norm`), `simval` (simulated time series as observed to predict with each model), `mod` (model type), `sim` (which simulation the results apply to), `fits` (model fits to `simval`), and `norm` (flow-normlized predictions to compare to `lnchla_noQ`)
+
+`sims_day.RData` Simulated data for manuscript of daily time series that includes chlorophyll with varying effect of discharge (sim1 none, sim2 constant, sim3 increasing).  `lnchla_noQ` is the biological component of chlorophyll, `lnQ_sim` is simulated discharge and was used to simulate the flow effect of chlorpohyll.  Created in `sim_dat.R`.
 
 `sims_mos.RData` Same dataset as `sims_day.RData` but using a monthly time step.  Created in `sim_dat.R`.

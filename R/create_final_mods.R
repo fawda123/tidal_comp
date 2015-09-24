@@ -174,11 +174,17 @@ save(bestTF16, file = 'data/bestTF16.RData')
 save(bestTF16, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16.RData')
 
 ######
+# create file of WRTDS and GAM flow-normalized results for simulated time series
+# most of the input files were created in sim_dat.R
+
+##
 # recreate optimal simulation models for WRTDS
 
 rm(list = ls())
+library(dplyr)
+devtools::load_all("M:/docs/wtreg_for_estuaries")
 
-###
+##
 # sim1
 
 data(sims_mos)
@@ -187,14 +193,12 @@ data(sim1_opt)
 # recreate mod
 bestsim1 <- select(sims_mos, date,  sim1, lnQ_sim)
 names(bestsim1) <- c('date', 'chla', 'sal')
-bestsim1$lim <- 0
+bestsim1$lim <- -1e6
 
 bestsim1_wrtds <- modfit(bestsim1, resp_type = 'mean', wins = as.list(sim1_opt$par), min_obs = FALSE, 
   sal_div = 50)
-# save(bestsim1_wrtds, file = 'data/bestsim1_wrtds.RData')
-# save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim1_wrtds.RData')
 
-###
+##
 # sim2
 
 data(sims_mos)
@@ -203,14 +207,12 @@ data(sim2_opt)
 # recreate mod
 bestsim2 <- select(sims_mos, date,  sim2, lnQ_sim)
 names(bestsim2) <- c('date', 'chla', 'sal')
-bestsim2$lim <- 0
+bestsim2$lim <- -1e6
 
 bestsim2_wrtds <- modfit(bestsim2, resp_type = 'mean', wins = as.list(sim2_opt$par), min_obs = FALSE, 
   sal_div = 50)
-# save(bestsim2_wrtds, file = 'data/bestsim2_wrtds.RData')
-# save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim2_wrtds.RData')
 
-###
+##
 # sim3
 
 data(sims_mos)
@@ -219,15 +221,66 @@ data(sim3_opt)
 # recreate mod
 bestsim3 <- select(sims_mos, date,  sim3, lnQ_sim)
 names(bestsim3) <- c('date', 'chla', 'sal')
-bestsim3$lim <- 0
+bestsim3$lim <- -1e6
 
 bestsim3_wrtds <- modfit(bestsim3, resp_type = 'mean', wins = as.list(sim3_opt$par), min_obs = FALSE, 
   sal_div = 50)
-# save(bestsim3_wrtds, file = 'data/bestsim3_wrtds.RData')
-# save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim3_wrtds.RData')
+
+##
+# combine wrtds simulation mods into an object
+bestsim_wrtds <- list(bestsim1_wrtds, bestsim2_wrtds, bestsim3_wrtds)
+save(bestsim_wrtds, file = 'data/bestsim_wrtds')
 
 # pdf('C:/Users/mbeck/Desktop/wrtds_sims.pdf', height = 6, width = 7, family = 'serif')
 # dynaplot(bestsim1_wrtds) + ggtitle('Sim1')
 # dynaplot(bestsim2_wrtds) + ggtitle('Sim2')
 # dynaplot(bestsim3_wrtds) + ggtitle('Sim3')
 # dev.off()
+
+## get GAM results for simulated data from Rebecca
+gam_res <- read.csv('ignore/GAMsimOutput.csv', header = T) %>% 
+  select(-dec.yr, -Qsal) %>% 
+  rename(
+    fits_gs1 = gam.s1, 
+    norm_gs1 = gam.s1.fn, 
+    fits_gs2 = gam.s2, 
+    norm_gs2 = gam.s2.fn,
+    fits_gs3 = gam.s3,
+    norm_gs3 = gam.s3.fn
+  ) %>% 
+  mutate(
+    dates = as.Date(as.character(dates), format = '%m/%d/%Y')
+  ) %>% 
+  rename(date = dates)
+
+## combine with wrtds results
+sim_res <- left_join(gam_res, bestsim_wrtds[[1]][, c('date', 'fits', 'norm')], by = 'date') %>% 
+  rename(fits_ws1 = fits, norm_ws1 = norm) %>% 
+  left_join(., bestsim_wrtds[[2]][, c('date', 'fits', 'norm')], by = 'date') %>% 
+  rename(fits_ws2 = fits, norm_ws2 = norm) %>% 
+  left_join(., bestsim_wrtds[[3]][, c('date', 'fits', 'norm')], by = 'date') %>% 
+  rename(fits_ws3 = fits, norm_ws3 = norm) %>% 
+  left_join(., sims_mos, by = 'date')
+# separate columns into lists by simulation for more processing
+sim_res <- list(
+    sim1 = sim_res[, c('date', 'lnchla_noQ', grep('1$', names(sim_res), value = TRUE))],
+    sim2 = sim_res[, c('date', 'lnchla_noQ', grep('2$', names(sim_res), value = TRUE))],
+    sim3 = sim_res[, c('date', 'lnchla_noQ', grep('3$', names(sim_res), value = TRUE))]
+  ) %>% 
+  lapply(., function(x){
+    tmp <- tidyr::gather(x, 'var', 'val', matches('^fits|^norm')) %>% 
+    mutate(mod = gsub('^fits_|^norm_|s[0-9]$', '', var)) %>% 
+    mutate(
+      mod = factor(mod, levels = c('g', 'w'), labels = c('GAM', 'WRTDS')),
+      var = gsub('_.*$', '', var),
+      sim = grep('^sim', names(x), value = T)
+    ) %>% 
+    tidyr::spread(var, val)
+    names(tmp)[grepl('^sim[0-9]$', names(tmp))] <- 'simval'
+    tmp
+  }) %>% 
+  bind_rows %>% 
+  data.frame
+
+save(sim_res, file = 'data/sim_res.RData')
+save(sim_res, file = 'M:/docs/manuscripts/patux_manu/data/sim_res.RData')

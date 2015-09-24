@@ -230,12 +230,7 @@ bestsim3_wrtds <- modfit(bestsim3, resp_type = 'mean', wins = as.list(sim3_opt$p
 # combine wrtds simulation mods into an object
 bestsim_wrtds <- list(bestsim1_wrtds, bestsim2_wrtds, bestsim3_wrtds)
 save(bestsim_wrtds, file = 'data/bestsim_wrtds')
-
-# pdf('C:/Users/mbeck/Desktop/wrtds_sims.pdf', height = 6, width = 7, family = 'serif')
-# dynaplot(bestsim1_wrtds) + ggtitle('Sim1')
-# dynaplot(bestsim2_wrtds) + ggtitle('Sim2')
-# dynaplot(bestsim3_wrtds) + ggtitle('Sim3')
-# dev.off()
+save(bestsim_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestsim_wrtds.RData')
 
 ## get GAM results for simulated data from Rebecca
 gam_res <- read.csv('ignore/GAMsimOutput.csv', header = T) %>% 
@@ -254,7 +249,7 @@ gam_res <- read.csv('ignore/GAMsimOutput.csv', header = T) %>%
   rename(date = dates)
 
 ## combine with wrtds results
-sim_res <- left_join(gam_res, bestsim_wrtds[[1]][, c('date', 'fits', 'norm')], by = 'date') %>% 
+simres <- left_join(gam_res, bestsim_wrtds[[1]][, c('date', 'fits', 'norm')], by = 'date') %>% 
   rename(fits_ws1 = fits, norm_ws1 = norm) %>% 
   left_join(., bestsim_wrtds[[2]][, c('date', 'fits', 'norm')], by = 'date') %>% 
   rename(fits_ws2 = fits, norm_ws2 = norm) %>% 
@@ -262,10 +257,10 @@ sim_res <- left_join(gam_res, bestsim_wrtds[[1]][, c('date', 'fits', 'norm')], b
   rename(fits_ws3 = fits, norm_ws3 = norm) %>% 
   left_join(., sims_mos, by = 'date')
 # separate columns into lists by simulation for more processing
-sim_res <- list(
-    sim1 = sim_res[, c('date', 'lnchla_noQ', grep('1$', names(sim_res), value = TRUE))],
-    sim2 = sim_res[, c('date', 'lnchla_noQ', grep('2$', names(sim_res), value = TRUE))],
-    sim3 = sim_res[, c('date', 'lnchla_noQ', grep('3$', names(sim_res), value = TRUE))]
+simres <- list(
+    sim1 = simres[, c('date', 'lnchla_noQ', grep('1$', names(simres), value = TRUE))],
+    sim2 = simres[, c('date', 'lnchla_noQ', grep('2$', names(simres), value = TRUE))],
+    sim3 = simres[, c('date', 'lnchla_noQ', grep('3$', names(simres), value = TRUE))]
   ) %>% 
   lapply(., function(x){
     tmp <- tidyr::gather(x, 'var', 'val', matches('^fits|^norm')) %>% 
@@ -282,5 +277,5 @@ sim_res <- list(
   bind_rows %>% 
   data.frame
 
-save(sim_res, file = 'data/sim_res.RData')
-save(sim_res, file = 'M:/docs/manuscripts/patux_manu/data/sim_res.RData')
+save(simres, file = 'data/simres.RData')
+save(simres, file = 'M:/docs/manuscripts/patux_manu/data/simres.RData')

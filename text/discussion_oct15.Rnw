@@ -1,0 +1,83 @@
+\documentclass[serif]{beamer}
+\usetheme{Boadilla}
+\usepackage{graphicx}
+\usepackage[final]{animate}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{shapes,arrows,positioning,shadows}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
+\usepackage{subfig}
+\usepackage{pgf}
+\usepackage{pgffor}
+
+% knitr and global options
+<<setup, include = F, cache = F>>=
+library(knitr)
+# global knitr options
+opts_chunk$set(fig.path = 'figs/', fig.align = 'center', fig.show = 'hold', message = FALSE, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = FALSE, cache = T, prompt = TRUE, background = '#EDF8FB')
+#global R optoins
+options(replace.assign = TRUE, width = 60, digits = 1)
+@
+
+% load R libraries
+<<eval = T, echo = F, cache = F, message = F>>=
+library(WRTDStidal)
+library(dplyr)
+library(ggplot2)
+library(wesanderson)
+library(scales)
+library(gridExtra)
+# devtools::load_all('M:/docs/wtreg_for_estuaries')
+@
+
+\setbeamerfont{title}{series = \bfseries}
+\setbeamerfont{frametitle}{series = \bfseries} 
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+\begin{document}
+
+\title[Comparison of WRTDS and GAMs]{Comparison of WRTDS and GAMs for evaluating long-term trends in chlorophyll}
+
+\author[Beck, Murphy]{Marcus W. Beck\inst{1} \and Rebecca Murphy\inst{2}}
+
+\date{October 16, 2015}
+
+\institute[]{\inst{1} ORISE, USEPA, Gulf Ecology Division, \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov} \and \inst{2} UMCES at Chesapeake Bay Program, \href{mailto:rmurphy@chesapeakebay.net}{rmurphy@chesapeakebay.net}}
+
+%%%%%%
+\begin{frame}
+\titlepage
+\end{frame}
+
+%%%%%%
+\begin{frame}{Since the last call...}
+\begin{itemize}
+\item Application of GAMs and WRTDS to 20 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
+\item Development of comparable methods for model fitting \\~\\
+\item Development of simulated datasets to evaluate flow-normalization \\~\\
+\item Comparison of results and conclusions
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Model fitting and flow-normalization}
+\Bigtxt{Objective}: compare RMSE of model fits \\~\\
+\Bigtxt{Problem}: Need methods to prevent over-fitting and to compare apples-to-apples\\~\\
+GAMs - identify optimal degrees of freedom for smoothing parameters \\~\\
+WRTDS - identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
+Existing method for GAMs, cross-validation and search algorithm to identify window-widths for WRTDS \\~\\
+Basically, a statistical infrastructure to `automatically' fit the best model given the dataset \\~\\
+\end{frame}
+
+%%%%%%
+\begin{frame}{Development of simulated datasets}
+\Bigtxt{Objective}: evaluate ability of each model to reproduce flow-normalized trends\\~\\
+\Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
+We created simulated datasets...
+\end{frame}
+\end{document}

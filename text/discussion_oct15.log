@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  6 OCT 2015 17:50
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  7 OCT 2015 16:16
 entering extended mode
 **discussion_oct15.tex
 (M:\docs\tidal_comp\text\discussion_oct15.tex
@@ -1485,19 +1485,53 @@ LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4> not available
 ]
 [3
 
-]
-Package atenddvi Info: Last page = 4.
- [4
+] [4
+
+] [5
+
+] (M:\docs\tidal_comp\text\discussion_oct15.vrb
+<figs/unnamed-chunk-2-1.pdf, id=175, 650.43pt x 433.62pt>
+File: figs/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+
+<use figs/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-2-1.pdf used on input line 5.
+(pdftex.def)             Requested size: 342.2953pt x 228.20308pt.
+) [6
+
+ <M:/docs/tidal_comp/text/figs/unnamed-chunk-2-1.pdf>] <figs/predmo.pdf, id=212
+, 650.43pt x 361.35pt>
+File: figs/predmo.pdf Graphic file (type pdf)
+
+<use figs/predmo.pdf>
+Package pdftex.def Info: figs/predmo.pdf used on input line 157.
+(pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
+ [7
+
+ <M:/docs/tidal_comp/text/figs/predmo.pdf>]
+<figs/predann.pdf, id=252, 650.43pt x 361.35pt>
+File: figs/predann.pdf Graphic file (type pdf)
+ <use figs/predann.pdf>
+Package pdftex.def Info: figs/predann.pdf used on input line 162.
+(pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
+ [8
+
+ <M:/docs/tidal_comp/text/figs/predann.pdf>]
+
+Class beamer Warning: Frame text is shrunk by a factor of 24.00208 percent inst
+ead of 0 percent on input line 202.
+
+Package atenddvi Info: Last page = 9.
+[9
 
 ]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 118.
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 118.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 205.
  (M:\docs\tidal_comp\text\discussion_oct15.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 118.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 118.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
 Package rerunfilecheck Info: File `discussion_oct15.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1505,24 +1539,28 @@ Package rerunfilecheck Info: File `discussion_oct15.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 118.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
  ) 
 Here is how much of TeX's memory you used:
- 27944 strings out of 493921
- 554063 string characters out of 3147282
- 668324 words of memory out of 3000000
- 30602 multiletter control sequences out of 15000+200000
+ 28027 strings out of 493921
+ 555692 string characters out of 3147282
+ 676393 words of memory out of 3000000
+ 30666 multiletter control sequences out of 15000+200000
  10205 words of font info for 39 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  49i,16n,73p,478b,569s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on discussion_oct15.pdf (4 pages, 101350 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on discussion_oct15.pdf (9 pages, 1180444 bytes).
 PDF statistics:
- 163 PDF objects out of 1000 (max. 8388607)
- 9 named destinations out of 1000 (max. 500000)
- 145 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 353 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
+ 160 words of extra memory for PDF output out of 10000 (max. 10000000)
 

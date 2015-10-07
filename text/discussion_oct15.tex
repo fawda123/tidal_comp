@@ -92,7 +92,7 @@
 %%%%%%
 \begin{frame}{Since the last call...}
 \begin{itemize}
-\item Application of GAMs and WRTDS to 20 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
+\item Application of GAMs and WRTDS to 30 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
 \item Development of comparable methods for model fitting \\~\\
 \item Development of simulated datasets to evaluate flow-normalization \\~\\
 \item Comparison of results and conclusions
@@ -100,12 +100,24 @@
 \end{frame}
 
 %%%%%%
+\begin{frame}{Model applications}
+Both models used Vertically-integrated chlorophyll, monthly timestep \\~\\
+LE1.2: lnchla ~ time + \Bigtxt{salinity} \\~\\
+TF1.6: lnchla ~ time + \Bigtxt{flow} \\~\\
+Fits evaluated for whole time series and annual/seasonal/flow aggregations: \\~\\
+\begin{itemize}
+\item predicted to observed, GAM predicted to WRTDS predicted
+\item Trends in flow-normalized results
+\end{itemize}
+\end{frame}
+
+%%%%%%
 \begin{frame}{Model fitting and flow-normalization}
-\Bigtxt{Objective}: compare RMSE of model fits \\~\\
+\Bigtxt{Objective}: compare model fits \\~\\
 \Bigtxt{Problem}: Need methods to prevent over-fitting and to compare apples-to-apples\\~\\
 GAMs - identify optimal degrees of freedom for smoothing parameters \\~\\
 WRTDS - identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
-Existing method for GAMs, cross-validation and search algorithm to identify window-widths for WRTDS \\~\\
+Existing method for GAMs, k-fold cross-validation and search algorithm (`limited memory BFGS quasi-Newton method') to identify window-widths for WRTDS \\~\\
 Basically, a statistical infrastructure to `automatically' fit the best model given the dataset \\~\\
 \end{frame}
 
@@ -113,6 +125,81 @@ Basically, a statistical infrastructure to `automatically' fit the best model gi
 \begin{frame}{Development of simulated datasets}
 \Bigtxt{Objective}: evaluate ability of each model to reproduce flow-normalized trends\\~\\
 \Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
-We created simulated datasets...
+We created monthly simulated datasets following the general technique in Hirsch et al. 2015 (sec. 4, MC simulations) \\
+\begin{itemize}
+\item Actual daily time series: discharge from Bowie gage, Jug Bay fluorescence
+\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
+\item From discharge: $Chl_{flo} = I\left(\widehat{Q}_{seas} + \sigma\cdot\varepsilon_{Q,\,sim}\right)$
+\item From fluorescence: $Chl_{bio} = \widehat{Chl}_{seas} + \sigma\cdot\varepsilon_{Chl,\,sim}$
+\item indicator $I$ changes to simulate changing flow component
+\end{itemize}
 \end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Development of simulated datasets}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figs/unnamed-chunk-2-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
+
+
+
+%%%%%%
+\begin{frame}{Results}
+\includegraphics[width=\textwidth]{figs/predmo.pdf}
+\end{frame}
+
+%%%%%
+\begin{frame}{Results}
+\includegraphics[width=\textwidth]{figs/predann.pdf}
+\end{frame}
+
+
+%%%%%
+\begin{frame}[shrink]{Results}
+%latex.default(tab, file = "", rowlabel = "Period", caption = cap.val,     caption.loc = "top", rgroup = c("All", "Annual", "Seasonal",         "Flow"), n.rgroup = c(1, rep(4, 3)), cgroup = c("LE1.2",         "TF1.6"), n.cgroup = c(2, 2), rowname = rows, colheads = rep(c("GAM",         "WRTDS"), 2), label = "tab:perftoobs")%
+\begin{table}[!tbp]
+\caption{RMSE of observed to predicted ln-chlorophyll.\label{tab:perftoobs}} 
+\begin{center}
+\begin{tabular}{lllcll}
+\hline\hline
+\multicolumn{1}{l}{\bfseries Period}&\multicolumn{2}{c}{\bfseries LE1.2}&\multicolumn{1}{c}{\bfseries }&\multicolumn{2}{c}{\bfseries TF1.6}\tabularnewline
+\cline{2-3} \cline{5-6}
+\multicolumn{1}{l}{}&\multicolumn{1}{c}{GAM}&\multicolumn{1}{c}{WRTDS}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{GAM}&\multicolumn{1}{c}{WRTDS}\tabularnewline
+\hline
+{\bfseries All}&&&&&\tabularnewline
+~~&0.54&0.51&&0.54&0.52\tabularnewline
+\hline
+{\bfseries Annual}&&&&&\tabularnewline
+~~1986-1993&0.54&0.50&&0.53&0.49\tabularnewline
+~~1994-2000&0.52&0.50&&0.58&0.58\tabularnewline
+~~2001-2007&0.63&0.60&&0.54&0.53\tabularnewline
+~~2008-2014&0.39&0.36&&0.49&0.44\tabularnewline
+\hline
+{\bfseries Seasonal}&&&&&\tabularnewline
+~~JFM&0.61&0.58&&0.53&0.49\tabularnewline
+~~AMJ&0.69&0.64&&0.60&0.58\tabularnewline
+~~JAS&0.38&0.35&&0.48&0.46\tabularnewline
+~~OND&0.41&0.38&&0.55&0.54\tabularnewline
+\hline
+{\bfseries Flow}&&&&&\tabularnewline
+~~1 (Low)&0.40&0.36&&0.48&0.46\tabularnewline
+~~2&0.47&0.42&&0.56&0.54\tabularnewline
+~~3&0.61&0.57&&0.56&0.52\tabularnewline
+~~4 (High)&0.64&0.63&&0.56&0.54\tabularnewline
+\hline
+\end{tabular}\end{center}
+
+\end{table}
+
+\end{frame}
+
+
 \end{document}

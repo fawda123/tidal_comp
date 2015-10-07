@@ -1,11 +1,9 @@
 base
+knitr
 dplyr
 ggplot2
-gridExtra
-knitr
-RColorBrewer
-scales
-TidalComp
-tidyr
 wesanderson
+scales
+gridExtra
 WRTDStidal
+tidyr

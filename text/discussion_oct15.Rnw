@@ -25,13 +25,40 @@ options(replace.assign = TRUE, width = 60, digits = 1)
 
 % load R libraries
 <<eval = T, echo = F, cache = F, message = F>>=
-library(WRTDStidal)
+# library(WRTDStidal)
 library(dplyr)
 library(ggplot2)
 library(wesanderson)
 library(scales)
 library(gridExtra)
-# devtools::load_all('M:/docs/wtreg_for_estuaries')
+library(tidyr)
+devtools::load_all('M:/docs/wtreg_for_estuaries')
+source('R/funcs.R')
+
+# color palette
+cols <- wes_palette('Zissou', 100, 'continuous') %>% 
+  as.character %>% 
+  .[1:60]
+  
+# change default ggplot theme
+theme_mine <- function (base_size = 12, base_family = "") {
+  theme_bw(base_size = base_size, base_family = base_family) %+replace% 
+  theme(
+    axis.text.x = element_text(size = 9),
+    axis.text.y = element_text(size = 9), 
+    plot.background = element_rect(fill='transparent', 
+      colour = NA),
+    panel.background = element_rect(fill='transparent', 
+      colour = NA),
+    legend.background = element_rect(fill='transparent', 
+      colour = NA),
+    strip.background = element_rect(fill = 
+        alpha(cols[length(cols)], 0.5)),
+    legend.key = element_rect(fill = 'transparent', 
+      colour = NA)
+    )   
+}
+theme_set(theme_mine())
 @
 
 \setbeamerfont{title}{series = \bfseries}
@@ -57,7 +84,7 @@ library(gridExtra)
 %%%%%%
 \begin{frame}{Since the last call...}
 \begin{itemize}
-\item Application of GAMs and WRTDS to 20 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
+\item Application of GAMs and WRTDS to 30 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
 \item Development of comparable methods for model fitting \\~\\
 \item Development of simulated datasets to evaluate flow-normalization \\~\\
 \item Comparison of results and conclusions
@@ -65,12 +92,24 @@ library(gridExtra)
 \end{frame}
 
 %%%%%%
+\begin{frame}{Model applications}
+Both models used Vertically-integrated chlorophyll, monthly timestep \\~\\
+LE1.2: lnchla ~ time + \Bigtxt{salinity} \\~\\
+TF1.6: lnchla ~ time + \Bigtxt{flow} \\~\\
+Fits evaluated for whole time series and annual/seasonal/flow aggregations: \\~\\
+\begin{itemize}
+\item predicted to observed, GAM predicted to WRTDS predicted
+\item Trends in flow-normalized results
+\end{itemize}
+\end{frame}
+
+%%%%%%
 \begin{frame}{Model fitting and flow-normalization}
-\Bigtxt{Objective}: compare RMSE of model fits \\~\\
+\Bigtxt{Objective}: compare model fits \\~\\
 \Bigtxt{Problem}: Need methods to prevent over-fitting and to compare apples-to-apples\\~\\
 GAMs - identify optimal degrees of freedom for smoothing parameters \\~\\
 WRTDS - identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
-Existing method for GAMs, cross-validation and search algorithm to identify window-widths for WRTDS \\~\\
+Existing method for GAMs, k-fold cross-validation and search algorithm (`limited memory BFGS quasi-Newton method') to identify window-widths for WRTDS \\~\\
 Basically, a statistical infrastructure to `automatically' fit the best model given the dataset \\~\\
 \end{frame}
 
@@ -78,6 +117,193 @@ Basically, a statistical infrastructure to `automatically' fit the best model gi
 \begin{frame}{Development of simulated datasets}
 \Bigtxt{Objective}: evaluate ability of each model to reproduce flow-normalized trends\\~\\
 \Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
-We created simulated datasets...
+We created monthly simulated datasets following the general technique in Hirsch et al. 2015 (sec. 4, MC simulations) \\
+\begin{itemize}
+\item Actual daily time series: discharge from Bowie gage, Jug Bay fluorescence
+\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
+\item From discharge: $Chl_{flo} = I\left(\widehat{Q}_{seas} + \sigma\cdot\varepsilon_{Q,\,sim}\right)$
+\item From fluorescence: $Chl_{bio} = \widehat{Chl}_{seas} + \sigma\cdot\varepsilon_{Chl,\,sim}$
+\item indicator $I$ changes to simulate changing flow component
+\end{itemize}
 \end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Development of simulated datasets}
+<<echo = F, eval = T, fig.height = 6, fig.width = 9>>=
+# load data, from sim_dat.R in tidal_comp proj
+load('M:/docs/tidal_comp/data/sims_day.RData')
+load('M:/docs/tidal_comp/data/sims_mos.RData')
+
+# organize daily and monthly ts for plots
+toplo <- select(sims_day, date, lnchla_noQ, sim2, sim1, sim3) %>% 
+  tidyr::gather('variable', 'value', -date)
+toplo2 <- select(sims_mos, date, lnchla_noQ, sim2, sim1, sim3) %>% 
+  tidyr::gather('variable', 'value', -date) 
+
+# factor labels as expressions
+labs <- c('Biological chlorophyll', 'No flow', 'Constant flow', 'Increasing flow')
+levels(toplo$variable) <- levels(toplo2$variable) <- labs
+
+# y axis labels
+ylab <- expression(paste('ln-Chl ',' (',italic('\u03bc'),'g ',L^-1,')'))
+
+# merge with sampled
+ggplot(toplo, aes(x = date, y = value, group = variable)) + 
+  geom_point(pch = 1, size = 1, col = cols[40]) + 
+  geom_line(data = toplo2, aes(x = date, y = value, group = variable), col = cols[1]) +
+  scale_y_continuous(ylab) + 
+  theme(axis.title.x = element_blank()) +
+  facet_wrap(~variable, ncol = 1)
+@
+\end{frame}
+
+<<eval = T, echo = F, cache = T, message = F, results = 'hide'>>=
+
+load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
+load(file = 'M:/docs/tidal_comp/data/bestTF16.RData')
+
+# some plots
+bestTF16$site <- 'TF1.6'
+bestLE12$site <- 'LE1.2'
+names(bestLE12) <- gsub('gams$', 'GAM', names(bestLE12))
+names(bestLE12) <- gsub('wrtds$', 'WRTDS', names(bestLE12))
+names(bestTF16) <- gsub('gams$', 'GAM', names(bestTF16))
+names(bestTF16) <- gsub('wrtds$', 'WRTDS', names(bestTF16))
+
+bestLE12 <- select(bestLE12, -sal, -lnQ, -dec_time, -se_GAM)
+bestTF16 <- select(bestTF16, -lnQ, -sal, -dec_time, -se_GAM)
+toplo <- rbind(bestTF16, bestLE12) %>% 
+  gather(variable, value, fits_WRTDS:res_GAM) %>% 
+  separate(variable, c('output', 'model'), sep = '_') %>% 
+  mutate(output = factor(output, levels = c('fits', 'norm', 'res'), labels = c('Pred', 'Norm', 'Res')))
+
+p1 <- ggplot(toplo[toplo$output != 'Res', ], aes(x = date, y = value, colour = output)) + 
+  geom_point(aes(y = chla, shape = 'Obs'), colour = 'black', size = 1.5, alpha = 0.3) +
+  geom_line(size = 0.8, alpha = 0.85) + 
+  facet_wrap(site ~ model) + 
+  ylab(expression(paste('ln-Chl ',' (',italic('\u03bc'),'g ',L^-1,')'))) + 
+  theme(
+    axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5),
+    axis.title.x = element_blank(), 
+    legend.title = element_blank()
+    ) +
+  scale_y_continuous(limits = c(0, 4.5), breaks = c(0.5, 1.5, 2.5, 3.5, 4.5)) + 
+  scale_colour_manual(values = cols[c(1, length(cols))]) + 
+  guides(color=guide_legend(override.aes=list(shape=c(NA,NA),linetype=c(1,1))))
+
+toplo2 <- mutate(toplo, year = as.numeric(strftime(date, '%Y'))) %>% 
+  group_by(year, site, output, model) %>% 
+  summarise(value = mean(value, na.rm = TRUE)) %>% 
+  filter(output != 'Res') %>% 
+  spread(output, value) 
+
+p2 <- ggplot(toplo2, aes(x = year, y = Pred, colour = 'Pred')) + 
+  geom_line(aes(x = year, y = Norm, colour = 'Norm'), size = 1) + 
+  geom_point() + 
+  facet_wrap(site ~ model) + 
+  theme(
+    axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5),
+    axis.title.x = element_blank(), 
+    legend.title = element_blank()
+    ) +
+  scale_y_continuous(limits = c(1.5, 3), breaks = seq(1.5, 3, 0.5)) + 
+  scale_colour_manual(values = cols[c(length(cols), 1)]) + 
+  ylab(expression(paste('ln-Chl ',' (',italic('\u03bc'),'g ',L^-1,')'))) +
+  guides(color=guide_legend(override.aes=list(shape=c(NA,16),linetype=c(1,0))))
+
+pdf('figs/predmo.pdf', height = 5, width = 9, family = 'serif')
+print(p1)
+dev.off()
+
+pdf('figs/predann.pdf', height = 5, width = 9, family = 'serif')
+print(p2)
+dev.off()
+
+@
+
+%%%%%%
+\begin{frame}{Results}
+\includegraphics[width=\textwidth]{figs/predmo.pdf}
+\end{frame}
+
+%%%%%
+\begin{frame}{Results}
+\includegraphics[width=\textwidth]{figs/predann.pdf}
+\end{frame}
+
+
+%%%%%
+\begin{frame}[shrink]{Results}
+<<eval = T, echo = F, cache = T, results = 'asis'>>=
+load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
+load(file = 'M:/docs/tidal_comp/data/bestTF16.RData')
+
+alldat <- rbind(
+  data.frame(bestLE12, stat = 'LE12', stringsAsFactors = F), 
+  data.frame(bestTF16, stat = 'TF16', stringsAsFactors = F)
+  ) 
+
+# summarize by categories, then combine with overall summary
+totab <- select(alldat, 
+    stat, chla, fits_wrtds, fits_gams, res_wrtds, res_gams, flcat, mocat, yrcat
+  ) %>% 
+  mutate(
+    flcat = as.character(flcat),
+    mocat = as.character(mocat),
+    yrcat = as.character(yrcat)
+  ) %>% 
+  gather(key = 'cats', value = 'cat', flcat:yrcat) %>% 
+  mutate(cat = factor(cat, 
+    levels = c('1986-1993', '1994-2000', '2001-2007', '2008-2014', 'JFM', 'AMJ', 'JAS', 'OND', 'Flow 1 (Low)', 'Flow 2', 'Flow 3', 'Flow 4 (High)'), 
+    labels = c('1986-1993', '1994-2000', '2001-2007', '2008-2014', 'JFM', 'AMJ', 'JAS', 'OND', '1 (Low)', '2', '3', '4 (High)')
+    )
+  ) %>% 
+  group_by(cat, stat) %>% 
+  summarise(
+    wrtds = rmse.fun(res_wrtds),
+    gam = rmse.fun(res_gams)
+  )
+
+# get comparisons for all obs
+totaball <- group_by(alldat, stat) %>% 
+  summarise(
+    wrtds = rmse.fun(res_wrtds), 
+    gam = rmse.fun(res_gams)
+  )
+
+# add all obs to period comparisons, make long format
+totab <- rbind(
+  data.frame(cat = '', totaball), 
+  totab
+  ) %>% 
+  gather('mod', 'rmse', wrtds:gam) %>% 
+  unite('res', stat, mod) %>% 
+  spread(res, rmse)
+
+perftoobs <- totab
+
+# latex table
+tab <- form_fun(totab[, -1])
+rows <- totab[, 1]
+cap.val<-'RMSE of observed to predicted ln-chlorophyll.'
+
+Hmisc::latex( 
+  tab,
+  file = '',
+  rowlabel = 'Period',
+  caption = cap.val,
+  caption.loc = 'top',
+  rgroup = c('All', 'Annual', 'Seasonal', 'Flow'),
+  n.rgroup = c(1, rep(4, 3)),
+  cgroup = c('LE1.2', 'TF1.6'),
+  n.cgroup = c(2, 2),
+  rowname = rows,
+  colheads = rep(c('GAM', 'WRTDS'), 2),
+  label = 'tab:perftoobs'
+  )
+
+@
+\end{frame}
+
+
 \end{document}

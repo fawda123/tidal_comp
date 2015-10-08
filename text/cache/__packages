@@ -7,3 +7,5 @@ scales
 gridExtra
 WRTDStidal
 tidyr
+nlme
+mgcv

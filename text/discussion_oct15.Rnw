@@ -32,6 +32,7 @@ library(wesanderson)
 library(scales)
 library(gridExtra)
 library(tidyr)
+library(mgcv)
 devtools::load_all('M:/docs/wtreg_for_estuaries')
 source('R/funcs.R')
 
@@ -94,13 +95,28 @@ theme_set(theme_mine())
 %%%%%%
 \begin{frame}{Model applications}
 Both models used Vertically-integrated chlorophyll, monthly timestep \\~\\
-LE1.2: lnchla ~ time + \Bigtxt{salinity} \\~\\
-TF1.6: lnchla ~ time + \Bigtxt{flow} \\~\\
+LE1.2: lnchla $\sim$ time + \Bigtxt{salinity} \\~\\
+TF1.6: lnchla $\sim$ time + \Bigtxt{flow} \\~\\
 Fits evaluated for whole time series and annual/seasonal/flow aggregations: \\~\\
 \begin{itemize}
 \item predicted to observed, GAM predicted to WRTDS predicted
-\item Trends in flow-normalized results
+\item Trends in flow-normalized results (average and \% change overall, by time period)
 \end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Model applications}
+For comparing each model's \Bigtxt{predictions to observed}, at both sites:\\~\\
+\begin{center}
+$RMSE_{fit} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{Chl_i} - {\widehat{Chl}_i}} \right)}^2}} }}{n}}$
+\end{center}
+For comparing \Bigtxt{predictions between models}, at both sites: \\~\\
+\begin{center} 
+$RMSE_{btw} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{\widehat{Chl}_{WRTDS,\,i}} - {{\widehat{Chl}}_{GAM,\,i}}} \right)}^2}} }}{n}}$
+\end{center}
+\begin{center}
+$\textrm{Average difference} = \left(\frac{\sum\limits_{i = 1}^n \widehat{Chl}_{WRTDS,\,i} - \sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}{\sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}\right) * 100$
+\end{center}
 \end{frame}
 
 %%%%%%
@@ -226,14 +242,14 @@ dev.off()
 \includegraphics[width=\textwidth]{figs/predmo.pdf}
 \end{frame}
 
-%%%%%
+%%%%%%
 \begin{frame}{Results}
 \includegraphics[width=\textwidth]{figs/predann.pdf}
 \end{frame}
 
-
-%%%%%
-\begin{frame}[shrink]{Results}
+%%%%%%
+\begin{frame}{Results}
+\scriptsize
 <<eval = T, echo = F, cache = T, results = 'asis'>>=
 load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
 load(file = 'M:/docs/tidal_comp/data/bestTF16.RData')
@@ -305,5 +321,220 @@ Hmisc::latex(
 @
 \end{frame}
 
+%%%%%%
+\begin{frame}{Results}
+\scriptsize
+<<eval = T, echo = F, cache = T, results = 'asis'>>=
+load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
+load(file = 'M:/docs/tidal_comp/data/bestTF16.RData')
+
+alldat <- rbind(
+  data.frame(bestLE12, stat = 'LE12', stringsAsFactors = F), 
+  data.frame(bestTF16, stat = 'TF16', stringsAsFactors = F)
+  ) 
+
+totab <-select(alldat, 
+    stat, fits_wrtds, fits_gams, flcat, mocat, yrcat
+  ) %>% 
+  mutate(
+    flcat = as.character(flcat),
+    mocat = as.character(mocat),
+    yrcat = as.character(yrcat)
+  ) %>% 
+  gather(key = 'cats', value = 'cat', flcat:yrcat) %>% 
+  mutate(cat = factor(cat, levels = c('1986-1993', '1994-2000', '2001-2007', '2008-2014', 'JFM', 'AMJ', 'JAS', 'OND', 'Flow 1 (Low)', 'Flow 2', 'Flow 3', 'Flow 4 (High)'))
+  ) %>% 
+  group_by(cat, stat) %>% 
+  summarise(
+    rmse = rmse.fun(fits_wrtds, fits_gams),
+    ave = ave.fun(fits_wrtds, fits_gams)
+  )
+
+# get comparisons for all obs
+totaball <- group_by(alldat, stat) %>% 
+  summarise(
+    rmse = rmse.fun(fits_wrtds, fits_gams), 
+    ave = ave.fun(fits_wrtds, fits_gams)
+  )
+
+# add all obs to period comparisons, make long format
+totab <- rbind(
+  data.frame(cat = '', totaball), 
+  totab
+  ) %>% 
+  gather('met', 'val', rmse:ave) %>% 
+  unite('res', stat, met) %>% 
+  spread(res, val)
+
+# latex table
+tab <- form_fun(totab[, -1])
+rows <- totab[, 1]
+cap.val <- 'Comparison of predicted results between models.'
+
+Hmisc::latex( 
+  tab,
+  file = '',
+  rowlabel = 'Period',
+  caption = cap.val,
+  caption.loc = 'top',
+  rgroup = c('All', 'Annual', 'Seasonal', 'Flow'),
+  n.rgroup = c(1, rep(4, 3)),
+  cgroup = c('LE1.2', 'TF1.6'),
+  n.cgroup = c(2, 2),
+  rowname = rows,
+  colheads = rep(c('Ave. diff.', 'RMSE'), 2),
+  label = 'tab:perfbtw'
+)
+
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}{Results}
+<<echo = FALSE, eval = T, cache = T, message = F, results = 'hide', fig.width = 6, fig.height = 4, fig.cap = 'Seasonal variation from model predictions.', out.width = '0.9\\textwidth'>>=
+
+load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
+load(file = 'M:/docs/tidal_comp/data/bestTF16.RData')
+
+bestLE12 <- mutate(bestLE12, stat = 'LE1.2')
+bestTF16 <- mutate(bestTF16, stat = 'TF1.6')
+
+toplo <- rbind(bestLE12, bestTF16) %>% 
+  select(date, fits_wrtds, fits_gams, stat) %>% 
+  mutate(
+    Year = '2014', 
+    mo = as.numeric(strftime(date, '%m')),
+    day = as.numeric(strftime(date, '%d')),
+    fake_date = as.Date(paste(Year, mo, day, sep = '-'))
+  ) %>% 
+  gather('mod', 'val', fits_wrtds:fits_gams) %>% 
+  mutate(mod = factor(mod, levels = c('fits_wrtds', 'fits_gams'), labels = c('WRTDS', 'GAM')))
+
+ylab <- expression(paste('ln-Chl ',' (',italic('\u03bc'),'g ',L^-1,')'))
+xlab <- 'Day of year'
+
+ggplot(toplo, aes(x = fake_date, y = val, group = mod)) + 
+  geom_point(pch = 1, col = cols[40]) + 
+  stat_smooth(method = 'loess', span = 0.4, se = F, col = cols[1], size = 1) +
+  scale_y_continuous(ylab) + 
+  scale_x_date(xlab, labels = date_format("%m/%d")) + 
+  facet_grid(mod ~ stat, scales = 'free_y') + 
+  theme_mine() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size = 8))
+
+@
+\end{frame}
+
+<<echo = F, message = F, results = 'hide', warning = F>>=
+## LE12 models
+
+load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
+
+LE12_tomod <- select(bestLE12, date, dec_time, chla, sal) %>% 
+  mutate(
+    doy = as.numeric(strftime(date, '%j'))
+  )
+
+bestLE12_gam <- gam(chla~te(dec_time, doy, sal, bs=c("tp","cc","tp")), data = LE12_tomod, knots=list(doy=c(1,366)))
+
+load(file = 'M:/docs/tidal_comp/data/bestLE12_wrtds.RData')
+
+## TF16 models
+
+load(file = 'M:/docs/tidal_comp/data/bestTF16.RData')
+
+TF16_tomod <- select(bestTF16, date, dec_time, chla, lnQ) %>% 
+  mutate(
+    doy = as.numeric(strftime(date, '%j'))
+  ) %>% 
+  rename(sal = lnQ)
+
+bestTF16_gam <- gam(chla~te(dec_time, doy, sal, bs=c("tp","cc","tp")), data = TF16_tomod, 
+  knots=list(doy=c(1,366)), na.action = na.pass)
+
+load(file = 'M:/docs/tidal_comp/data/bestTF16_wrtds.RData')
+
+## plots
+margs <- grid::unit(c(0, 0, 0, -4), "mm") # margins
+fac_txt <- 10 # facet text size
+ylims <- c(0.6, 4)
+xlims <- c(0.1, 0.9)
+col_vec <- cols
+alph <- 0.7
+
+pdf('figs/dynaplots.pdf', height = 3, width = 8, family = 'serif')
+for(mos in 1:12){
+  p1 <- dynagam(bestLE12_gam, LE12_tomod, ncol = 1, use_bw = F, month = mos, col_vec = col_vec, alpha = alph) +
+    theme(legend.position = 'none', axis.title.y = element_blank(), 
+      strip.text.x = element_text(size = fac_txt), plot.margin = margs) +
+    scale_y_continuous(limits = ylims) +
+    scale_x_continuous('Salinity', limits = xlims)
+  
+  p2 <- dynaplot(bestLE12_wrtds, ncol = 1, use_bw = F, month = mos, col_vec = col_vec, alpha = alph) +
+    theme(legend.position = 'none', axis.title.y = element_blank(), 
+      strip.text.x = element_text(size = fac_txt), axis.text.y = element_blank(), 
+      axis.ticks.y = element_blank(), plot.margin = margs) +
+    scale_y_continuous(limits = ylims) +
+    scale_x_continuous('Salinity', limits = xlims)
+  
+  p3 <- dynagam(bestTF16_gam, TF16_tomod, ncol = 1, use_bw = F, month = mos, col_vec = col_vec, alpha = alph) +
+    theme(legend.position = 'none', axis.title.y = element_blank(), 
+      strip.text.x = element_text(size = fac_txt), axis.text.y = element_blank(), 
+      axis.ticks.y = element_blank(), plot.margin = margs) + 
+    scale_x_reverse('Flow', limits = rev(xlims)) +
+    scale_y_continuous(limits = ylims)
+  
+  p4 <- dynaplot(bestTF16_wrtds, ncol = 1, use_bw = F, month = mos, col_vec = col_vec, alpha = alph) + 
+    theme(axis.title.y = element_blank(), legend.position = 'right', 
+      strip.text.x = element_text(size = fac_txt), axis.text.y = element_blank(), 
+      axis.ticks.y = element_blank(), plot.margin = margs) + 
+    scale_x_reverse('Flow', limits = rev(xlims)) +
+    scale_y_continuous(limits = ylims) + 
+    guides(colour = guide_colourbar(barwidth = 1, barheight = 10)) 
+   
+  pleg <- g_legend(p4)
+  p4 <- p4 + theme(legend.position = 'none')
+  
+  ylab <- expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')'))
+  
+  # arrange all as grob
+  grobwidths <- c(1, 1, 1, 1)
+  library(grid)
+  
+  grid.arrange(
+    arrangeGrob(textGrob(ylab, rot = 90)), 
+    arrangeGrob(
+      arrangeGrob(textGrob('LE1.2'), textGrob('TF1.6'), ncol = 2), 
+      arrangeGrob(textGrob('GAM'), textGrob('WRTDS'), textGrob('GAM'), textGrob('WRTDS'), ncol = 4), 
+      arrangeGrob(p1, p2, p3, p4, ncol = 4), 
+      heights = c(0.025, 0.05, 0.4)
+    ),
+    arrangeGrob(pleg), 
+    ncol = 3, 
+    widths = c(0.2, 2, 0.3)
+    )
+}
+dev.off()
+
+@
+
+%%%%%%
+\begin{frame}{Results}
+\begin{figure}
+\includegraphics<1>[width=\textwidth,page=2]{figs/dynaplots.pdf}
+\includegraphics<2>[width=\textwidth,page=3]{figs/dynaplots.pdf}
+\includegraphics<3>[width=\textwidth,page=4]{figs/dynaplots.pdf}
+\includegraphics<4>[width=\textwidth,page=5]{figs/dynaplots.pdf}
+\includegraphics<5>[width=\textwidth,page=6]{figs/dynaplots.pdf}
+\includegraphics<6>[width=\textwidth,page=7]{figs/dynaplots.pdf}
+\includegraphics<7>[width=\textwidth,page=8]{figs/dynaplots.pdf}
+\includegraphics<8>[width=\textwidth,page=9]{figs/dynaplots.pdf}
+\includegraphics<9>[width=\textwidth,page=10]{figs/dynaplots.pdf}
+\includegraphics<10>[width=\textwidth,page=11]{figs/dynaplots.pdf}
+\includegraphics<11>[width=\textwidth,page=12]{figs/dynaplots.pdf}
+\includegraphics<12->[width=\textwidth,page=13]{figs/dynaplots.pdf}
+\caption{Changes in the relationship between chlorophyll and flow across the time series, seaprate plots by month, model, and station.  The scales of salinity and flow are reversed for comparison of trends. Units are proportions of the total range in the observed data with values in each plot truncated by the monthly 5\textsuperscript{th} and 95\textsuperscript{th} percentiles.}
+\end{figure}
+\end{frame}
 
 \end{document}

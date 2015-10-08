@@ -102,13 +102,28 @@
 %%%%%%
 \begin{frame}{Model applications}
 Both models used Vertically-integrated chlorophyll, monthly timestep \\~\\
-LE1.2: lnchla ~ time + \Bigtxt{salinity} \\~\\
-TF1.6: lnchla ~ time + \Bigtxt{flow} \\~\\
+LE1.2: lnchla $\sim$ time + \Bigtxt{salinity} \\~\\
+TF1.6: lnchla $\sim$ time + \Bigtxt{flow} \\~\\
 Fits evaluated for whole time series and annual/seasonal/flow aggregations: \\~\\
 \begin{itemize}
 \item predicted to observed, GAM predicted to WRTDS predicted
-\item Trends in flow-normalized results
+\item Trends in flow-normalized results (average and \% change overall, by time period)
 \end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Model applications}
+For comparing each model's \Bigtxt{predictions to observed}, at both sites:\\~\\
+\begin{center}
+$RMSE_{fit} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{Chl_i} - {\widehat{Chl}_i}} \right)}^2}} }}{n}}$
+\end{center}
+For comparing \Bigtxt{predictions between models}, at both sites: \\~\\
+\begin{center} 
+$RMSE_{btw} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{\widehat{Chl}_{WRTDS,\,i}} - {{\widehat{Chl}}_{GAM,\,i}}} \right)}^2}} }}{n}}$
+\end{center}
+\begin{center}
+$\textrm{Average difference} = \left(\frac{\sum\limits_{i = 1}^n \widehat{Chl}_{WRTDS,\,i} - \sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}{\sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}\right) * 100$
+\end{center}
 \end{frame}
 
 %%%%%%
@@ -156,14 +171,14 @@ We created monthly simulated datasets following the general technique in Hirsch 
 \includegraphics[width=\textwidth]{figs/predmo.pdf}
 \end{frame}
 
-%%%%%
+%%%%%%
 \begin{frame}{Results}
 \includegraphics[width=\textwidth]{figs/predann.pdf}
 \end{frame}
 
-
-%%%%%
-\begin{frame}[shrink]{Results}
+%%%%%%
+\begin{frame}{Results}
+\scriptsize
 %latex.default(tab, file = "", rowlabel = "Period", caption = cap.val,     caption.loc = "top", rgroup = c("All", "Annual", "Seasonal",         "Flow"), n.rgroup = c(1, rep(4, 3)), cgroup = c("LE1.2",         "TF1.6"), n.cgroup = c(2, 2), rowname = rows, colheads = rep(c("GAM",         "WRTDS"), 2), label = "tab:perftoobs")%
 \begin{table}[!tbp]
 \caption{RMSE of observed to predicted ln-chlorophyll.\label{tab:perftoobs}} 
@@ -201,5 +216,81 @@ We created monthly simulated datasets following the general technique in Hirsch 
 
 \end{frame}
 
+%%%%%%
+\begin{frame}{Results}
+\scriptsize
+%latex.default(tab, file = "", rowlabel = "Period", caption = cap.val,     caption.loc = "top", rgroup = c("All", "Annual", "Seasonal",         "Flow"), n.rgroup = c(1, rep(4, 3)), cgroup = c("LE1.2",         "TF1.6"), n.cgroup = c(2, 2), rowname = rows, colheads = rep(c("Ave. diff.",         "RMSE"), 2), label = "tab:perfbtw")%
+\begin{table}[!tbp]
+\caption{Comparison of predicted results between models.\label{tab:perfbtw}} 
+\begin{center}
+\begin{tabular}{lllcll}
+\hline\hline
+\multicolumn{1}{l}{\bfseries Period}&\multicolumn{2}{c}{\bfseries LE1.2}&\multicolumn{1}{c}{\bfseries }&\multicolumn{2}{c}{\bfseries TF1.6}\tabularnewline
+\cline{2-3} \cline{5-6}
+\multicolumn{1}{l}{}&\multicolumn{1}{c}{Ave. diff.}&\multicolumn{1}{c}{RMSE}&\multicolumn{1}{c}{}&\multicolumn{1}{c}{Ave. diff.}&\multicolumn{1}{c}{RMSE}\tabularnewline
+\hline
+{\bfseries All}&&&&&\tabularnewline
+~~&-0.11&0.15&& 0.01&0.17\tabularnewline
+\hline
+{\bfseries Annual}&&&&&\tabularnewline
+~~1986-1993& 0.18&0.16&&-0.78&0.17\tabularnewline
+~~1994-2000& 0.53&0.15&&-1.09&0.19\tabularnewline
+~~2001-2007&-0.95&0.14&& 0.48&0.14\tabularnewline
+~~2008-2014&-0.18&0.14&& 3.12&0.18\tabularnewline
+\hline
+{\bfseries Seasonal}&&&&&\tabularnewline
+~~JFM& 2.91&0.14&&-5.02&0.22\tabularnewline
+~~AMJ&-3.42&0.17&& 0.93&0.14\tabularnewline
+~~JAS& 5.03&0.14&&-0.10&0.17\tabularnewline
+~~OND&-5.25&0.14&& 2.08&0.17\tabularnewline
+\hline
+{\bfseries Flow}&&&&&\tabularnewline
+~~Flow 1 (Low)& 0.19&0.16&&-0.09&0.12\tabularnewline
+~~Flow 2&-0.83&0.16&& 0.73&0.15\tabularnewline
+~~Flow 3& 0.19&0.15&& 0.84&0.20\tabularnewline
+~~Flow 4 (High)& 0.03&0.13&&-1.62&0.20\tabularnewline
+\hline
+\end{tabular}\end{center}
+
+\end{table}
+
+\end{frame}
+
+%%%%%%
+\begin{frame}{Results}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{figure}[!ht]
+
+{\centering \includegraphics[width=0.9\textwidth]{figs/unnamed-chunk-6-1} 
+
+}
+
+\caption[Seasonal variation from model predictions]{Seasonal variation from model predictions.}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+
+\end{knitrout}
+\end{frame}
+
+
+
+%%%%%%
+\begin{frame}{Results}
+\begin{figure}
+\includegraphics<1>[width=\textwidth,page=2]{figs/dynaplots.pdf}
+\includegraphics<2>[width=\textwidth,page=3]{figs/dynaplots.pdf}
+\includegraphics<3>[width=\textwidth,page=4]{figs/dynaplots.pdf}
+\includegraphics<4>[width=\textwidth,page=5]{figs/dynaplots.pdf}
+\includegraphics<5>[width=\textwidth,page=6]{figs/dynaplots.pdf}
+\includegraphics<6>[width=\textwidth,page=7]{figs/dynaplots.pdf}
+\includegraphics<7>[width=\textwidth,page=8]{figs/dynaplots.pdf}
+\includegraphics<8>[width=\textwidth,page=9]{figs/dynaplots.pdf}
+\includegraphics<9>[width=\textwidth,page=10]{figs/dynaplots.pdf}
+\includegraphics<10>[width=\textwidth,page=11]{figs/dynaplots.pdf}
+\includegraphics<11>[width=\textwidth,page=12]{figs/dynaplots.pdf}
+\includegraphics<12->[width=\textwidth,page=13]{figs/dynaplots.pdf}
+\caption{Changes in the relationship between chlorophyll and flow across the time series, seaprate plots by month, model, and station.  The scales of salinity and flow are reversed for comparison of trends. Units are proportions of the total range in the observed data with values in each plot truncated by the monthly 5\textsuperscript{th} and 95\textsuperscript{th} percentiles.}
+\end{figure}
+\end{frame}
 
 \end{document}

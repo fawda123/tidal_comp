@@ -9,3 +9,7 @@ WRTDStidal
 tidyr
 nlme
 mgcv
+lattice
+survival
+Formula
+Hmisc

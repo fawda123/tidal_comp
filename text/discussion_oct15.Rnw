@@ -33,6 +33,7 @@ library(scales)
 library(gridExtra)
 library(tidyr)
 library(mgcv)
+library(Hmisc)
 devtools::load_all('M:/docs/wtreg_for_estuaries')
 source('R/funcs.R')
 
@@ -94,14 +95,15 @@ theme_set(theme_mine())
 
 %%%%%%
 \begin{frame}{Model applications}
-Both models used Vertically-integrated chlorophyll, monthly timestep \\~\\
+Both models used vertically-integrated chlorophyll, monthly timestep \\~\\
 LE1.2: lnchla $\sim$ time + \Bigtxt{salinity} \\~\\
 TF1.6: lnchla $\sim$ time + \Bigtxt{flow} \\~\\
 Fits evaluated for whole time series and annual/seasonal/flow aggregations: \\~\\
 \begin{itemize}
 \item predicted to observed, GAM predicted to WRTDS predicted
-\item Trends in flow-normalized results (average and \% change overall, by time period)
+\item Trends in flow-normalized results (average and \% change overall, by time period) \\~\\
 \end{itemize}
+Model comparisons of flow-normalized results with simulated datasets
 \end{frame}
 
 %%%%%%
@@ -120,26 +122,25 @@ $\textrm{Average difference} = \left(\frac{\sum\limits_{i = 1}^n \widehat{Chl}_{
 \end{frame}
 
 %%%%%%
-\begin{frame}{Model fitting and flow-normalization}
-\Bigtxt{Objective}: compare model fits \\~\\
-\Bigtxt{Problem}: Need methods to prevent over-fitting and to compare apples-to-apples\\~\\
-GAMs - identify optimal degrees of freedom for smoothing parameters \\~\\
-WRTDS - identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
-Existing method for GAMs, k-fold cross-validation and search algorithm (`limited memory BFGS quasi-Newton method') to identify window-widths for WRTDS \\~\\
-Basically, a statistical infrastructure to `automatically' fit the best model given the dataset \\~\\
+\begin{frame}{Development of comparable methods}
+\Bigtxt{Objective}: Compare models on the same playing field \\~\\
+\Bigtxt{Problem}: Need methods to prevent over-fitting for comparability \\~\\
+GAMs: identify optimal smoothing parameter to balance fit and `wiggliness' \\~\\
+WRTDS: identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
+Existing method for GAMs, k-fold cross-validation and search algorithm (`limited memory BFGS quasi-Newton method') to identify window-widths for WRTDS
 \end{frame}
 
 %%%%%%
 \begin{frame}{Development of simulated datasets}
-\Bigtxt{Objective}: evaluate ability of each model to reproduce flow-normalized trends\\~\\
+\Bigtxt{Objective}: Evaluate ability of each model to reproduce flow-normalized trends\\~\\
 \Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
-We created monthly simulated datasets following the general technique in Hirsch et al. 2015 (sec. 4, MC simulations) \\
+We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsch et al. 2015 \\~\\
 \begin{itemize}
-\item Actual daily time series: discharge from Bowie gage, Jug Bay fluorescence
+\item Daily time series: Bowie gage discharge, Jug Bay fluorescence
 \item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
 \item From discharge: $Chl_{flo} = I\left(\widehat{Q}_{seas} + \sigma\cdot\varepsilon_{Q,\,sim}\right)$
 \item From fluorescence: $Chl_{bio} = \widehat{Chl}_{seas} + \sigma\cdot\varepsilon_{Chl,\,sim}$
-\item indicator $I$ changes to simulate changing flow component
+\item Indicator $I$ changes to simulate changing flow component
 \end{itemize}
 \end{frame}
 
@@ -533,8 +534,116 @@ dev.off()
 \includegraphics<10>[width=\textwidth,page=11]{figs/dynaplots.pdf}
 \includegraphics<11>[width=\textwidth,page=12]{figs/dynaplots.pdf}
 \includegraphics<12->[width=\textwidth,page=13]{figs/dynaplots.pdf}
-\caption{Changes in the relationship between chlorophyll and flow across the time series, seaprate plots by month, model, and station.  The scales of salinity and flow are reversed for comparison of trends. Units are proportions of the total range in the observed data with values in each plot truncated by the monthly 5\textsuperscript{th} and 95\textsuperscript{th} percentiles.}
+\caption{Changes in the relationship between chlorophyll and flow across the time series with separate plots by month, model, and station.  The scales of salinity and flow are reversed for trend comparison with units in proportion of the total range for each month.}
 \end{figure}
 \end{frame}
+
+%%%%%%
+\begin{frame}{Results}
+Simulated data behaved as expected: three datasets with different flow contributions \\~\\
+<<echo = F, cache = T, fig.height = 2.5, fig.width = 7, fig.cap = 'WRTDS predictions from August for three simulated datasets with different flow contributions.', eval = T>>=
+# color palette
+cols <- wes_palette('Zissou', 100, 'continuous') %>% 
+  as.character %>% 
+  .[1:60]
+modcols <- cols[c(1, 50)]
+  
+load(file = 'M:/docs/manuscripts/patux_manu/data/bestsim_wrtds.RData')
+
+lims <- c(0.85, 3)
+mars <- grid::unit(c(0, 0, 0, 0), 'cm')
+
+# no effect
+p1 <- dynaplot(bestsim_wrtds[[2]], month = 8, col_vec = cols, fac_nms = 'No flow') + 
+  scale_y_continuous(limits = lims) +
+  theme_mine() +
+  theme(legend.position = 'none', axis.title = element_blank(), plot.margin = mars, 
+    strip.text.x = element_text(size = NULL))
+
+# constant
+p2 <- dynaplot(bestsim_wrtds[[1]], month = 8, col_vec = cols, fac_nms = 'Constant flow') + 
+  scale_y_continuous(limits = lims) +
+  theme_mine() +
+  theme(legend.position = 'none', axis.title = element_blank(), plot.margin = mars)
+
+# increasing
+p3 <- dynaplot(bestsim_wrtds[[3]], month = 8, col_vec = cols, fac_nms = 'Increasing flow') + 
+  scale_y_continuous(limits = lims) +
+  theme_mine() +
+  theme(legend.position = 'top', axis.title = element_blank(), plot.margin = mars) +
+  guides(colour = guide_colourbar(barwidth = 10, barheight = 1)) 
+
+pleg <- g_legend(p3)
+p3 <- p3 + theme(legend.position = 'none')
+
+ylabs <- expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')'))
+
+grid.arrange(
+  pleg,
+  arrangeGrob( 
+    grid::textGrob(ylabs, rot = 90), p1, p2, p3, ncol = 4, widths = c(0.1, 1, 1, 1)), 
+  grid::textGrob('Flow'),
+  heights = c(0.35, 1, 0.1)
+)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}{Results}
+\Bigtxt{Objective}: How well do flow-normalized predictions for each model reproduce $Chl_{flo}$ \\~\\
+Simulated time series: $Chl_{obs}$ = $Chl_{flo}$ + $Chl_{bio}$
+\scriptsize
+<<eval = T, echo = F, cache = T, results = 'asis'>>=
+load(file = 'M:/docs/manuscripts/patux_manu/data/simres.RData')
+
+# rename factor labels for each simulation
+simres <- mutate(simres, 
+  sim = factor(sim, levels = c('sim2', 'sim1', 'sim3'), labels = c('No flow', 'Constant flow', 'Increasing flow'))
+)
+
+# compare predicted to simulated obs chl and norm bio to actual bio
+totab <- group_by(simres, sim, mod) %>% 
+  summarise(
+    obs = rmse.fun(simval, fits), 
+    bio = rmse.fun(lnchla_noQ, norm)
+  ) %>% 
+  data.frame
+    
+# latex table
+tab <- form_fun(totab[, -c(1:2)])
+rows <- totab[, 2]
+cap.val<-'Performance summaries (RMSE) of model predictions for the three simulated time series (no flow, constant flow, and increasing flow effect).'
+
+Hmisc::latex( 
+  tab,
+  file = '',
+  rowlabel = 'Simulations',
+  caption = cap.val,
+  caption.loc = 'top',
+  rgroup = c('No flow', 'Constant flow', 'Increasing flow'),
+  n.rgroup = rep(2, 3),
+  rowname = rows,
+  colheads = c('$Chl_{obs} \\sim \\widehat{Chl}_{obs}$', '$Chl_{bio} \\sim \\widehat{Chl}_{bio}$'),
+  label = 'tab:simperf'
+  )
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}{Conclusions}
+\begin{itemize}
+\item WRTDS always `out-performed' GAMs, improvement was minimal \\~\\
+\item Seasonal patterns better described by WRTDS \\~\\
+\item No clear differences in flow-normalization abilities \\~\\
+\item Interesting trends in Patuxent \\~\\
+\begin{itemize}
+\item Chlorophyll increasing lower estuary (LE1.2), mainstem influences \\~\\
+\item Multi-year signal of Isabel at TF1.6, flushing and low chlorophyll \\~\\
+\item Distinct changing relationships of chlorophyll with flow by station
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
 
 \end{document}

@@ -5,7 +5,6 @@ ggplot2
 wesanderson
 scales
 gridExtra
-WRTDStidal
 tidyr
 nlme
 mgcv
@@ -13,3 +12,7 @@ lattice
 survival
 Formula
 Hmisc
+WRTDStidal
+sp
+maps
+mapproj

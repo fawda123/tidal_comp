@@ -20,7 +20,7 @@ library(knitr)
 # global knitr options
 opts_chunk$set(fig.path = 'figs/', fig.align = 'center', fig.show = 'hold', message = FALSE, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = FALSE, cache = T, prompt = TRUE, background = '#EDF8FB')
 #global R optoins
-options(replace.assign = TRUE, width = 60, digits = 1)
+options(replace.assign = TRUE, width = 60)
 @
 
 % load R libraries
@@ -87,10 +87,115 @@ theme_set(theme_mine())
 \begin{frame}{Since the last call...}
 \begin{itemize}
 \item Application of GAMs and WRTDS to 30 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
-\item Development of comparable methods for model fitting \\~\\
+\item Development of similar methods for model fitting \\~\\
+\item Model comparisons \\~\\
 \item Development of simulated datasets to evaluate flow-normalization \\~\\
-\item Comparison of results and conclusions
+\item Simulation comparisons \\~\\
+\item Conclusions
 \end{itemize}
+\end{frame}
+
+% chlorophyll trends by year, month, flow, combined
+<<eval = T, echo = F, cache = T>>=
+load(file = 'M:/docs/manuscripts/patux_manu/data/pax_data.RData')
+load(file = 'M:/docs/manuscripts/patux_manu/data/pax_meta.RData')
+load(file = 'M:/docs/manuscripts/patux_manu/data/pax_clip.RData')
+
+# color for water
+wt_col <- wes_palette('Zissou', 100, 'continuous')[10] %>% 
+  alpha(0.6)
+
+# format pax_meta for mrg with pax_plo
+pax_meta <- select(pax_meta, STATION, LONG, LAT) %>% 
+  mutate(STATION = as.character(STATION))
+
+# add month, yr columns, make categories by yr, mo, fl
+pax_data <- mutate(pax_data, 
+  mo = as.numeric(strftime(date, '%m')),
+  yr = as.numeric(strftime(date, '%Y'))
+  ) %>% 
+  mutate(STATION = as.character(STATION)) %>% 
+  mutate(
+    yrcat = cut(yr, breaks = c(-Inf, 1993, 2000, 2007, Inf), 
+      labels = c('1986-1993', '1994-2000', '2001-2007', '2008-2014')),
+    mocat = cut(mo, breaks = c(-Inf, 3, 6, 9, Inf), labels = c('JFM', 'AMJ', 'JAS', 'OND')), 
+    flcat = cut(lnQ, breaks = c(-Inf, quantile(lnQ, c(0.25, 0.5, 0.75)), Inf), labels = c('Flow 1 (Low)', 'Flow 2', 'Flow 3', 'Flow 4 (High)'))
+  )
+  
+# get yrcat medians by station, add coords
+pax_yr <- group_by(pax_data, STATION, yrcat) %>% 
+  summarise(lnchla = median(lnchla, na.rm = T)) %>% 
+  left_join(., pax_meta, by = 'STATION') %>% 
+  rename(cat = yrcat)
+
+# get mocat medians by station, add coords
+pax_mo <- group_by(pax_data, STATION, mocat) %>% 
+  summarise(lnchla = median(lnchla, na.rm = T)) %>% 
+  left_join(., pax_meta, by = 'STATION') %>% 
+  rename(cat = mocat)
+
+# get flocat medians by station, add coords
+pax_fl <- group_by(pax_data, STATION, flcat) %>% 
+  summarise(lnchla = median(lnchla, na.rm = T)) %>% 
+  left_join(., pax_meta, by = 'STATION') %>% 
+  rename(cat = flcat)
+
+pax_plo <- rbind(pax_yr, pax_mo, pax_fl)
+
+# plot label
+ylabs <- expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')'))
+brks <- seq(0.5, 4.5, by = 0.5)
+
+# plot
+ptemp <- ggplot(pax_meta, aes(x = LONG, y = LAT)) + 
+  geom_polygon(data = pax_clip, aes(x = long, y = lat, group = group),
+    fill = wt_col) +
+  coord_map(
+    xlim = c(-76.78, -76.36),
+    ylim = c(38.27, 38.85)
+  ) +
+  theme_mine() + 
+  scale_size(range = c(1, 9), breaks = brks, labels = brks) + 
+  scale_fill_gradientn(colours = cols, breaks = brks, labels = brks) +
+  geom_text(data = pax_meta[pax_meta$STATION %in% c('TF1.6', 'LE1.2'), ], aes(x = LONG + 0.1, y = LAT, label = STATION)) + 
+  theme(
+    legend.position = 'top', 
+    axis.title = element_blank(), 
+    axis.text.y = element_text(size = 7),
+    axis.text.x = element_text(size = 7, angle = 90, hjust = 1), 
+    plot.margin = grid::unit(c(0, 0, 0, 0), 'cm')
+    ) + 
+  guides(
+    fill = guide_legend(title = ylabs), 
+    size = guide_legend(title = ylabs)
+    )
+p1 <- ptemp + 
+  geom_point(data = pax_yr, aes(group = cat, size = lnchla, fill = lnchla), 
+    pch = 21) +
+  facet_wrap(~cat, ncol = 4) 
+p2 <- ptemp + 
+  geom_point(data = pax_mo, aes(group = cat, size = lnchla, fill = lnchla), 
+    pch = 21) +
+  facet_wrap(~cat, ncol = 4) 
+p3 <- ptemp + 
+  geom_point(data = pax_fl, aes(group = cat, size = lnchla, fill = lnchla), 
+    pch = 21) +
+  facet_wrap(~cat, ncol = 4) 
+
+pdf('figs/chlyrmofl.pdf', family = 'serif', height = 5, width = 9)
+print(p1)
+print(p2)
+print(p3)
+dev.off()
+@
+%%%%%%
+\begin{frame}{Spatial and temporal observations}
+\begin{figure}
+\includegraphics<1>[width=0.8\textwidth,page=1]{figs/chlyrmofl.pdf}
+\includegraphics<2>[width=0.8\textwidth,page=2]{figs/chlyrmofl.pdf}
+\includegraphics<3>[width=0.8\textwidth,page=3]{figs/chlyrmofl.pdf}
+\caption{Observed chlorophyll at each monitoring station in the Patuxent, grouped by annual, seasonal, and flow periods.}
+\end{figure}
 \end{frame}
 
 %%%%%%
@@ -107,71 +212,21 @@ Model comparisons of flow-normalized results with simulated datasets
 \end{frame}
 
 %%%%%%
-\begin{frame}{Model applications}
-For comparing each model's \Bigtxt{predictions to observed}, at both sites:\\~\\
-\begin{center}
-$RMSE_{fit} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{Chl_i} - {\widehat{Chl}_i}} \right)}^2}} }}{n}}$
-\end{center}
-For comparing \Bigtxt{predictions between models}, at both sites: \\~\\
-\begin{center} 
-$RMSE_{btw} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{\widehat{Chl}_{WRTDS,\,i}} - {{\widehat{Chl}}_{GAM,\,i}}} \right)}^2}} }}{n}}$
-\end{center}
-\begin{center}
-$\textrm{Average difference} = \left(\frac{\sum\limits_{i = 1}^n \widehat{Chl}_{WRTDS,\,i} - \sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}{\sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}\right) * 100$
-\end{center}
-\end{frame}
-
-%%%%%%
 \begin{frame}{Development of comparable methods}
 \Bigtxt{Objective}: Compare models on the same playing field \\~\\
 \Bigtxt{Problem}: Need methods to prevent over-fitting for comparability \\~\\
-GAMs: identify optimal smoothing parameter to balance fit and `wiggliness' \\~\\
-WRTDS: identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
-Existing method for GAMs, k-fold cross-validation and search algorithm (`limited memory BFGS quasi-Newton method') to identify window-widths for WRTDS
-\end{frame}
-
-%%%%%%
-\begin{frame}{Development of simulated datasets}
-\Bigtxt{Objective}: Evaluate ability of each model to reproduce flow-normalized trends\\~\\
-\Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
-We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsch et al. 2015 \\~\\
 \begin{itemize}
-\item Daily time series: Bowie gage discharge, Jug Bay fluorescence
-\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
-\item From discharge: $Chl_{flo} = I\left(\widehat{Q}_{seas} + \sigma\cdot\varepsilon_{Q,\,sim}\right)$
-\item From fluorescence: $Chl_{bio} = \widehat{Chl}_{seas} + \sigma\cdot\varepsilon_{Chl,\,sim}$
-\item Indicator $I$ changes to simulate changing flow component
+\item GAMs: identify optimal smoothing parameter to balance fit and `wiggliness' \\~\\
+\begin{itemize}
+\item Iterative generalized cross-validation with penalized likelihood maximization to solve for model coefficients 
 \end{itemize}
-\end{frame}
-
-%%%%%%
-\begin{frame}[fragile]{Development of simulated datasets}
-<<echo = F, eval = T, fig.height = 6, fig.width = 9>>=
-# load data, from sim_dat.R in tidal_comp proj
-load('M:/docs/tidal_comp/data/sims_day.RData')
-load('M:/docs/tidal_comp/data/sims_mos.RData')
-
-# organize daily and monthly ts for plots
-toplo <- select(sims_day, date, lnchla_noQ, sim2, sim1, sim3) %>% 
-  tidyr::gather('variable', 'value', -date)
-toplo2 <- select(sims_mos, date, lnchla_noQ, sim2, sim1, sim3) %>% 
-  tidyr::gather('variable', 'value', -date) 
-
-# factor labels as expressions
-labs <- c('Biological chlorophyll', 'No flow', 'Constant flow', 'Increasing flow')
-levels(toplo$variable) <- levels(toplo2$variable) <- labs
-
-# y axis labels
-ylab <- expression(paste('ln-Chl ',' (',italic('\u03bc'),'g ',L^-1,')'))
-
-# merge with sampled
-ggplot(toplo, aes(x = date, y = value, group = variable)) + 
-  geom_point(pch = 1, size = 1, col = cols[40]) + 
-  geom_line(data = toplo2, aes(x = date, y = value, group = variable), col = cols[1]) +
-  scale_y_continuous(ylab) + 
-  theme(axis.title.x = element_blank()) +
-  facet_wrap(~variable, ncol = 1)
-@
+\end{itemize}
+\begin{itemize}
+\item WRTDS: identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
+\begin{itemize}
+\item k-fold cross-validation with search algorithm (`limited memory BFGS quasi-Newton method') that chooses window widths
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 <<eval = T, echo = F, cache = T, message = F, results = 'hide'>>=
@@ -239,17 +294,17 @@ dev.off()
 @
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \includegraphics[width=\textwidth]{figs/predmo.pdf}
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \includegraphics[width=\textwidth]{figs/predann.pdf}
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \scriptsize
 <<eval = T, echo = F, cache = T, results = 'asis'>>=
 load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
@@ -323,7 +378,7 @@ Hmisc::latex(
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \scriptsize
 <<eval = T, echo = F, cache = T, results = 'asis'>>=
 load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
@@ -391,7 +446,7 @@ Hmisc::latex(
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 <<echo = FALSE, eval = T, cache = T, message = F, results = 'hide', fig.width = 6, fig.height = 4, fig.cap = 'Seasonal variation from model predictions.', out.width = '0.9\\textwidth'>>=
 
 load(file = 'M:/docs/tidal_comp/data/bestLE12.RData')
@@ -520,7 +575,7 @@ dev.off()
 @
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \begin{figure}
 \includegraphics<1>[width=\textwidth,page=2]{figs/dynaplots.pdf}
 \includegraphics<2>[width=\textwidth,page=3]{figs/dynaplots.pdf}
@@ -539,7 +594,19 @@ dev.off()
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Development of simulated datasets}
+\Bigtxt{Objective}: Evaluate ability of each model to reproduce flow-normalized trends\\~\\
+\Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
+We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsch et al. 2015 \\~\\
+\begin{itemize}
+\item Daily time series: Bowie gage discharge, Jug Bay fluorescence
+\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
+\item Three monthly datasets with different flow components: none, constant, increasing
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Development of simulated datasets}
 Simulated data behaved as expected: three datasets with different flow contributions \\~\\
 <<echo = F, cache = T, fig.height = 2.5, fig.width = 7, fig.cap = 'WRTDS predictions from August for three simulated datasets with different flow contributions.', eval = T>>=
 # color palette
@@ -589,7 +656,7 @@ grid.arrange(
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Simulation comparisons}
 \Bigtxt{Objective}: How well do flow-normalized predictions for each model reproduce $Chl_{flo}$ \\~\\
 Simulated time series: $Chl_{obs}$ = $Chl_{flo}$ + $Chl_{bio}$
 \scriptsize
@@ -632,18 +699,79 @@ Hmisc::latex(
 %%%%%%
 \begin{frame}{Conclusions}
 \begin{itemize}
-\item WRTDS always `out-performed' GAMs, improvement was minimal \\~\\
-\item Seasonal patterns better described by WRTDS \\~\\
+\item WRTDS prediction errors always less than GAMs \\~\\
+\item Seasonal patterns were slightly different between models \\~\\
+\item GAM estimates were more `stable' during periods with little data \\~\\
 \item No clear differences in flow-normalization abilities \\~\\
 \item Interesting trends in Patuxent \\~\\
 \begin{itemize}
-\item Chlorophyll increasing lower estuary (LE1.2), mainstem influences \\~\\
-\item Multi-year signal of Isabel at TF1.6, flushing and low chlorophyll \\~\\
+\item Chlorophyll increasing lower estuary (LE1.2), mainstem influences
+\item Multi-year signal of Isabel at TF1.6, flushing and low chlorophyll
 \item Distinct changing relationships of chlorophyll with flow by station
 \end{itemize}
 \end{itemize}
-
 \end{frame}
 
+%%%%%%
+\begin{frame}{Conclusions}
+Journal venue?  Modelling vs ecosystem dynamics? Two papers?
+\end{frame}
+
+%%%%%%
+\begin{frame}{Extra}
+For comparing each model's \Bigtxt{predictions to observed}, at both sites:\\~\\
+\begin{center}
+$RMSE_{fit} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{Chl_i} - {\widehat{Chl}_i}} \right)}^2}} }}{n}}$
+\end{center}
+For comparing \Bigtxt{predictions between models}, at both sites: \\~\\
+\begin{center} 
+$RMSE_{btw} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{\widehat{Chl}_{WRTDS,\,i}} - {{\widehat{Chl}}_{GAM,\,i}}} \right)}^2}} }}{n}}$
+\end{center}
+\begin{center}
+$\textrm{Average difference} = \left(\frac{\sum\limits_{i = 1}^n \widehat{Chl}_{WRTDS,\,i} - \sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}{\sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}\right) * 100$
+\end{center}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Extra}
+Simulated datasets:\\~\\
+\begin{itemize}
+\item Daily time series: Bowie gage discharge, Jug Bay fluorescence
+\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
+\item From discharge: $Chl_{flo} = I\left(\widehat{Q}_{seas} + \sigma\cdot\varepsilon_{Q,\,sim}\right)$
+\item From fluorescence: $Chl_{bio} = \widehat{Chl}_{seas} + \sigma\cdot\varepsilon_{Chl,\,sim}$
+\item Indicator $I$ changes to simulate changing flow component
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Extra}
+<<echo = F, eval = T, fig.height = 6, fig.width = 9>>=
+# load data, from sim_dat.R in tidal_comp proj
+load('M:/docs/tidal_comp/data/sims_day.RData')
+load('M:/docs/tidal_comp/data/sims_mos.RData')
+
+# organize daily and monthly ts for plots
+toplo <- select(sims_day, date, lnchla_noQ, sim2, sim1, sim3) %>% 
+  tidyr::gather('variable', 'value', -date)
+toplo2 <- select(sims_mos, date, lnchla_noQ, sim2, sim1, sim3) %>% 
+  tidyr::gather('variable', 'value', -date) 
+
+# factor labels as expressions
+labs <- c('Biological chlorophyll', 'No flow', 'Constant flow', 'Increasing flow')
+levels(toplo$variable) <- levels(toplo2$variable) <- labs
+
+# y axis labels
+ylab <- expression(paste('ln-Chl ',' (',italic('\u03bc'),'g ',L^-1,')'))
+
+# merge with sampled
+ggplot(toplo, aes(x = date, y = value, group = variable)) + 
+  geom_point(pch = 1, size = 1, col = cols[40]) + 
+  geom_line(data = toplo2, aes(x = date, y = value, group = variable), col = cols[1]) +
+  scale_y_continuous(ylab) + 
+  theme(axis.title.x = element_blank()) +
+  facet_wrap(~variable, ncol = 1)
+@
+\end{frame}
 
 \end{document}

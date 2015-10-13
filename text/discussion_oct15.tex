@@ -93,10 +93,31 @@
 \begin{frame}{Since the last call...}
 \begin{itemize}
 \item Application of GAMs and WRTDS to 30 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
-\item Development of comparable methods for model fitting \\~\\
+\item Development of similar methods for model fitting \\~\\
+\item Model comparisons \\~\\
 \item Development of simulated datasets to evaluate flow-normalization \\~\\
-\item Comparison of results and conclusions
+\item Simulation comparisons \\~\\
+\item Conclusions
 \end{itemize}
+\end{frame}
+
+% chlorophyll trends by year, month, flow, combined
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+%%%%%%
+\begin{frame}{Spatial and temporal observations}
+\begin{figure}
+\includegraphics<1>[width=0.8\textwidth,page=1]{figs/chlyrmofl.pdf}
+\includegraphics<2>[width=0.8\textwidth,page=2]{figs/chlyrmofl.pdf}
+\includegraphics<3>[width=0.8\textwidth,page=3]{figs/chlyrmofl.pdf}
+\caption{Observed chlorophyll at each monitoring station in the Patuxent, grouped by annual, seasonal, and flow periods.}
+\end{figure}
 \end{frame}
 
 %%%%%%
@@ -113,71 +134,37 @@ Model comparisons of flow-normalized results with simulated datasets
 \end{frame}
 
 %%%%%%
-\begin{frame}{Model applications}
-For comparing each model's \Bigtxt{predictions to observed}, at both sites:\\~\\
-\begin{center}
-$RMSE_{fit} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{Chl_i} - {\widehat{Chl}_i}} \right)}^2}} }}{n}}$
-\end{center}
-For comparing \Bigtxt{predictions between models}, at both sites: \\~\\
-\begin{center} 
-$RMSE_{btw} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{\widehat{Chl}_{WRTDS,\,i}} - {{\widehat{Chl}}_{GAM,\,i}}} \right)}^2}} }}{n}}$
-\end{center}
-\begin{center}
-$\textrm{Average difference} = \left(\frac{\sum\limits_{i = 1}^n \widehat{Chl}_{WRTDS,\,i} - \sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}{\sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}\right) * 100$
-\end{center}
-\end{frame}
-
-%%%%%%
 \begin{frame}{Development of comparable methods}
 \Bigtxt{Objective}: Compare models on the same playing field \\~\\
 \Bigtxt{Problem}: Need methods to prevent over-fitting for comparability \\~\\
-GAMs: identify optimal smoothing parameter to balance fit and `wiggliness' \\~\\
-WRTDS: identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
-Existing method for GAMs, k-fold cross-validation and search algorithm (`limited memory BFGS quasi-Newton method') to identify window-widths for WRTDS
-\end{frame}
-
-%%%%%%
-\begin{frame}{Development of simulated datasets}
-\Bigtxt{Objective}: Evaluate ability of each model to reproduce flow-normalized trends\\~\\
-\Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
-We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsch et al. 2015 \\~\\
 \begin{itemize}
-\item Daily time series: Bowie gage discharge, Jug Bay fluorescence
-\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
-\item From discharge: $Chl_{flo} = I\left(\widehat{Q}_{seas} + \sigma\cdot\varepsilon_{Q,\,sim}\right)$
-\item From fluorescence: $Chl_{bio} = \widehat{Chl}_{seas} + \sigma\cdot\varepsilon_{Chl,\,sim}$
-\item Indicator $I$ changes to simulate changing flow component
+\item GAMs: identify optimal smoothing parameter to balance fit and `wiggliness' \\~\\
+\begin{itemize}
+\item Iterative generalized cross-validation with penalized likelihood maximization to solve for model coefficients 
+\end{itemize}
+\end{itemize}
+\begin{itemize}
+\item WRTDS: identify optimal window widths for time, discharge (salinity or flow), and season \\~\\
+\begin{itemize}
+\item k-fold cross-validation with search algorithm (`limited memory BFGS quasi-Newton method') that chooses window widths
+\end{itemize}
 \end{itemize}
 \end{frame}
 
-%%%%%%
-\begin{frame}[fragile]{Development of simulated datasets}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}
-
-{\centering \includegraphics[width=\maxwidth]{figs/unnamed-chunk-2-1} 
-
-}
-
-
-
-\end{knitrout}
-\end{frame}
-
 
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \includegraphics[width=\textwidth]{figs/predmo.pdf}
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \includegraphics[width=\textwidth]{figs/predann.pdf}
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \scriptsize
 %latex.default(tab, file = "", rowlabel = "Period", caption = cap.val,     caption.loc = "top", rgroup = c("All", "Annual", "Seasonal",         "Flow"), n.rgroup = c(1, rep(4, 3)), cgroup = c("LE1.2",         "TF1.6"), n.cgroup = c(2, 2), rowname = rows, colheads = rep(c("GAM",         "WRTDS"), 2), label = "tab:perftoobs")%
 \begin{table}[!tbp]
@@ -217,7 +204,7 @@ We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsc
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \scriptsize
 %latex.default(tab, file = "", rowlabel = "Period", caption = cap.val,     caption.loc = "top", rgroup = c("All", "Annual", "Seasonal",         "Flow"), n.rgroup = c(1, rep(4, 3)), cgroup = c("LE1.2",         "TF1.6"), n.cgroup = c(2, 2), rowname = rows, colheads = rep(c("Ave. diff.",         "RMSE"), 2), label = "tab:perfbtw")%
 \begin{table}[!tbp]
@@ -257,7 +244,7 @@ We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsc
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{figure}[!ht]
 
@@ -275,7 +262,7 @@ We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsc
 
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Model comparisons}
 \begin{figure}
 \includegraphics<1>[width=\textwidth,page=2]{figs/dynaplots.pdf}
 \includegraphics<2>[width=\textwidth,page=3]{figs/dynaplots.pdf}
@@ -294,7 +281,19 @@ We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsc
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Development of simulated datasets}
+\Bigtxt{Objective}: Evaluate ability of each model to reproduce flow-normalized trends\\~\\
+\Bigtxt{Problem}: The true flow-normalized trends are not known and can only be empirically estimated \\~\\
+We simulated monthly datasets following techniques in Beck et al. 2015 and Hirsch et al. 2015 \\~\\
+\begin{itemize}
+\item Daily time series: Bowie gage discharge, Jug Bay fluorescence
+\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
+\item Three monthly datasets with different flow components: none, constant, increasing
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Development of simulated datasets}
 Simulated data behaved as expected: three datasets with different flow contributions \\~\\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{figure}[!ht]
@@ -311,7 +310,7 @@ Simulated data behaved as expected: three datasets with different flow contribut
 \end{frame}
 
 %%%%%%
-\begin{frame}{Results}
+\begin{frame}{Simulation comparisons}
 \Bigtxt{Objective}: How well do flow-normalized predictions for each model reproduce $Chl_{flo}$ \\~\\
 Simulated time series: $Chl_{obs}$ = $Chl_{flo}$ + $Chl_{bio}$
 \scriptsize
@@ -344,18 +343,63 @@ Simulated time series: $Chl_{obs}$ = $Chl_{flo}$ + $Chl_{bio}$
 %%%%%%
 \begin{frame}{Conclusions}
 \begin{itemize}
-\item WRTDS always `out-performed' GAMs, improvement was minimal \\~\\
-\item Seasonal patterns better described by WRTDS \\~\\
+\item WRTDS prediction errors always less than GAMs \\~\\
+\item Seasonal patterns were slightly different between models \\~\\
+\item GAM estimates were more `stable' during periods with little data \\~\\
 \item No clear differences in flow-normalization abilities \\~\\
 \item Interesting trends in Patuxent \\~\\
 \begin{itemize}
-\item Chlorophyll increasing lower estuary (LE1.2), mainstem influences \\~\\
-\item Multi-year signal of Isabel at TF1.6, flushing and low chlorophyll \\~\\
+\item Chlorophyll increasing lower estuary (LE1.2), mainstem influences
+\item Multi-year signal of Isabel at TF1.6, flushing and low chlorophyll
 \item Distinct changing relationships of chlorophyll with flow by station
 \end{itemize}
 \end{itemize}
-
 \end{frame}
 
+%%%%%%
+\begin{frame}{Conclusions}
+Journal venue?  Modelling vs ecosystem dynamics? Two papers?
+\end{frame}
+
+%%%%%%
+\begin{frame}{Extra}
+For comparing each model's \Bigtxt{predictions to observed}, at both sites:\\~\\
+\begin{center}
+$RMSE_{fit} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{Chl_i} - {\widehat{Chl}_i}} \right)}^2}} }}{n}}$
+\end{center}
+For comparing \Bigtxt{predictions between models}, at both sites: \\~\\
+\begin{center} 
+$RMSE_{btw} = \sqrt {\frac{{\sum\limits_{{i = 1}}^n {{{\left( {{\widehat{Chl}_{WRTDS,\,i}} - {{\widehat{Chl}}_{GAM,\,i}}} \right)}^2}} }}{n}}$
+\end{center}
+\begin{center}
+$\textrm{Average difference} = \left(\frac{\sum\limits_{i = 1}^n \widehat{Chl}_{WRTDS,\,i} - \sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}{\sum\limits_{i = 1}^n \widehat{Chl}_{GAM,\,i}}\right) * 100$
+\end{center}
+\end{frame}
+
+%%%%%%
+\begin{frame}{Extra}
+Simulated datasets:\\~\\
+\begin{itemize}
+\item Daily time series: Bowie gage discharge, Jug Bay fluorescence
+\item Overall: $Chl_{obs} = Chl_{flo} + Chl_{bio}$
+\item From discharge: $Chl_{flo} = I\left(\widehat{Q}_{seas} + \sigma\cdot\varepsilon_{Q,\,sim}\right)$
+\item From fluorescence: $Chl_{bio} = \widehat{Chl}_{seas} + \sigma\cdot\varepsilon_{Chl,\,sim}$
+\item Indicator $I$ changes to simulate changing flow component
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{Extra}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}
+
+{\centering \includegraphics[width=\maxwidth]{figs/unnamed-chunk-10-1} 
+
+}
+
+
+
+\end{knitrout}
+\end{frame}
 
 \end{document}

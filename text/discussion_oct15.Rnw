@@ -96,7 +96,7 @@ theme_set(theme_mine())
 \end{frame}
 
 % chlorophyll trends by year, month, flow, combined
-<<eval = T, echo = F, cache = T>>=
+<<eval = T, echo = F, cache = T, results = 'hide'>>=
 load(file = 'M:/docs/manuscripts/patux_manu/data/pax_data.RData')
 load(file = 'M:/docs/manuscripts/patux_manu/data/pax_meta.RData')
 load(file = 'M:/docs/manuscripts/patux_manu/data/pax_clip.RData')

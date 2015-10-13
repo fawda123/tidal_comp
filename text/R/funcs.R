@@ -134,7 +134,7 @@ g_legend<-function(a.gplot){
 # grd is the number of salinity values to use in predictions
 dynagam <- function(mod_in, dat_in, grd = 30, years = NULL, alpha = 1,
   size = 1, col_vec = NULL, allflo = FALSE, month = c(1:12), scales = NULL, ncol = NULL, 
-  pretty = TRUE, grids = TRUE, use_bw = TRUE){
+  pretty = TRUE, grids = TRUE, use_bw = TRUE, fac_nms = NULL){
 
   # add year, month columns to dat_in
   dat_in <- mutate(dat_in, 
@@ -213,6 +213,15 @@ dynagam <- function(mod_in, dat_in, grd = 30, years = NULL, alpha = 1,
   )
   mo_lab <- mo_lab[mo_lab$num %in% month, ]
   to_plo$month <- factor(to_plo$month, levels =  mo_lab$num, labels = mo_lab$txt)
+  
+  # reassign facet names if fac_nms is provided
+  if(!is.null(fac_nms)){
+    
+    if(length(fac_nms) != length(unique(to_plo$month))) stop('fac_nms must have same lengths as months')
+  
+    to_plo$month <- factor(to_plo$month, labels = fac_nms)
+    
+  }
   
   # make plot
   p <- ggplot(to_plo, aes(x = sal, y = chla, group = year)) + 

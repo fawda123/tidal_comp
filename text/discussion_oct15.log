@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  13 OCT 2015 13:02
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  13 OCT 2015 14:01
 entering extended mode
 **discussion_oct15.tex
 (M:\docs\tidal_comp\text\discussion_oct15.tex
@@ -1487,188 +1487,186 @@ LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4> not available
 File: figs/chlyrmofl.pdf Graphic file (type pdf)
 
 <use figs/chlyrmofl.pdf, page 1>
-Package pdftex.def Info: figs/chlyrmofl.pdf, page1 used on input line 121.
+Package pdftex.def Info: figs/chlyrmofl.pdf, page1 used on input line 114.
 (pdftex.def)             Requested size: 273.83728pt x 152.13538pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [3
 
-]
-[4 <M:/docs/tidal_comp/text/figs/chlyrmofl.pdf>]
-<figs/chlyrmofl.pdf, id=159, page=2, 650.43pt x 361.35pt>
+ <M:/docs/tidal_comp/text/figs/chlyrmofl.pdf>] <figs/chlyrmofl.pdf, id=132, pag
+e=2, 650.43pt x 361.35pt>
 File: figs/chlyrmofl.pdf Graphic file (type pdf)
 
 <use figs/chlyrmofl.pdf, page 2>
-Package pdftex.def Info: figs/chlyrmofl.pdf, page2 used on input line 121.
+Package pdftex.def Info: figs/chlyrmofl.pdf, page2 used on input line 114.
 (pdftex.def)             Requested size: 273.83728pt x 152.13538pt.
- [5
+ [4
 
- <M:/docs/tidal_comp/text/figs/chlyrmofl.pdf>] <figs/chlyrmofl.pdf, id=196, pag
+ <M:/docs/tidal_comp/text/figs/chlyrmofl.pdf>] <figs/chlyrmofl.pdf, id=169, pag
 e=3, 650.43pt x 361.35pt>
 File: figs/chlyrmofl.pdf Graphic file (type pdf)
 
 <use figs/chlyrmofl.pdf, page 3>
-Package pdftex.def Info: figs/chlyrmofl.pdf, page3 used on input line 121.
+Package pdftex.def Info: figs/chlyrmofl.pdf, page3 used on input line 114.
 (pdftex.def)             Requested size: 273.83728pt x 152.13538pt.
- [6
+ [5
 
- <M:/docs/tidal_comp/text/figs/chlyrmofl.pdf>] [7
+ <M:/docs/tidal_comp/text/figs/chlyrmofl.pdf>] [6
 
-] [8
+] [7
 
-] <figs/predmo.pdf, id=289, 650.43pt x 361.35pt>
+] <figs/predmo.pdf, id=262, 650.43pt x 361.35pt>
 File: figs/predmo.pdf Graphic file (type pdf)
 
 <use figs/predmo.pdf>
-Package pdftex.def Info: figs/predmo.pdf used on input line 159.
+Package pdftex.def Info: figs/predmo.pdf used on input line 152.
+(pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
+ [8
+
+ <M:/docs/tidal_comp/text/figs/predmo.pdf>]
+<figs/predann.pdf, id=301, 650.43pt x 361.35pt>
+File: figs/predann.pdf Graphic file (type pdf)
+ <use figs/predann.pdf>
+Package pdftex.def Info: figs/predann.pdf used on input line 157.
 (pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
  [9
 
- <M:/docs/tidal_comp/text/figs/predmo.pdf>]
-<figs/predann.pdf, id=328, 650.43pt x 361.35pt>
-File: figs/predann.pdf Graphic file (type pdf)
- <use figs/predann.pdf>
-Package pdftex.def Info: figs/predann.pdf used on input line 164.
-(pdftex.def)             Requested size: 342.2953pt x 190.16924pt.
- [10
+ <M:/docs/tidal_comp/text/figs/predann.pdf>] [10
 
- <M:/docs/tidal_comp/text/figs/predann.pdf>] [11
-
-] [12
+] [11
 
 ]
-<figs/unnamed-chunk-6-1.pdf, id=420, 433.62pt x 289.08pt>
+<figs/unnamed-chunk-6-1.pdf, id=393, 433.62pt x 289.08pt>
 File: figs/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 
 <use figs/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: figs/unnamed-chunk-6-1.pdf used on input line 260.
+Package pdftex.def Info: figs/unnamed-chunk-6-1.pdf used on input line 253.
 (pdftex.def)             Requested size: 308.06367pt x 205.38496pt.
 
-Overfull \vbox (6.50761pt too high) detected at line 260
+Overfull \vbox (6.50761pt too high) detected at line 253
  []
 
-[13
+[12
 
  <M:/docs/tidal_comp/text/figs/unnamed-chunk-6-1.pdf>]
-<figs/dynaplots.pdf, id=459, page=2, 578.16pt x 216.81pt>
+<figs/dynaplots.pdf, id=431, page=2, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 2>
-Package pdftex.def Info: figs/dynaplots.pdf, page2 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page2 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [14
+ [13
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=512, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=485, pag
 e=3, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 3>
-Package pdftex.def Info: figs/dynaplots.pdf, page3 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page3 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [15
+ [14
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=563, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=536, pag
 e=4, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 4>
-Package pdftex.def Info: figs/dynaplots.pdf, page4 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page4 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [16
+ [15
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=614, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=587, pag
 e=5, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 5>
-Package pdftex.def Info: figs/dynaplots.pdf, page5 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page5 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [17
+ [16
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=665, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=638, pag
 e=6, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 6>
-Package pdftex.def Info: figs/dynaplots.pdf, page6 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page6 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [18
+ [17
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=716, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=689, pag
 e=7, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 7>
-Package pdftex.def Info: figs/dynaplots.pdf, page7 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page7 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [19
+ [18
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=768, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=740, pag
 e=8, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 8>
-Package pdftex.def Info: figs/dynaplots.pdf, page8 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page8 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [20
+ [19
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=819, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=792, pag
 e=9, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 9>
-Package pdftex.def Info: figs/dynaplots.pdf, page9 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page9 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [21
+ [20
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=870, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=843, pag
 e=10, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 10>
-Package pdftex.def Info: figs/dynaplots.pdf, page10 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page10 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [22
+ [21
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=921, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=894, pag
 e=11, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 11>
-Package pdftex.def Info: figs/dynaplots.pdf, page11 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page11 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [23
+ [22
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=972, pag
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=945, pag
 e=12, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 12>
-Package pdftex.def Info: figs/dynaplots.pdf, page12 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page12 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [24
+ [23
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=1022, pa
-ge=13, 578.16pt x 216.81pt>
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] <figs/dynaplots.pdf, id=995, pag
+e=13, 578.16pt x 216.81pt>
 File: figs/dynaplots.pdf Graphic file (type pdf)
 
 <use figs/dynaplots.pdf, page 13>
-Package pdftex.def Info: figs/dynaplots.pdf, page13 used on input line 281.
+Package pdftex.def Info: figs/dynaplots.pdf, page13 used on input line 274.
 (pdftex.def)             Requested size: 342.2953pt x 128.36009pt.
- [25
+ [24
 
- <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] [26
+ <M:/docs/tidal_comp/text/figs/dynaplots.pdf>] [25
 
-] <figs/unnamed-chunk-8-1.pdf, id=1101, 505.89pt x 180.675pt>
+] <figs/unnamed-chunk-8-1.pdf, id=1074, 505.89pt x 180.675pt>
 File: figs/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 
 <use figs/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: figs/unnamed-chunk-8-1.pdf used on input line 310.
+Package pdftex.def Info: figs/unnamed-chunk-8-1.pdf used on input line 303.
 (pdftex.def)             Requested size: 342.2953pt x 122.25085pt.
- [27
+ [26
 
- <M:/docs/tidal_comp/text/figs/unnamed-chunk-8-1.pdf>] [28
+ <M:/docs/tidal_comp/text/figs/unnamed-chunk-8-1.pdf>] [27
+
+] [28
 
 ] [29
 
@@ -1676,29 +1674,27 @@ Package pdftex.def Info: figs/unnamed-chunk-8-1.pdf used on input line 310.
 
 ] [31
 
-] [32
-
 ]
 (M:\docs\tidal_comp\text\discussion_oct15.vrb
-<figs/unnamed-chunk-10-1.pdf, id=1276, 650.43pt x 433.62pt>
+<figs/unnamed-chunk-10-1.pdf, id=1249, 650.43pt x 433.62pt>
 File: figs/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 
 <use figs/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-10-1.pdf used on input line 5.
 (pdftex.def)             Requested size: 342.2953pt x 228.20308pt.
 )
-Package atenddvi Info: Last page = 33.
- [33
+Package atenddvi Info: Last page = 32.
+ [32
 
  <M:/docs/tidal_comp/text/figs/unnamed-chunk-10-1.pdf>]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 405.
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 405.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 398.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 398.
  (M:\docs\tidal_comp\text\discussion_oct15.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 405.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 405.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 398.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 398.
 Package rerunfilecheck Info: File `discussion_oct15.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1706,14 +1702,14 @@ Package rerunfilecheck Info: File `discussion_oct15.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 405.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 398.
  ) 
 Here is how much of TeX's memory you used:
- 28193 strings out of 493921
- 558914 string characters out of 3147282
+ 28189 strings out of 493921
+ 558871 string characters out of 3147282
  680813 words of memory out of 3000000
- 30774 multiletter control sequences out of 15000+200000
- 10682 words of font info for 41 fonts, out of 3000000 for 9000
+ 30773 multiletter control sequences out of 15000+200000
+ 10514 words of font info for 40 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  49i,16n,73p,478b,571s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
@@ -1728,11 +1724,10 @@ sfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 ><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Progr
 am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files
 /MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/symbols/msam7.pfb>
-Output written on discussion_oct15.pdf (33 pages, 2726784 bytes).
+.9/fonts/type1/public/amsfonts/symbols/msam7.pfb>
+Output written on discussion_oct15.pdf (32 pages, 2711489 bytes).
 PDF statistics:
- 1375 PDF objects out of 1440 (max. 8388607)
- 72 named destinations out of 1000 (max. 500000)
+ 1345 PDF objects out of 1440 (max. 8388607)
+ 70 named destinations out of 1000 (max. 500000)
  245 words of extra memory for PDF output out of 10000 (max. 10000000)
 

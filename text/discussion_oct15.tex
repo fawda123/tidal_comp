@@ -93,7 +93,7 @@
 \begin{frame}{Since the last call...}
 \begin{itemize}
 \item Application of GAMs and WRTDS to 30 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
-\item Development of similar methods for model fitting \\~\\
+\item Implementation of similar methods for model fitting \\~\\
 \item Model comparisons \\~\\
 \item Development of simulated datasets to evaluate flow-normalization \\~\\
 \item Simulation comparisons \\~\\
@@ -109,13 +109,12 @@
 \includegraphics<1>[width=0.8\textwidth,page=1]{figs/chlyrmofl.pdf}
 \includegraphics<2>[width=0.8\textwidth,page=2]{figs/chlyrmofl.pdf}
 \includegraphics<3>[width=0.8\textwidth,page=3]{figs/chlyrmofl.pdf}
-\caption{Observed chlorophyll at each monitoring station in the Patuxent, grouped by annual, seasonal, and flow periods.}
+\caption{Vertically integrated bi-monthly chlorophyll observations in the Patuxent, grouped by annual, seasonal, and flow periods.}
 \end{figure}
 \end{frame}
 
 %%%%%%
 \begin{frame}{Model applications}
-Both models used vertically-integrated chlorophyll, monthly timestep \\~\\
 LE1.2: lnchla $\sim$ time + \Bigtxt{salinity} \\~\\
 TF1.6: lnchla $\sim$ time + \Bigtxt{flow} \\~\\
 Fits evaluated for whole time series and annual/seasonal/flow aggregations: \\~\\
@@ -127,13 +126,11 @@ Model comparisons of flow-normalized results with simulated datasets
 \end{frame}
 
 %%%%%%
-\begin{frame}{Development of comparable methods}
-\Bigtxt{Objective}: Compare models on the same playing field \\~\\
-\Bigtxt{Problem}: Need methods to prevent over-fitting for comparability \\~\\
+\begin{frame}{Parameter fitting methods}
 \begin{itemize}
 \item GAMs: identify optimal smoothing parameter to balance fit and `wiggliness' \\~\\
 \begin{itemize}
-\item Iterative generalized cross-validation with penalized likelihood maximization to solve for model coefficients 
+\item Iterative generalized cross-validation with penalized likelihood maximization
 \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -304,12 +301,12 @@ Simulated data behaved as expected: three datasets with different flow contribut
 
 %%%%%%
 \begin{frame}{Simulation comparisons}
-\Bigtxt{Objective}: How well do flow-normalized predictions for each model reproduce $Chl_{flo}$ \\~\\
+\Bigtxt{Objective}: How well do flow-normalized predictions reproduce $Chl_{flo}$ \\~\\
 Simulated time series: $Chl_{obs}$ = $Chl_{flo}$ + $Chl_{bio}$
 \scriptsize
 %latex.default(tab, file = "", rowlabel = "Simulations", caption = cap.val,     caption.loc = "top", rgroup = c("No flow", "Constant flow",         "Increasing flow"), n.rgroup = rep(2, 3), rowname = rows,     colheads = c("$Chl_{obs} \\sim \\widehat{Chl}_{obs}$", "$Chl_{bio} \\sim \\widehat{Chl}_{bio}$"),     label = "tab:simperf")%
 \begin{table}[!tbp]
-\caption{Performance summaries (RMSE) of model predictions for the three simulated time series (no flow, constant flow, and increasing flow effect).\label{tab:simperf}} 
+\caption{Performance summaries (RMSE) of model predictions for the three simulated time series.\label{tab:simperf}} 
 \begin{center}
 \begin{tabular}{lll}
 \hline\hline

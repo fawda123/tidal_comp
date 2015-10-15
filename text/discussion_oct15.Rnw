@@ -87,7 +87,7 @@ theme_set(theme_mine())
 \begin{frame}{Since the last call...}
 \begin{itemize}
 \item Application of GAMs and WRTDS to 30 year time series of monthly chlorophyll at LE1.2 and TF1.6 \\~\\
-\item Development of similar methods for model fitting \\~\\
+\item Implementation of similar methods for model fitting \\~\\
 \item Model comparisons \\~\\
 \item Development of simulated datasets to evaluate flow-normalization \\~\\
 \item Simulation comparisons \\~\\
@@ -194,13 +194,12 @@ dev.off()
 \includegraphics<1>[width=0.8\textwidth,page=1]{figs/chlyrmofl.pdf}
 \includegraphics<2>[width=0.8\textwidth,page=2]{figs/chlyrmofl.pdf}
 \includegraphics<3>[width=0.8\textwidth,page=3]{figs/chlyrmofl.pdf}
-\caption{Observed chlorophyll at each monitoring station in the Patuxent, grouped by annual, seasonal, and flow periods.}
+\caption{Vertically integrated bi-monthly chlorophyll observations in the Patuxent, grouped by annual, seasonal, and flow periods.}
 \end{figure}
 \end{frame}
 
 %%%%%%
 \begin{frame}{Model applications}
-Both models used vertically-integrated chlorophyll, monthly timestep \\~\\
 LE1.2: lnchla $\sim$ time + \Bigtxt{salinity} \\~\\
 TF1.6: lnchla $\sim$ time + \Bigtxt{flow} \\~\\
 Fits evaluated for whole time series and annual/seasonal/flow aggregations: \\~\\
@@ -212,13 +211,11 @@ Model comparisons of flow-normalized results with simulated datasets
 \end{frame}
 
 %%%%%%
-\begin{frame}{Development of comparable methods}
-\Bigtxt{Objective}: Compare models on the same playing field \\~\\
-\Bigtxt{Problem}: Need methods to prevent over-fitting for comparability \\~\\
+\begin{frame}{Parameter fitting methods}
 \begin{itemize}
 \item GAMs: identify optimal smoothing parameter to balance fit and `wiggliness' \\~\\
 \begin{itemize}
-\item Iterative generalized cross-validation with penalized likelihood maximization to solve for model coefficients 
+\item Iterative generalized cross-validation with penalized likelihood maximization
 \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -464,7 +461,7 @@ toplo <- rbind(bestLE12, bestTF16) %>%
     fake_date = as.Date(paste(Year, mo, day, sep = '-'))
   ) %>% 
   gather('mod', 'val', fits_wrtds:fits_gams) %>% 
-  mutate(mod = factor(mod, levels = c('fits_wrtds', 'fits_gams'), labels = c('WRTDS', 'GAM')))
+  mutate(mod = factor(mod, levels = c('fits_gams', 'fits_wrtds'), labels = c('GAM', 'WRTDS')))
 
 ylab <- expression(paste('ln-Chl ',' (',italic('\u03bc'),'g ',L^-1,')'))
 xlab <- 'Day of year'
@@ -474,7 +471,7 @@ ggplot(toplo, aes(x = fake_date, y = val, group = mod)) +
   stat_smooth(method = 'loess', span = 0.4, se = F, col = cols[1], size = 1) +
   scale_y_continuous(ylab) + 
   scale_x_date(xlab, labels = date_format("%m/%d")) + 
-  facet_grid(mod ~ stat, scales = 'free_y') + 
+  facet_grid(stat ~ mod, scales = 'free_y') + 
   theme_mine() + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size = 8))
 
@@ -657,7 +654,7 @@ grid.arrange(
 
 %%%%%%
 \begin{frame}{Simulation comparisons}
-\Bigtxt{Objective}: How well do flow-normalized predictions for each model reproduce $Chl_{flo}$ \\~\\
+\Bigtxt{Objective}: How well do flow-normalized predictions reproduce $Chl_{flo}$ \\~\\
 Simulated time series: $Chl_{obs}$ = $Chl_{flo}$ + $Chl_{bio}$
 \scriptsize
 <<eval = T, echo = F, cache = T, results = 'asis'>>=
@@ -679,7 +676,7 @@ totab <- group_by(simres, sim, mod) %>%
 # latex table
 tab <- form_fun(totab[, -c(1:2)])
 rows <- totab[, 2]
-cap.val<-'Performance summaries (RMSE) of model predictions for the three simulated time series (no flow, constant flow, and increasing flow effect).'
+cap.val<-'Performance summaries (RMSE) of model predictions for the three simulated time series.'
 
 Hmisc::latex( 
   tab,

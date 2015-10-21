@@ -13,7 +13,7 @@ This repository contains materials for comparing generalized additive models (GA
 
 `bestLE12.RData` combined dataset for best WRTDS and GAM for LE12, includes observed data, created in `create_final_mods.R`
 
-`bestLE12_wrtds.RData` Optimal WRTDS model for LE12, created in `create_final_mods.R`
+`bestLE12_wrtds.RData` Optimal WRTDS model for LE12, created in `create_final_mods.R`, files with `_min` or `_nomin` suffix are used in `samp_size.R` to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.  
  
 `bestLE12_gams.RData` Optimal GAM for LE12, created in `create_final_mods.R`
  
@@ -21,15 +21,15 @@ This repository contains materials for comparing generalized additive models (GA
  
 `bestTF16.RData` combined dataset for best WRTDS and GAM for TF16, includes observed data, created in `create_final_mods.R`
  
-`bestTF16_wrtds.RData` Optimal WRTDS model for TF16, created in `create_final_mods.R`
+`bestTF16_wrtds.RData` Optimal WRTDS model for TF16, created in `create_final_mods.R`, files with `_min` or `_nomin` suffix are used in `samp_size.R` to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without. 
 
 `bestTF16_gams.RData` Optimal GAM for TF16, created in `create_final_mods.R`
 
 `obs_dat.RData` Daily chlorophyll and discharge data that is used to create simulated datasets on monthly time steps, created in `sim_dat.R`.
 
-`optimLE12_opt.RData` Results after running `winsrch_optim` for LE12, created in `get_optim.R`
+`optimLE12_opt.RData` Results after running `winsrch_optim` for LE12, created in `get_optim.R`, files with `_min` or `_nomin` suffix are used in `samp_size.R` to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without. 
 
-`optimTF16_opt.RData` Results after running `winsrch_optim` for TF16, created in `get_optim.R`
+`optimTF16_opt.RData` Results after running `winsrch_optim` for TF16, created in `get_optim.R`, files with `_min` or `_nomin` suffix are used in `samp_size.R` to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without. 
 
 `pax_chldata.RData` Chlorophyll data for Patuxent stations including bottom and surface.
 

@@ -72,15 +72,15 @@ img {
 <div id="data-files" class="section level3">
 <h3>Data files</h3>
 <p><code>bestLE12.RData</code> combined dataset for best WRTDS and GAM for LE12, includes observed data, created in <code>create_final_mods.R</code></p>
-<p><code>bestLE12_wrtds.RData</code> Optimal WRTDS model for LE12, created in <code>create_final_mods.R</code></p>
+<p><code>bestLE12_wrtds.RData</code> Optimal WRTDS model for LE12, created in <code>create_final_mods.R</code>, files with <code>_min</code> or <code>_nomin</code> suffix are used in <code>samp_size.R</code> to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.</p>
 <p><code>bestLE12_gams.RData</code> Optimal GAM for LE12, created in <code>create_final_mods.R</code></p>
 <p><code>bestsim_wrtds.RData</code> Best WRTDS model objects for each of three simulated monthly time series, created in <code>create_final_mods.R</code>.</p>
 <p><code>bestTF16.RData</code> combined dataset for best WRTDS and GAM for TF16, includes observed data, created in <code>create_final_mods.R</code></p>
-<p><code>bestTF16_wrtds.RData</code> Optimal WRTDS model for TF16, created in <code>create_final_mods.R</code></p>
+<p><code>bestTF16_wrtds.RData</code> Optimal WRTDS model for TF16, created in <code>create_final_mods.R</code>, files with <code>_min</code> or <code>_nomin</code> suffix are used in <code>samp_size.R</code> to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.</p>
 <p><code>bestTF16_gams.RData</code> Optimal GAM for TF16, created in <code>create_final_mods.R</code></p>
 <p><code>obs_dat.RData</code> Daily chlorophyll and discharge data that is used to create simulated datasets on monthly time steps, created in <code>sim_dat.R</code>.</p>
-<p><code>optimLE12_opt.RData</code> Results after running <code>winsrch_optim</code> for LE12, created in <code>get_optim.R</code></p>
-<p><code>optimTF16_opt.RData</code> Results after running <code>winsrch_optim</code> for TF16, created in <code>get_optim.R</code></p>
+<p><code>optimLE12_opt.RData</code> Results after running <code>winsrch_optim</code> for LE12, created in <code>get_optim.R</code>, files with <code>_min</code> or <code>_nomin</code> suffix are used in <code>samp_size.R</code> to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.</p>
+<p><code>optimTF16_opt.RData</code> Results after running <code>winsrch_optim</code> for TF16, created in <code>get_optim.R</code>, files with <code>_min</code> or <code>_nomin</code> suffix are used in <code>samp_size.R</code> to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.</p>
 <p><code>pax_chldata.RData</code> Chlorophyll data for Patuxent stations including bottom and surface.</p>
 <p><code>pax_clip.RData</code> SpatialPolygonsDataFrame of the Patuxent taken from a cut polygon of Chesapeake Bay.</p>
 <p><code>pax_data.RData</code> Processed water quality data for water quality stations in the Patuxent River Estuary, 1985 to 2014. Created in dat_proc.Rnw.</p>

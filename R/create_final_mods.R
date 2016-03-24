@@ -21,7 +21,7 @@ tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
 
 bestLE12_wrtds <- modfit(tomod, resp_type = 'mean', wins = as.list(optimLE12_opt$par), 
-  min_obs = FALSE, sal_div = 50)
+  min_obs = FALSE, flo_div = 50)
 save(bestLE12_wrtds, file = 'data/bestLE12_wrtds.RData')
 save(bestLE12_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestLE12_wrtds.RData')
 
@@ -44,7 +44,7 @@ tomod$STATION <- NULL
 tomod <- tomod[order(tomod$date), ]
 
 bestTF16_wrtds <- modfit(tomod, resp_type = 'mean', wins = as.list(optimTF16_opt$par),
-  min_obs = FALSE, sal_div = 50)
+  min_obs = FALSE, flo_div = 50)
 save(bestTF16_wrtds, file = 'data/bestTF16_wrtds.RData')
 save(bestTF16_wrtds, file = 'M:/docs/manuscripts/patux_manu/data/bestTF16_wrtds.RData')
 
@@ -113,7 +113,7 @@ flowsalLE12 <- filter(pax_data, STATION %in% 'LE1.2') %>%
   select(date, lnQ)
 
 bestLE12 <- data.frame(bestLE12_wrtds) %>% 
-  select(date, dec_time, chla, sal, fits, norm) %>% 
+  select(date, dec_time, res, flo, fits, norm) %>% 
   rename(
     fits_wrtds = fits, 
     norm_wrtds = norm
@@ -124,8 +124,8 @@ bestLE12 <- data.frame(bestLE12_wrtds) %>%
     norm_gams = norm
   ) %>% 
   mutate(
-    res_wrtds = chla - fits_wrtds,
-    res_gams = chla - fits_gams
+    res_wrtds = res - fits_wrtds,
+    res_gams = res - fits_gams
   ) %>% 
   left_join(., flowsalLE12, by = 'date') %>% 
   mutate(
@@ -142,11 +142,10 @@ save(bestLE12, file = 'data/bestLE12.RData')
 save(bestLE12, file = 'M:/docs/manuscripts/patux_manu/data/bestLE12.RData')
 
 bestTF16 <- data.frame(bestTF16_wrtds) %>% 
-  select(date, dec_time, chla, sal, fits, norm) %>% 
+  select(date, dec_time, res, flo, fits, norm) %>% 
   rename(
     fits_wrtds = fits, 
-    norm_wrtds = norm,
-    lnQ = sal
+    norm_wrtds = norm
   ) %>% 
   left_join(., bestTF16_gams, by = 'date') %>% 
   rename(
@@ -154,14 +153,14 @@ bestTF16 <- data.frame(bestTF16_wrtds) %>%
     norm_gams = norm
   ) %>% 
   mutate(
-    res_wrtds = chla - fits_wrtds,
-    res_gams = chla - fits_gams
+    res_wrtds = res - fits_wrtds,
+    res_gams = res - fits_gams
   ) %>% 
   left_join(., flowsalTF16, by = 'date') %>% 
   mutate(
     mo = as.numeric(strftime(date, '%m')), 
     yr = as.numeric(strftime(date, '%Y')), 
-    flcat = cut(lnQ, breaks = c(-Inf, quantile(lnQ, c(0.25, 0.5, 0.75)), Inf), labels = c('Flow 1 (Low)', 'Flow 2', 'Flow 3', 'Flow 4 (High)')), 
+    flcat = cut(flo, breaks = c(-Inf, quantile(flo, c(0.25, 0.5, 0.75)), Inf), labels = c('Flow 1 (Low)', 'Flow 2', 'Flow 3', 'Flow 4 (High)')), 
     mocat = cut(mo, breaks = c(-Inf, 3, 6, 9, Inf), labels = c('JFM', 'AMJ', 'JAS', 'OND')), 
     yrcat = cut(yr, breaks = c(-Inf, 1993, 2000, 2007, Inf), 
       labels = c('1986-1993', '1994-2000', '2001-2007', '2008-2014'))
@@ -194,7 +193,7 @@ names(bestsim1) <- c('date', 'chla', 'sal')
 bestsim1$lim <- -1e6
 
 bestsim1_wrtds <- modfit(bestsim1, resp_type = 'mean', wins = as.list(sim1_opt$par), min_obs = FALSE, 
-  sal_div = 50)
+  flo_div = 50)
 
 ##
 # sim2
@@ -208,7 +207,7 @@ names(bestsim2) <- c('date', 'chla', 'sal')
 bestsim2$lim <- -1e6
 
 bestsim2_wrtds <- modfit(bestsim2, resp_type = 'mean', wins = as.list(sim2_opt$par), min_obs = FALSE, 
-  sal_div = 50)
+  flo_div = 50)
 
 ##
 # sim3
@@ -222,7 +221,7 @@ names(bestsim3) <- c('date', 'chla', 'sal')
 bestsim3$lim <- -1e6
 
 bestsim3_wrtds <- modfit(bestsim3, resp_type = 'mean', wins = as.list(sim3_opt$par), min_obs = FALSE, 
-  sal_div = 50)
+  flo_div = 50)
 
 ##
 # combine wrtds simulation mods into an object

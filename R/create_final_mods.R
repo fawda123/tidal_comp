@@ -276,3 +276,84 @@ simres <- list(
 
 save(simres, file = 'data/simres.RData')
 save(simres, file = 'M:/docs/manuscripts/patux_manu/data/simres.RData')
+
+######
+# create a GAM dataset for the simulated results for dynasim figure in manuscript
+# output is bestsim_gams
+
+rm(list = ls())
+library(dplyr)
+library(mgcv)
+library(WRTDStidal)
+
+##
+# sim1
+
+data(sims_mos)
+
+# recreate mod
+sim1 <- select(sims_mos, date,  sim1, lnQ_sim) %>% 
+  rename(
+    res = sim1, 
+    flo = lnQ_sim 
+  ) %>%  
+  mutate(
+    doy = as.numeric(strftime(date, '%j'))
+  )
+sim1$dec_time <- dec_time(sim1$date)$dec_time
+
+sim1_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), k = c(5, 8, 5), data =sim1, knots=list(doy=c(1,366)))
+sim1_gam <- list(
+  mod = sim1_gam, 
+  dat = sim1
+)
+
+##
+# sim2
+
+data(sims_mos)
+
+# recreate mod
+sim2 <- select(sims_mos, date,  sim2, lnQ_sim) %>% 
+  rename(
+    res = sim2, 
+    flo = lnQ_sim 
+  ) %>%  
+  mutate(
+    doy = as.numeric(strftime(date, '%j'))
+  )
+sim2$dec_time <- dec_time(sim2$date)$dec_time
+
+sim2_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), k = c(5, 8, 5), data =sim2, knots=list(doy=c(1,366)))
+sim2_gam <- list(
+  mod = sim2_gam, 
+  dat = sim1
+)
+
+##
+# sim3
+
+data(sims_mos)
+
+# recreate mod
+sim3 <- select(sims_mos, date,  sim3, lnQ_sim) %>% 
+  rename(
+    res = sim3, 
+    flo = lnQ_sim 
+  ) %>%  
+  mutate(
+    doy = as.numeric(strftime(date, '%j'))
+  )
+sim3$dec_time <- dec_time(sim3$date)$dec_time
+
+sim3_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), k = c(5, 8, 5), data =sim3, knots=list(doy=c(1,366)))
+sim3_gam <- list(
+  mod = sim3_gam, 
+  dat = sim3
+)
+
+##
+# combine wrtds simulation mods into an object
+bestsim_gam <- list(sim1_gam, sim2_gam, sim3_gam)
+save(bestsim_gam, file = 'data/bestsim_gam')
+save(bestsim_gam, file = 'M:/docs/manuscripts/patux_manu/data/bestsim_gam.RData')

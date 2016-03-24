@@ -17,6 +17,8 @@ This repository contains materials for comparing generalized additive models (GA
  
 `bestLE12_gams.RData` Optimal GAM for LE12, created in `create_final_mods.R`
  
+`bestsim_gam.RData` Best GAMs for each of three simulated monthly time series, created in `create_final_mods.R`.
+ 
 `bestsim_wrtds.RData` Best WRTDS model objects for each of three simulated monthly time series, created in `create_final_mods.R`.
  
 `bestTF16.RData` combined dataset for best WRTDS and GAM for TF16, includes observed data, created in `create_final_mods.R`

@@ -302,7 +302,7 @@ sim1 <- select(sims_mos, date,  sim1, lnQ_sim) %>%
   )
 sim1$dec_time <- dec_time(sim1$date)$dec_time
 
-sim1_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), k = c(5, 8, 5), data =sim1, knots=list(doy=c(1,366)))
+sim1_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), data =sim1, knots=list(doy=c(1,366)))
 sim1_gam <- list(
   mod = sim1_gam, 
   dat = sim1
@@ -324,7 +324,7 @@ sim2 <- select(sims_mos, date,  sim2, lnQ_sim) %>%
   )
 sim2$dec_time <- dec_time(sim2$date)$dec_time
 
-sim2_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), k = c(5, 8, 5), data =sim2, knots=list(doy=c(1,366)))
+sim2_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), data =sim2, knots=list(doy=c(1,366)))
 sim2_gam <- list(
   mod = sim2_gam, 
   dat = sim1
@@ -346,7 +346,7 @@ sim3 <- select(sims_mos, date,  sim3, lnQ_sim) %>%
   )
 sim3$dec_time <- dec_time(sim3$date)$dec_time
 
-sim3_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), k = c(5, 8, 5), data =sim3, knots=list(doy=c(1,366)))
+sim3_gam <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), data =sim3, knots=list(doy=c(1,366)))
 sim3_gam <- list(
   mod = sim3_gam, 
   dat = sim3

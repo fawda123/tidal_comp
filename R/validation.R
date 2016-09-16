@@ -328,6 +328,121 @@ dev.off()
 #   
 # }
 
+# ######
+# # diagnostic plots for individual training/validation splits
+# 
+# library(tidyverse)
+# devtools::load_all('M:/docs/wtreg_for_estuaries')
+# library(mgcv)
+# library(foreach)
+# library(doParallel)
+# library(gridExtra)
+# source('text/R/funcs.R')
+# 
+# ######
+# # get WRTDS validation error
+# 
+# # simulated daily data
+# data(sims_day)
+# 
+# # format the daily data for use with WRTDS
+# tosamp <- select(sims_day, date, sim1, lnQ_sim) %>% 
+#   rename(
+#     res = sim1,
+#     flo = lnQ_sim
+#     ) %>% 
+#   mutate(
+#     lim = -1e6
+#   )
+# # tosamp <- select(sims_day, date, sim1, lnQ_sim) %>% 
+# #   rename(
+# #     res = sim1,
+# #     flo = lnQ_sim
+# #     ) %>% 
+# #   mutate(
+# #     # lim = -1e6, 
+# #     doy = as.numeric(strftime(date, '%j'))
+# #   )
+# # tosamp$dec_time <- dec_time(tosamp$date)$dec_time
+# 
+# # get the conditions in grd
+# unit <- 'week'
+# missper <- 0.5
+# blck <- 0.3
+# blckper <- T
+# 
+# # prep data for training, validation  
+# set.seed(4321)
+# samps <- samp_sim(tosamp, unit = unit, irregular = F, missper = missper, blck = blck, blckper = blckper)
+# 
+# # training and validation datasets
+# alldat <- samps$alldat
+# trndat <- alldat[!1:nrow(alldat) %in% samps$smps, ]
+# valdat <- alldat[samps$smps, ]
+# 
+# # fit model
+# mod <- tidalmean(trndat,
+#   reslab = expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')')),
+#   flolab = expression(paste('ln-Flow (', m^3, ' ', s^-1, ')'))
+#   ) %>% 
+#   wrtds(min_obs = F, flo_div = 10)
+# # trnmod <- gam(res~te(dec_time, doy, flo, bs=c("tp","cc","tp")), data = trndat, knots=list(doy=c(1,366)), 
+# #   na.action = na.exclude)
+#    
+# # get training, validation predictions
+# trn <- respred(mod)
+# val <- respred(mod, dat_pred = valdat) %>% 
+#   select(., date, res.y, fits) %>% 
+#   filter(date %in% valdat$date) %>% 
+#   rename(res = res.y) %>% 
+#   mutate(dat = 'val')
+# # trn <- data.frame(date = trndat$date, res = trndat$res, fits = predict(trnmod))
+# # val <- data.frame(date = valdat$date, res = valdat$res, fits = predict(trnmod, newdata = valdat)) %>% 
+# #   mutate(dat = 'val')
+# 
+# toplo1 <- select(trn, date, res, fits) %>% 
+#   mutate(dat = 'trn') %>% 
+#   rbind(val) %>% 
+#   gather('valtyp', 'val', res:fits) %>% 
+#   mutate(
+#     valtyp = factor(valtyp, levels = c('res', 'fits'), labels = c('Observed', 'Predicted')), 
+#     dat = factor(dat, levels = c('trn', 'val'), labels = c('Training', 'Validation'))
+#   )
+# 
+# toplo2 <- select(trn, date, res, fits) %>% 
+#   mutate(dat = 'trn') %>% 
+#   rbind(val) %>% 
+#   mutate( 
+#     dat = factor(dat, levels = c('trn', 'val'), labels = c('Training', 'Validation'))
+#   )
+# 
+# mytheme <- theme_minimal() + 
+#   theme(
+#     axis.ticks.x = element_line(),
+#     axis.ticks.y = element_line(),
+#     panel.border = element_rect(fill = NA),
+#     axis.ticks.length = unit(.1, "cm"), 
+#     legend.position = 'top'
+#   )
+# 
+# p1 <- ggplot(toplo1, aes(x = date, y = val)) +
+#   geom_point() + 
+#   facet_grid(valtyp ~ dat) + 
+#   mytheme + 
+#   theme(axis.title.x = element_blank()) + 
+#   scale_y_continuous("ln-Chl-a")
+# 
+# p2 <- ggplot(toplo2, aes(x = res, y = fits)) + 
+#   geom_abline(intercept = 0, slope = 1, colour = 'blue') + 
+#   geom_point() + 
+#   facet_grid(~ dat) + 
+#   scale_y_continuous('Predicted') + 
+#   scale_x_continuous('Observed') + 
+#   mytheme
+#   
+# grid.arrange(p1, p2, ncol = 1, heights = c(1, 1))
+
+
 
 
 

@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 <meta name="author" content="Marcus W. Beck, beck.marcus@epa.gov" />
 
@@ -41,25 +41,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
+<style type="text/css">
 h1 {
   font-size: 34px;
 }
@@ -80,6 +62,30 @@ h5 {
 }
 h6 {
   font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -110,7 +116,8 @@ $(document).ready(function () {
 <div class="fluid-row" id="header">
 
 
-<h1 class="title">Comparison of GAMs and WRTDS for tidal waters</h1>
+
+<h1 class="title toc-ignore">Comparison of GAMs and WRTDS for tidal waters</h1>
 <h4 class="author"><em>Marcus W. Beck, <a href="mailto:beck.marcus@epa.gov">beck.marcus@epa.gov</a></em></h4>
 
 </div>
@@ -127,6 +134,7 @@ $(document).ready(function () {
 <p><code>bestTF16.RData</code> combined dataset for best WRTDS and GAM for TF16, includes observed data, created in <code>create_final_mods.R</code></p>
 <p><code>bestTF16_wrtds.RData</code> Optimal WRTDS model for TF16, created in <code>create_final_mods.R</code>, files with <code>_min</code> or <code>_nomin</code> suffix are used in <code>samp_size.R</code> to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.</p>
 <p><code>bestTF16_gams.RData</code> Optimal GAM for TF16, created in <code>create_final_mods.R</code></p>
+<p><code>gams_val.RData</code> RMSE values for training and validation datasets for GAMS and dataset characteristics, created in <code>validation.R</code></p>
 <p><code>obs_dat.RData</code> Daily chlorophyll and discharge data that is used to create simulated datasets on monthly time steps, created in <code>sim_dat.R</code>.</p>
 <p><code>optimLE12_opt.RData</code> Results after running <code>winsrch_optim</code> for LE12, created in <code>get_optim.R</code>, files with <code>_min</code> or <code>_nomin</code> suffix are used in <code>samp_size.R</code> to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.</p>
 <p><code>optimTF16_opt.RData</code> Results after running <code>winsrch_optim</code> for TF16, created in <code>get_optim.R</code>, files with <code>_min</code> or <code>_nomin</code> suffix are used in <code>samp_size.R</code> to evaluate sample sizes for the interpolation grids using a restriction on number of obsevations with greater than zero weights and without.</p>
@@ -140,6 +148,8 @@ $(document).ready(function () {
 <p><code>sim_res.RData</code> Combined results from WRTDS and GAM for predictions and flow-normalized predictions for each of three simulated time series in <code>sims_mos.RData</code>, created in <code>create_final_mods.R</code>. Data are in long format with columns for <code>date</code>, <code>lnchla_noQ</code> (biological chlorophyll for comparison with <code>norm</code>), <code>simval</code> (simulated time series as observed to predict with each model), <code>mod</code> (model type), <code>sim</code> (which simulation the results apply to), <code>fits</code> (model fits to <code>simval</code>), and <code>norm</code> (flow-normlized predictions to compare to <code>lnchla_noQ</code>)</p>
 <p><code>sims_day.RData</code> Simulated data for manuscript of daily time series that includes chlorophyll with varying effect of discharge (sim1 none, sim2 constant, sim3 increasing). <code>lnchla_noQ</code> is the biological component of chlorophyll, <code>lnQ_sim</code> is simulated discharge and was used to simulate the flow effect of chlorpohyll. Created in <code>sim_dat.R</code>.</p>
 <p><code>sims_mos.RData</code> Same dataset as <code>sims_day.RData</code> but using a monthly time step. Created in <code>sim_dat.R</code>.</p>
+<p><code>val_opt.RData</code> Optimal half-window widths for WRTDS with regular weekly data from <code>sims_day.RData</code>, created in <code>validation.R</code></p>
+<p><code>wrtds_val.RData</code> RMSE values for training and validation datasets for WRTDS and dataset characteristics, created in <code>validation.R</code></p>
 </div>
 
 

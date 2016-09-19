@@ -38,19 +38,19 @@ source('text/R/funcs.R')
 #   min_obs = FALSE, control = list(factr = 1e11))
 # 
 # # format the daily data for monthly sampling and use with WRTDS optim
-tomod <- select(sims_day, date, sim1, lnQ_sim) %>% 
-  rename(
-    res = sim1,
-    flo = lnQ_sim
-    ) %>% 
-  mutate(
-    lim = -1e6
-  ) %>% 
-  samp_sim(unit = 'month', irregular = F) %>% 
-  tidalmean(
-    reslab = expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')')),
-    flolab = expression(paste('ln-Flow (', m^3, ' ', s^-1, ')'))
-  )
+# tomod <- select(sims_day, date, sim1, lnQ_sim) %>% 
+#   rename(
+#     res = sim1,
+#     flo = lnQ_sim
+#     ) %>% 
+#   mutate(
+#     lim = -1e6
+#   ) %>% 
+#   samp_sim(unit = 'month', irregular = F) %>% 
+#   tidalmean(
+#     reslab = expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')')),
+#     flolab = expression(paste('ln-Flow (', m^3, ' ', s^-1, ')'))
+#   )
 # 
 # # run optimization
 # mo_opt <- winsrch_optim(tomod, upper = c(20, 100, 20), lower = c(0.25, 1, 0.25), 
@@ -65,6 +65,7 @@ tomod <- select(sims_day, date, sim1, lnQ_sim) %>%
 ######
 # evaluation grid
 # used both for GAMs and WRTDS
+# 1000 reps each takes ~ 1.5 days for wrtds, 1 hr for gams at 8 cores
 
 unts <- c('week')
 mper <- seq(0.05, 0.5, by = 0.05)
@@ -81,6 +82,7 @@ names(grd) <- c('blck', 'unts', 'mper', 'reps', 'blckper')
 # window widths data
 data(val_opt)
 wk_opt <- val_opt$wk_opt
+
 # simulated daily data
 data(sims_day)
 
@@ -95,7 +97,7 @@ tosamp <- select(sims_day, date, sim1, lnQ_sim) %>%
   )
 
 # setup parallel
-cl <- makeCluster(5)
+cl <- makeCluster(8)
 registerDoParallel(cl)
 strt <- Sys.time()
 
@@ -124,12 +126,12 @@ wrtds_val <- foreach(val = 1:nrow(grd)) %dopar% {
   trndat <- alldat[!1:nrow(alldat) %in% samps$smps, ]
   valdat <- alldat[samps$smps, ]
 
-  # fit model
+  # fit model, note the min_obs argument makes sure that window width expansions don't get stuck for small datasets
   mod <- tidalmean(trndat,
     reslab = expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')')),
     flolab = expression(paste('ln-Flow (', m^3, ' ', s^-1, ')'))
     ) %>% 
-    wrtds(wins = as.list(wk_opt$par))
+    wrtds(wins = as.list(wk_opt$par), min_obs = F)
   
   # get training, validation predictions
   trn <- respred(mod)
@@ -146,7 +148,18 @@ wrtds_val <- foreach(val = 1:nrow(grd)) %dopar% {
 
 }
 
+# combine with grd
+wrtds_val <- do.call('rbind', wrtds_val) %>% 
+  data.frame %>% 
+  rename(
+    rmse_trn = X1, 
+    rmse_val = X2
+  ) %>% 
+  cbind(grd, .) %>% 
+  data.frame(mod = 'wrtds', .)
+
 save(wrtds_val, file = 'data/wrtds_val.RData', compress = 'xz')
+save(wrtds_val, file = 'M:/docs/manuscripts/patux_manu/data/wrtds_val.RData', compress = 'xz')
   
 ######
 # get GAMS validation error
@@ -167,7 +180,7 @@ tosamp <- select(sims_day, date, sim1, lnQ_sim) %>%
 tosamp$dec_time <- dec_time(tosamp$date)$dec_time
 
 # setup parallel
-cl <- makeCluster(5)
+cl <- makeCluster(8)
 registerDoParallel(cl)
 strt <- Sys.time()
 
@@ -217,79 +230,19 @@ gams_val <- foreach(val = 1:nrow(grd)) %dopar% {
   
 }
 
+# combine with grd
+gams_val <- do.call('rbind', gams_val) %>% 
+  data.frame %>% 
+  rename(
+    rmse_trn = X1, 
+    rmse_val = X2
+  ) %>% 
+  cbind(grd, .) %>% 
+  data.frame(mod = 'gams', .)
+
 save(gams_val, file = 'data/gams_val.RData', compress = 'xz')
-
-######
-# plotting
-
-load(file = 'data/gams_val.RData')
-load(file = 'data/wrtds_val.RData')
-
-toplo <- data.frame(
-    mod = 'GAM', 
-    do.call('rbind', gams_val), 
-    grd
-  ) %>%
-  rbind(data.frame(
-    mod = 'WRTDS', 
-    do.call('rbind', wrtds_val), 
-    grd
-  )) %>% 
-  rename(
-    Training = X1, 
-    Validation = X2
-  ) %>% 
-  mutate(
-    blckper = ifelse(blckper, 'prop', 'rand')
-  ) %>%
-  unite('blck', blck, blckper) %>% 
-  mutate(
-    blck = factor(blck, 
-      levels = c('1_rand', '0.1_prop', '0.5_prop', '1_prop'), 
-      labels = c('no blocks', '10% of missing', '50% of missing', '100% of missing')
-    ), 
-    mper = factor(mper), 
-    unts = factor(unts, 
-      levels = c('week'),
-      labels = c('Weeks')
-    )
-  ) %>%
-  gather('var', 'val', Training:Validation) %>% 
-  group_by(mod, blck, unts, var, mper) %>% 
-  summarise(
-    mean_val = median(val, na.rm = TRUE), 
-    max_val = quantile(val, 0.95, na.rm = TRUE), #max(val, na.rm = TRUE), 
-    min_val = quantile(val, 0.05, na.rm = TRUE)#min(val, na.rm = TRUE)
-  ) %>% 
-  rename(
-    `Block sizes` = blck
-  )
-
-mytheme <- theme_minimal() + 
-  theme(
-    axis.ticks.x = element_line(),
-    axis.ticks.y = element_line(),
-    panel.border = element_rect(fill = NA),
-    axis.ticks.length = unit(.1, "cm"), 
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    legend.position = 'top'
-  )
-
-ddge_wd <- 0.4
-p <- ggplot(toplo, aes(x = mper, y = mean_val, group = `Block sizes`, colour = `Block sizes`)) + 
-  geom_point(position = position_dodge(width = ddge_wd), size = 2) +
-  geom_line(position = position_dodge(width = ddge_wd)) +
-  geom_errorbar(aes(ymin = min_val, ymax = max_val), width = 0, position = position_dodge(width = ddge_wd)) +
-  facet_grid(var ~ mod, scales = 'free_y') +
-  mytheme + 
-  scale_x_discrete('Proportion of observations used as validation') +
-  scale_y_continuous('RMSE')
-
-pdf('C:/Users/mbeck/Desktop/validation.pdf', height = 8, width = 8, family = 'serif')
-print(p)
-dev.off()
-
+save(gams_val, file = 'M:/docs/manuscripts/patux_manu/data/gams_val.RData', compress = 'xz')
+  
 # ######
 # # examples of simulated data - training and validation datasets
 #   

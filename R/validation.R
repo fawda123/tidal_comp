@@ -68,7 +68,7 @@ tomod <- select(sims_day, date, sim1, lnQ_sim) %>%
 
 unts <- c('week')
 mper <- seq(0.05, 0.5, by = 0.05)
-reps <- 1:20
+reps <- 1:1000
 blck <- c(1, c(0.1, 0.5, 1))
 blckper <- c(F, T, T, T) # must be same length as blck
 grd <- expand.grid(blck, unts, mper, reps)
@@ -221,6 +221,9 @@ save(gams_val, file = 'data/gams_val.RData', compress = 'xz')
 
 ######
 # plotting
+
+load(file = 'data/gams_val.RData')
+load(file = 'data/wrtds_val.RData')
 
 toplo <- data.frame(
     mod = 'GAM', 

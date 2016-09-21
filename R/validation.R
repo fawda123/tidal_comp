@@ -8,7 +8,7 @@ library(foreach)
 library(doParallel)
 source('text/R/funcs.R')
 
-# ############
+# ######
 # # find optimum window widths for WRTDS for whole weekly time series 
 # 
 # # parallel setup
@@ -19,7 +19,7 @@ source('text/R/funcs.R')
 # data(sims_day)
 # 
 # # format the daily data for weekly sampling and use with WRTDS optim
-# tomod <- select(sims_day, date, sim1, lnQ_sim) %>% 
+# tomod <- select(sims_day, date, lnQ_sim, sim1) %>% 
 #   rename(
 #     res = sim1,
 #     flo = lnQ_sim
@@ -65,11 +65,10 @@ source('text/R/funcs.R')
 ######
 # evaluation grid
 # used both for GAMs and WRTDS
-# 1000 reps each takes ~ 1.5 days for wrtds, 1 hr for gams at 8 cores
 
 unts <- c('week')
 mper <- seq(0.05, 0.5, by = 0.05)
-reps <- 1:1000
+reps <- 1:100
 blck <- c(1, c(0.1, 0.5, 1))
 blckper <- c(F, T, T, T) # must be same length as blck
 grd <- expand.grid(blck, unts, mper, reps)
@@ -123,25 +122,27 @@ wrtds_val <- foreach(val = 1:nrow(grd)) %dopar% {
 
   # training and validation datasets
   alldat <- samps$alldat
-  trndat <- alldat[!1:nrow(alldat) %in% samps$smps, ]
-  valdat <- alldat[samps$smps, ]
-
-  # fit model, note the min_obs argument makes sure that window width expansions don't get stuck for small datasets
-  mod <- tidalmean(trndat,
+  trndat <- alldat[samps$smps, ]
+  alldat$res[samps$smps] <- NA
+  
+  # fit model
+  mod <- tidalmean(alldat,
     reslab = expression(paste('ln-Chl-',italic(a),' (',italic('\u03bc'),'g ',L^-1,')')),
     flolab = expression(paste('ln-Flow (', m^3, ' ', s^-1, ')'))
     ) %>% 
-    wrtds(wins = as.list(wk_opt$par), min_obs = F)
-  
+    wrtds(min_obs = F, flo_div = 10) %>% 
+    respred
+     
   # get training, validation predictions
-  trn <- respred(mod)
-  val <- respred(mod, dat_pred = valdat) %>% 
-    select(., date, res.y, fits) %>% 
-    filter(date %in% valdat$date)
+  trn <- mod[!1:nrow(mod) %in% samps$smps, ] %>% 
+    select(date, res, fits)
+  val <- data.frame(trndat, fits = mod[samps$smps, 'fits']) %>% 
+    select(-lim, - flo) %>% 
+    mutate(dat = 'val')
 
   # get error (wrtdsperf does not work 
-  errtrn <- wrtdsperf(trn)[, 'rmse']
-  errval <- rmse.fun(val$res.y, val$fits)
+  errtrn <- rmse.fun(trn$res, trn$fits)
+  errval <- rmse.fun(val$res, val$fits)
   
   # return errors
   c(errtrn, errval)
